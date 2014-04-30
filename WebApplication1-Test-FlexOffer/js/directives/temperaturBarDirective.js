@@ -79,7 +79,7 @@ var app;
                         });
 
                         // Make svg Axis
-                        var xAxis = d3.svg.axis().scale(xScale).orient("bottom").ticks(temperaturesData.length).tickFormat(d3.time.format("%H:%M"));
+                        var xAxis = d3.svg.axis().scale(xScale).orient("bottom").ticks(temperaturesData.length).tickFormat(d3.time.format("%H"));
 
                         var yAxis = d3.svg.axis().scale(yScale).orient("left");
 

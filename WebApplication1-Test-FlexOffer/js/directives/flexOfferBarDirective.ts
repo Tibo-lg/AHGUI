@@ -92,7 +92,7 @@ module app.Directives {
                         .scale(xScale)
                         .orient("bottom")
                         .ticks(timesliceData.length)
-                        .tickFormat(d3.time.format("%H:%M"));
+                        .tickFormat(d3.time.format("%H"));
 
                     var yAxis = d3.svg.axis()
                         .scale(yScale)
