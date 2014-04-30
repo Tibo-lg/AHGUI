@@ -5,7 +5,7 @@
 //################## Controllers ###################
 /// <reference path='controllers/navCtrl.ts' />
 /// <reference path='controllers/flexOfferCtrl.ts' />
-/// <reference path='controllers/chartCtrl.ts' />
+/// <reference path='controllers/showChartCtrl.ts' />
 /// <reference path='controllers/temperatureCtrl.ts' />
 //################## Controllers ###################
 /// <reference path='directives/flexOfferBarDirective.ts' />

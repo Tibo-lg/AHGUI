@@ -1,45 +1,34 @@
 ﻿body {
-    padding-top: 20px;
+    padding-top: 50px;
     padding-bottom: 20px;
 }
 
 
 /*-------------------------
+	Colors
+--------------------------*/
+@bgDefault: #653a94;
+@bgHighlight: #9b59b6;
+@colDefault: #e8e6e7;
+@colHighlight: #ffffff;
+
+/*-------------------------
 	Chart
 --------------------------*/
 
-.chart rect {
-  fill: steelblue;
- 
-}
-
-.chart text {
-  fill: white;
-  font: 10px sans-serif;
-   text-anchor: end;
-}
-
-
-.chart-two text {
-  fill: white;
-  font: 10px sans-serif;
-  text-anchor: middle;
-}
-.bar:hover {
-    fill: @bgDefault;
-}
 .axis path,
 .axis line {
     fill: none;
     stroke: black;
+     stroke-width: 1px;
     shape-rendering: crispEdges;
-}
-.axis text {
-    fill: black;
-    font: 10px sans-serif;
 }
 .x.axis path {
   display: none;
+}
+.axis text {
+    fill: black;
+    font: 12px sans-serif;
 }
 .line {
   fill: none;
@@ -47,25 +36,20 @@
   stroke-width: 5px;
 }
 .area {
-  fill: steelblue;
+  fill: #FFF5CC;
 }
-/*-------------------------
-	Page Content
---------------------------*/
-@bgPageConent: #e0cece;
-
-.page-content {
-    background-color: @bgPageConent;
-    font-size: 1.8em;
+.temp.line {
+  fill: none;
+  stroke: #FFE990;
+  stroke-width: 5px;
 }
 
+
+
+
 /*-------------------------
-	The NavBar
+	NavBar
 --------------------------*/
-@bgDefault: #653a94;
-@bgHighlight: #9b59b6;
-@colDefault: #e8e6e7;
-@colHighlight: #ffffff;
 
 .navbar-default {
     background-color: @bgDefault;

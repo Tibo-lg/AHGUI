@@ -1,38 +1,26 @@
 ﻿body {
-  padding-top: 20px;
+  padding-top: 50px;
   padding-bottom: 20px;
 }
 /*-------------------------
+	Colors
+--------------------------*/
+/*-------------------------
 	Chart
 --------------------------*/
-.chart rect {
-  fill: steelblue;
-}
-.chart text {
-  fill: white;
-  font: 10px sans-serif;
-  text-anchor: end;
-}
-.chart-two text {
-  fill: white;
-  font: 10px sans-serif;
-  text-anchor: middle;
-}
-.bar:hover {
-  fill: #653a94;
-}
 .axis path,
 .axis line {
   fill: none;
   stroke: black;
+  stroke-width: 1px;
   shape-rendering: crispEdges;
-}
-.axis text {
-  fill: black;
-  font: 10px sans-serif;
 }
 .x.axis path {
   display: none;
+}
+.axis text {
+  fill: black;
+  font: 12px sans-serif;
 }
 .line {
   fill: none;
@@ -40,17 +28,15 @@
   stroke-width: 5px;
 }
 .area {
-  fill: steelblue;
+  fill: #FFF5CC;
+}
+.temp.line {
+  fill: none;
+  stroke: #FFE990;
+  stroke-width: 5px;
 }
 /*-------------------------
-	Page Content
---------------------------*/
-.page-content {
-  background-color: #e0cece;
-  font-size: 1.8em;
-}
-/*-------------------------
-	The NavBar
+	NavBar
 --------------------------*/
 .navbar-default {
   background-color: #653a94;

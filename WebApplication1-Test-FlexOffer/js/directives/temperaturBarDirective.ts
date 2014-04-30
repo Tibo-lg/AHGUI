@@ -11,9 +11,9 @@ module app.Directives {
 
         return {
             restrict: 'A',
-            scope: { temperatures: '='},
+            scope: { temperatures: '=' },
             link(scope, element: JQuery, attrs: ng.IAttributes) {
-                
+
                 // Add the svg element to the dom
                 var svg = d3.select(element[0])
                     .append('svg:svg');
@@ -32,25 +32,25 @@ module app.Directives {
                     });
 
                 // Watch for newData event
-            scope.$watch('temperatures', function (newTemperaturesData: Array<Temperature>) {
+                scope.$watch('temperatures', function (newTemperaturesData: Array<Temperature>) {
                     scope.render(newTemperaturesData);
                 });
 
-            scope.render = function (temperaturesData: Array<Temperature>) {
-                console.debug("Hej Tem");
-               // Delete old data
+                scope.render = function (temperaturesData: Array<Temperature>) {
+                    console.debug("Hej Tem");
+                    // Delete old data
                     svg.selectAll('*').remove();
-                if (!temperaturesData) return;
-        
+                    if (!temperaturesData) return;
+
                     // Margin and paddings
                     var margin = { top: 20, right: 30, bottom: 20, left: 30 };
-                    
+
                     var yAxisPaddaing = 0;
-                       
+
                     // Calculate the height and width of elements
                     //var height = (<HTMLElement><any>d3.select(element[0]).node()).offsetHeight - margin.top - margin.bottom;
                     var height = 300 - margin.top - margin.bottom;
-                var width = (<HTMLElement>d3.select(element[0]).node()).offsetWidth - margin.right - margin.left;
+                    var width = (<HTMLElement>d3.select(element[0]).node()).offsetWidth - margin.right - margin.left;
 
                     //TODO This barwitdh giver ingen mening Rikke
                     var barWidth = width / temperaturesData.length;
@@ -76,14 +76,8 @@ module app.Directives {
                         .domain([0, d3.max(temperaturesData, function (d) { return d.temperature; })])
                         .rangeRound([height, 0]);
 
-                var area = d3.svg.area()
-                    .x(function (d) {
-                        console.debug(<any>xScale(parseDate(d.date))); return (xScale(parseDate(d.date)) - barWidth / 2); })
-                    .y0(height)
-                    .y1(function (d) { return yScale(d.temperature); });
 
-
-                    // Make svg Axis
+                    // Make Axis
                     var xAxis = d3.svg.axis()
                         .scale(xScale)
                         .orient("bottom")
@@ -112,13 +106,29 @@ module app.Directives {
                         .style("text-anchor", "end")
                         .text("Celsius");
 
-                    // Make bars
-                    svg.select('g').append("path")
-                    .datum(temperaturesData)
-                    .attr("class", "area")
-                    .attr("d", area);
+                    // Make temperature area
+                    var area = d3.svg.area()
+                        .x(function (d) {
+                            console.debug(<any>xScale(parseDate(d.date))); return (xScale(parseDate(d.date)) - barWidth / 2);
+                        })
+                        .y0(height)
+                        .y1(function (d) { return yScale(d.temperature); });
 
-                   }
+                    svg.select('g').append("path")
+                        .datum(temperaturesData)
+                        .attr("class", "area")
+                        .attr("d", area);
+
+                    // Make temerature outline
+                    var valueline = d3.svg.line()
+                        .x(function (d) { return (xScale(parseDate(d.date)) - barWidth / 2); })
+                        .y(function (d) { return yScale(d.temperature); });
+
+                    svg.select('g').append("path")
+                        .attr("class", "temp line")
+                        .attr("d", valueline(temperaturesData));
+
+                }
             }
         }
     }

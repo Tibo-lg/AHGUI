@@ -69,7 +69,7 @@ var app;
                             })]).rangeRound([height, 0]);
 
                         // The color scale will set the stacked bar. The range decides the colors. The domain is computed from the timeslice model.
-                        var color = d3.scale.ordinal().range(["#FF4040", "#00AF64"]).domain(d3.keys(timesliceData[0]).filter(function (key) {
+                        var color = d3.scale.ordinal().range(["#BA6F79", "#6DB269"]).domain(d3.keys(timesliceData[0]).filter(function (key) {
                             return key !== "date" && key !== "barValues";
                         }));
 

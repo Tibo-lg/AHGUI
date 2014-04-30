@@ -16,6 +16,7 @@ module app.Controllers {
             //TODO Should be more generic input
             this.scope.getChart = function (chart) {
                 if (chart === 'flexoffer') {
+                    alert(chart);
                     return 'partials/flexOfferBarChart.html';
                 }
             }

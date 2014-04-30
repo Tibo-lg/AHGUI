@@ -397,6 +397,7 @@
     </Content>
     <Content Include="styles\bootstrap\bootstrap-theme.css.map" />
     <Content Include="styles\bootstrap\bootstrap.css.map" />
+    <None Include="Properties\PublishProfiles\Dev Arvixe.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -420,7 +421,7 @@
     <TypeScriptCompile Include="js-libs\typings\d3\plugins\d3.superformula.d.ts" />
     <TypeScriptCompile Include="js-libs\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="js\app.ts" />
-    <TypeScriptCompile Include="js\controllers\chartCtrl.ts" />
+    <TypeScriptCompile Include="js\controllers\showChartCtrl.ts" />
     <TypeScriptCompile Include="js\controllers\flexOfferCtrl.ts" />
     <TypeScriptCompile Include="js\controllers\navCtrl.ts" />
     <TypeScriptCompile Include="js\controllers\temperatureCtrl.ts" />

@@ -71,14 +71,7 @@ var app;
                                 return d.temperature;
                             })]).rangeRound([height, 0]);
 
-                        var area = d3.svg.area().x(function (d) {
-                            console.debug(xScale(parseDate(d.date)));
-                            return (xScale(parseDate(d.date)) - barWidth / 2);
-                        }).y0(height).y1(function (d) {
-                            return yScale(d.temperature);
-                        });
-
-                        // Make svg Axis
+                        // Make Axis
                         var xAxis = d3.svg.axis().scale(xScale).orient("bottom").ticks(temperaturesData.length).tickFormat(d3.time.format("%H"));
 
                         var yAxis = d3.svg.axis().scale(yScale).orient("left");
@@ -87,8 +80,24 @@ var app;
 
                         svg.select('g').append("g").attr("class", "axis").attr('transform', 'translate(' + yAxisPaddaing + ',0)').call(yAxis).append("text").attr("transform", "rotate(-90)").attr("y", 6).attr("dy", ".71em").style("text-anchor", "end").text("Celsius");
 
-                        // Make bars
+                        // Make temperature area
+                        var area = d3.svg.area().x(function (d) {
+                            console.debug(xScale(parseDate(d.date)));
+                            return (xScale(parseDate(d.date)) - barWidth / 2);
+                        }).y0(height).y1(function (d) {
+                            return yScale(d.temperature);
+                        });
+
                         svg.select('g').append("path").datum(temperaturesData).attr("class", "area").attr("d", area);
+
+                        // Make temerature outline
+                        var valueline = d3.svg.line().x(function (d) {
+                            return (xScale(parseDate(d.date)) - barWidth / 2);
+                        }).y(function (d) {
+                            return yScale(d.temperature);
+                        });
+
+                        svg.select('g').append("path").attr("class", "temp line").attr("d", valueline(temperaturesData));
                     };
                 }
             };
