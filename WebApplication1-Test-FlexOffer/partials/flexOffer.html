@@ -1,0 +1,17 @@
+﻿<h2>Heat Pump ID: {{flexOffer.id}}</h2>
+
+<div data-ng-controller="app.Controllers.ChartCtrl">
+    <div class="btn-group">
+    <button type="button" class="btn btn-default" data-ng-click="getChart('flexoffer')">FlexOffer</button>
+    <button type="button" class="btn btn-default">Tempuratur</button>
+    <button type="button" class="btn btn-default">Pris</button>
+</div>
+</div>
+
+<div timeslices="timeslices" schedule="schedule" data-ng-bar></div>
+
+<div data-ng-controller="app.Controllers.TemperatureCtrl">
+    <div temperatures="temperatures" data-ng-tem></div>
+</div>
+
+<p></p>

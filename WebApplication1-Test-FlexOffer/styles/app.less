@@ -1,0 +1,168 @@
+﻿body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+
+/*-------------------------
+	Chart
+--------------------------*/
+
+.chart rect {
+  fill: steelblue;
+ 
+}
+
+.chart text {
+  fill: white;
+  font: 10px sans-serif;
+   text-anchor: end;
+}
+
+
+.chart-two text {
+  fill: white;
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+.bar:hover {
+    fill: @bgDefault;
+}
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+.axis text {
+    fill: black;
+    font: 10px sans-serif;
+}
+.x.axis path {
+  display: none;
+}
+.line {
+  fill: none;
+  stroke: yellowgreen;
+  stroke-width: 5px;
+}
+.area {
+  fill: steelblue;
+}
+/*-------------------------
+	Page Content
+--------------------------*/
+@bgPageConent: #e0cece;
+
+.page-content {
+    background-color: @bgPageConent;
+    font-size: 1.8em;
+}
+
+/*-------------------------
+	The NavBar
+--------------------------*/
+@bgDefault: #653a94;
+@bgHighlight: #9b59b6;
+@colDefault: #e8e6e7;
+@colHighlight: #ffffff;
+
+.navbar-default {
+    background-color: @bgDefault;
+    border-color: @bgHighlight;
+    outline: 0;
+
+    .navbar-brand {
+        color: @colDefault;
+        outline: 0;
+
+        &:hover, &:focus {
+            color: @colHighlight;
+            outline: 0;
+        }
+    }
+
+    .navbar-text {
+        color: @colDefault;
+    }
+
+    .navbar-nav {
+        > li {
+            > a {
+                color: @colDefault;
+                outline: 0;
+                &:hover, &:focus {
+                    outline: 0;
+                    color: @colHighlight;
+                }
+            }
+        }
+
+        > .active {
+            > a, > a:hover, > a:focus {
+                outline: 0;
+                color: @colHighlight;
+                background-color: @bgHighlight;
+            }
+        }
+
+        > .open {
+            > a, > a:hover, > a:focus {
+                color: @colHighlight;
+                background-color: @bgHighlight;
+                outline: 0;
+            }
+        }
+    }
+
+    .navbar-toggle {
+        border-color: @bgHighlight;
+        outline: 0;
+        &:hover, &:focus {
+            background-color: @bgHighlight;
+            outline: 0;
+        }
+
+        .icon-bar {
+            background-color: @colDefault;
+            outline: 0;
+        }
+    }
+
+    .navbar-collapse,
+    .navbar-form {
+        border-color: @colDefault;
+        outline: 0;
+    }
+
+    .navbar-link {
+        color: @colDefault;
+        outline: 0;
+
+        &:hover {
+            color: @colHighlight;
+            outline: 0;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu {
+        > li > a {
+            color: @colDefault;
+            outline: 0;
+            &:hover, &:focus {
+                color: @colHighlight;
+                outline: 0;
+            }
+        }
+
+        > .active {
+            > a, > a:hover, > a:focus {
+                color: @colHighlight;
+                background-color: @bgHighlight;
+                outline: 0;
+            }
+        }
+    }
+}
