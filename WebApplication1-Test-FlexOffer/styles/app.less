@@ -7,9 +7,9 @@
 /*-------------------------
 	Colors
 --------------------------*/
-@bgDefault: #653a94;
-@bgHighlight: #9b59b6;
-@colDefault: #e8e6e7;
+@bgDefault: #004676;
+@bgHighlight: #007499;
+@colDefault: #ffffff
 @colHighlight: #ffffff;
 
 /*-------------------------
@@ -44,8 +44,52 @@
   stroke-width: 5px;
 }
 
+/*-------------------------
+	Views
+--------------------------
 
+views { position: relative; }
 
+view {
+  position: absolute;
+  top: 0;
+  width:500px;
+  text-align: right;
+}*/
+
+view.view-hide { display: none; }
+
+view.view-hide-remove, view.view-hide-add { display: block !important; }
+
+view.view-hide-add {
+  animation: .3s hide;
+  -webkit-animation: .3s hide;
+}
+
+@keyframes hide {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+@-webkit-keyframes hide {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+view.view-hide-remove {
+  animation: .3s show;
+  -webkit-animation: .3s show;
+}
+
+@keyframes show {
+  from { opacity:0; }
+  to { opacity:1; }
+}
+
+@-webkit-keyframes show {
+  from { opacity:0; }
+  to { opacity:1; }
+}
 
 /*-------------------------
 	NavBar

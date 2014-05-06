@@ -7,16 +7,20 @@
 var modules = ['app.Controllers', 'app.Directives'];
 modules.forEach(function (module) { angular.module(module, []); });
 modules.push('ngRoute');
+modules.push('ngAnimate');
 angular.module('app', modules);
 
 angular.module('app').config(['$routeProvider',
     function ($routeProvider){
-     $routeProvider.when('/flexoffer', {
-            templateUrl: 'partials/flexOffer.html',
-         controller: 'app.Controllers.FlexOfferCtrl'
+        $routeProvider.when('/home', {
+            templateUrl: 'partials/home.html'
+        });
+        $routeProvider.when('/heatpump', {
+            templateUrl: 'partials/heatpump.html',
+            controller: 'app.Controllers.FlexOfferCtrl'
         });
         $routeProvider.otherwise({
-            redirectTo: '/flexoffer'
+            redirectTo: '/home'
         });
     }]);
 

@@ -355,7 +355,7 @@
     <Content Include="js-libs\ui-bootstrap\ui-bootstrap-0.10.0.min.js" />
     <Content Include="js-libs\ui-bootstrap\ui-bootstrap-tpls-0.10.0.js" />
     <Content Include="js-libs\ui-bootstrap\ui-bootstrap-tpls-0.10.0.min.js" />
-    <Content Include="partials\flexOfferBarChart.html" />
+    <Content Include="partials\home.html" />
     <Content Include="styles\app.css">
       <DependentUpon>app.less</DependentUpon>
     </Content>
@@ -365,7 +365,7 @@
     <Content Include="styles\bootstrap\bootstrap.css" />
     <Content Include="styles\bootstrap\bootstrap.min.css" />
     <Content Include="styles\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="partials\flexOffer.html" />
+    <Content Include="partials\heatPump.html" />
     <Content Include="Web.config" />
     <Content Include="styles\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="styles\fonts\glyphicons-halflings-regular.ttf" />
@@ -421,13 +421,13 @@
     <TypeScriptCompile Include="js-libs\typings\d3\plugins\d3.superformula.d.ts" />
     <TypeScriptCompile Include="js-libs\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="js\app.ts" />
-    <TypeScriptCompile Include="js\controllers\showChartCtrl.ts" />
     <TypeScriptCompile Include="js\controllers\flexOfferCtrl.ts" />
-    <TypeScriptCompile Include="js\controllers\navCtrl.ts" />
+    <TypeScriptCompile Include="js\controllers\mainNavCtrl.ts" />
     <TypeScriptCompile Include="js\controllers\temperatureCtrl.ts" />
     <TypeScriptCompile Include="js\directives\flexOfferBarDirective.ts" />
     <TypeScriptCompile Include="js\directives\exampleBarDirective.ts" />
     <TypeScriptCompile Include="js\directives\temperaturBarDirective.ts" />
+    <TypeScriptCompile Include="js\directives\viewDirective.ts" />
     <TypeScriptCompile Include="js\_all.ts" />
   </ItemGroup>
   <PropertyGroup>

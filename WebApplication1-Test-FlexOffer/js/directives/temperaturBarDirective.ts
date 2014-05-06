@@ -37,7 +37,6 @@ module app.Directives {
                 });
 
                 scope.render = function (temperaturesData: Array<Temperature>) {
-                    console.debug("Hej Tem");
                     // Delete old data
                     svg.selectAll('*').remove();
                     if (!temperaturesData) return;
@@ -108,9 +107,7 @@ module app.Directives {
 
                     // Make temperature area
                     var area = d3.svg.area()
-                        .x(function (d) {
-                            console.debug(<any>xScale(parseDate(d.date))); return (xScale(parseDate(d.date)) - barWidth / 2);
-                        })
+                        .x(function (d) { return (xScale(parseDate(d.date)) - barWidth / 2);})
                         .y0(height)
                         .y1(function (d) { return yScale(d.temperature); });
 

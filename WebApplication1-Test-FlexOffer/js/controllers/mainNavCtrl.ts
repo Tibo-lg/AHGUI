@@ -4,14 +4,14 @@
 /// <reference path='../_all.ts' />
 
 module app.Controllers {
-    export interface INavScope extends ng.IScope {
+    export interface IMainNavScope extends ng.IScope {
         navClass: Function;
     }
-    export class NavCtrl {
+    export class MainNavCtrl {
 
-        private scope: INavScope;
+        private scope: IMainNavScope;
         static $inject = ['$scope', '$location'];
-        constructor($scope: INavScope, $location) {
+        constructor($scope: IMainNavScope, $location) {
             this.scope = $scope;
             $scope.navClass = function (page) {
                 var currentRoute = $location.path().substring(1);
@@ -21,4 +21,4 @@ module app.Controllers {
     }
 }
 
-app.registerController('NavCtrl', ['$scope', '$location']); 
+app.registerController('MainNavCtrl', ['$scope', '$location']); 

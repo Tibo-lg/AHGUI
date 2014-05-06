@@ -91,12 +91,9 @@ module app.Directives {
             .append('rect')
             .attr('class', 'bar')
             .attr("x", (d, i) => { return xScale(i); })
-            .attr('y', d => {
-                var test = yScale(d);
-                console.log(test.toString() + ' ' + yScale(d).toString()); return test;
-            })
+            .attr('y', d => { return yScale(d);})
             .attr('width', barwidth - barpadding)
-            .attr('height', (d, i) => { console.log(i.toString() + ' ' + d.toString() + ' ' + yScale(d).toString()); return height - yScale(d); })
+            .attr('height', (d, i) => { return height - yScale(d); })
             .attr("fill", d => "rgb(0, 0, " + (d * 10) + ")");
 
         svg.selectAll('text')
@@ -126,12 +123,6 @@ module app.Directives {
             .attr('class', 'axis')
             .attr('transform', 'translate(-10,0)')
             .call(yAxis);
-
-        console.debug(xScale(5).toString());
-        console.debug(yScale(0).toString());
-        console.debug(yScale(1).toString());
-        console.debug(yScale(10).toString());
-        console.debug(yScale(18).toString());
     };
 
     var chartGraphOne = function (element, data, opts) {

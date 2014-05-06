@@ -3,12 +3,13 @@
 /// <reference path='../js-libs/typings/angularjs/angular.d.ts'/>
 /// <reference path='../js-libs/typings/d3/d3.d.ts'/>
 //################## Controllers ###################
-/// <reference path='controllers/navCtrl.ts' />
+/// <reference path='controllers/mainNavCtrl.ts' />
 /// <reference path='controllers/flexOfferCtrl.ts' />
-/// <reference path='controllers/showChartCtrl.ts' />
 /// <reference path='controllers/temperatureCtrl.ts' />
-//################## Controllers ###################
+//################## Directives ###################
+/// <reference path='directives/viewDirective.ts' />
 /// <reference path='directives/flexOfferBarDirective.ts' />
+/// <reference path='directives/temperaturBarDirective.ts' />
 //################# App ###########################
 /// <reference path='app.ts' />
 //# sourceMappingURL=_all.js.map

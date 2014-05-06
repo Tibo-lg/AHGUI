@@ -5,21 +5,21 @@
 var app;
 (function (app) {
     (function (Controllers) {
-        var NavCtrl = (function () {
-            function NavCtrl($scope, $location) {
+        var MainNavCtrl = (function () {
+            function MainNavCtrl($scope, $location) {
                 this.scope = $scope;
                 $scope.navClass = function (page) {
                     var currentRoute = $location.path().substring(1);
                     return page === currentRoute ? 'active' : '';
                 };
             }
-            NavCtrl.$inject = ['$scope', '$location'];
-            return NavCtrl;
+            MainNavCtrl.$inject = ['$scope', '$location'];
+            return MainNavCtrl;
         })();
-        Controllers.NavCtrl = NavCtrl;
+        Controllers.MainNavCtrl = MainNavCtrl;
     })(app.Controllers || (app.Controllers = {}));
     var Controllers = app.Controllers;
 })(app || (app = {}));
 
-app.registerController('NavCtrl', ['$scope', '$location']);
-//# sourceMappingURL=navCtrl.js.map
+app.registerController('MainNavCtrl', ['$scope', '$location']);
+//# sourceMappingURL=mainNavCtrl.js.map

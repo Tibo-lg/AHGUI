@@ -36,11 +36,69 @@
   stroke-width: 5px;
 }
 /*-------------------------
+	Views
+--------------------------*/
+views {
+  position: relative;
+}
+view {
+  position: absolute;
+  top: 0;
+  width: 500px;
+}
+view.view-hide {
+  display: none;
+}
+view.view-hide-remove,
+view.view-hide-add {
+  display: block !important;
+}
+view.view-hide-add {
+  animation: .3s hide;
+  -webkit-animation: .3s hide;
+}
+@keyframes hide {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes hide {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+view.view-hide-remove {
+  animation: .3s show;
+  -webkit-animation: .3s show;
+}
+@keyframes show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/*-------------------------
 	NavBar
 --------------------------*/
 .navbar-default {
-  background-color: #653a94;
-  border-color: #9b59b6;
+  background-color: #004676;
+  border-color: #71a1bb;
   outline: 0;
 }
 .navbar-default .navbar-brand {
@@ -69,22 +127,22 @@
 .navbar-default .navbar-nav > .active > a:focus {
   outline: 0;
   color: #ffffff;
-  background-color: #9b59b6;
+  background-color: #71a1bb;
 }
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
   color: #ffffff;
-  background-color: #9b59b6;
+  background-color: #71a1bb;
   outline: 0;
 }
 .navbar-default .navbar-toggle {
-  border-color: #9b59b6;
+  border-color: #71a1bb;
   outline: 0;
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-  background-color: #9b59b6;
+  background-color: #71a1bb;
   outline: 0;
 }
 .navbar-default .navbar-toggle .icon-bar {
@@ -118,7 +176,7 @@
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
     color: #ffffff;
-    background-color: #9b59b6;
+    background-color: #71a1bb;
     outline: 0;
   }
 }

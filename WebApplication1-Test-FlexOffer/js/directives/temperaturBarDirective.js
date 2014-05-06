@@ -33,8 +33,6 @@ var app;
                     });
 
                     scope.render = function (temperaturesData) {
-                        console.debug("Hej Tem");
-
                         // Delete old data
                         svg.selectAll('*').remove();
                         if (!temperaturesData)
@@ -82,7 +80,6 @@ var app;
 
                         // Make temperature area
                         var area = d3.svg.area().x(function (d) {
-                            console.debug(xScale(parseDate(d.date)));
                             return (xScale(parseDate(d.date)) - barWidth / 2);
                         }).y0(height).y1(function (d) {
                             return yScale(d.temperature);

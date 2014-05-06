@@ -76,11 +76,8 @@ var app;
             svg.selectAll('rect').data(data).enter().append('rect').attr('class', 'bar').attr("x", function (d, i) {
                 return xScale(i);
             }).attr('y', function (d) {
-                var test = yScale(d);
-                console.log(test.toString() + ' ' + yScale(d).toString());
-                return test;
+                return yScale(d);
             }).attr('width', barwidth - barpadding).attr('height', function (d, i) {
-                console.log(i.toString() + ' ' + d.toString() + ' ' + yScale(d).toString());
                 return height - yScale(d);
             }).attr("fill", function (d) {
                 return "rgb(0, 0, " + (d * 10) + ")";
@@ -101,12 +98,6 @@ var app;
             svg.append('g').attr('class', 'axis').attr('transform', 'translate(0,' + (height + 5) + ')').call(xAxis);
 
             svg.append('g').attr('class', 'axis').attr('transform', 'translate(-10,0)').call(yAxis);
-
-            console.debug(xScale(5).toString());
-            console.debug(yScale(0).toString());
-            console.debug(yScale(1).toString());
-            console.debug(yScale(10).toString());
-            console.debug(yScale(18).toString());
         };
 
         var chartGraphOne = function (element, data, opts) {
