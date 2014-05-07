@@ -1,0 +1,72 @@
+﻿
+<h2>Heat Pump ID: {{flexOffer.id}}</h2>
+<views>
+    <view name="show" initial>
+        <p>Hi, {{ user.name }}</p>
+        <button view-target="edit">
+            Edit
+        </button>
+    </view>
+    <view name="edit">
+        <p>
+            <input ng-model="user.name" />
+        </p>
+        <button view-target="show">
+            Done
+        </button>
+    </view>
+</views>
+<br />
+<br />
+<br />
+<br />
+<br />
+<views>
+    <ul>
+        <li><a view-target="foo">Foo</a></li>
+        <li><a view-target="bar">Bar</a></li>
+        <li><a view-target="faz">Faz</a></li>
+        <li><a view-target="baz">Baz</a></li>
+    </ul>
+    <view name="foo" initial>Foo</view>
+    <view name="bar">.......</view>
+    <view name="faz">.....................</view>
+    <view name="baz">................</view>
+</views>
+<br />
+<br />
+<br />
+<br />
+<br />
+<views>
+    <div>
+        <button view-target="one">
+            one
+        </button>
+        <button view-target="two">
+            two
+        </button>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div style="background-color:aqua; width: 600px; height: 400px;">
+       
+        <view name="one" initial style="background-color: red; position: static"><p >Foo</p></view>
+        <view name="two" style="background-color: yellow; position: static"><p >Bar</p></view>
+    </div>
+</views>
+<br />
+<br />
+<div class="btn-group">
+    <button type="button" class="btn btn-default" viev-target="foo">Flexoffer</button>
+    <button type="button" class="btn btn-default" viev-target="bar">Temperature</button>
+</div>
+<br />
+<br />
+<br />
+<br />
+<div timeslices="timeslices" schedule="schedule" data-ng-bar></div>
+<div data-ng-controller="app.Controllers.TemperatureCtrl">
+    <div temperatures="temperatures" data-ng-tem></div>
+</div>

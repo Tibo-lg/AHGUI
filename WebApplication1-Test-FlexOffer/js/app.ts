@@ -15,6 +15,9 @@ angular.module('app').config(['$routeProvider',
         $routeProvider.when('/home', {
             templateUrl: 'partials/home.html'
         });
+        $routeProvider.when('/washingmachine', {
+            templateUrl: 'partials/washingmachine.html'
+        });
         $routeProvider.when('/heatpump', {
             templateUrl: 'partials/heatpump.html',
             controller: 'app.Controllers.FlexOfferCtrl'

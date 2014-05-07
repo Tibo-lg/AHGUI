@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="images\home-128.png" />
     <Content Include="index.html" />
     <Content Include="LICENSE.txt" />
     <Content Include="js-libs\angularjs\angular-animate.js" />
@@ -356,6 +357,7 @@
     <Content Include="js-libs\ui-bootstrap\ui-bootstrap-tpls-0.10.0.js" />
     <Content Include="js-libs\ui-bootstrap\ui-bootstrap-tpls-0.10.0.min.js" />
     <Content Include="partials\home.html" />
+    <Content Include="partials\washingmachine.html" />
     <Content Include="styles\app.css">
       <DependentUpon>app.less</DependentUpon>
     </Content>

@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font: 12px Segoe UI, Helvetica, Arial, sans-serif;
 }
 
 
@@ -9,9 +10,63 @@
 --------------------------*/
 @bgDefault: #004676;
 @bgHighlight: #007499;
-@colDefault: #ffffff
+@colDefault: #ffffff;
 @colHighlight: #ffffff;
 
+@colHP: #004676;
+@colWM: #008000;
+@colLink: #ffffff;
+
+
+/*-------------------------
+	Front Bottons
+--------------------------*/
+.setBackground(@color) {
+    background: @color;
+
+    > a {
+
+        &:hover, &:focus {
+            color: lighten(@color, 90%);
+            text-decoration: none;
+            outline: none;
+            background: darken(@color, 10%);
+        }
+    }
+}
+
+.homebotton {
+    margin: 20px;
+    height: 500px;
+    margin-top: 100px;
+    padding: 0px;
+
+    > a {
+        display: block;
+        height: 100%;
+        width: 100%;
+        outline: none;
+        color: @colLink;
+        font: 50px Segoe UI, Helvetica, Arial, sans-serif;
+        padding: 20px;
+        padding-top: 100px;
+        text-align: center;
+
+        > img {
+            padding-top: 20px;
+            -webkit-filter: invert(100%);
+            filter: invert(100%);
+        }
+    }
+}
+
+.homebotton.WM {
+    .setBackground(@colWM);
+}
+
+.homebotton.HP {
+    .setBackground(@colHP);
+}
 /*-------------------------
 	Chart
 --------------------------*/
@@ -20,28 +75,33 @@
 .axis line {
     fill: none;
     stroke: black;
-     stroke-width: 1px;
+    stroke-width: 1px;
     shape-rendering: crispEdges;
 }
+
 .x.axis path {
-  display: none;
+    display: none;
 }
+
 .axis text {
     fill: black;
     font: 12px sans-serif;
 }
+
 .line {
-  fill: none;
-  stroke: yellowgreen;
-  stroke-width: 5px;
+    fill: none;
+    stroke: yellowgreen;
+    stroke-width: 5px;
 }
+
 .area {
-  fill: #FFF5CC;
+    fill: #FFF5CC;
 }
+
 .temp.line {
-  fill: none;
-  stroke: #FFE990;
-  stroke-width: 5px;
+    fill: none;
+    stroke: #FFE990;
+    stroke-width: 5px;
 }
 
 /*-------------------------
@@ -57,38 +117,62 @@ view {
   text-align: right;
 }*/
 
-view.view-hide { display: none; }
+view.view-hide {
+    display: none;
+}
 
-view.view-hide-remove, view.view-hide-add { display: block !important; }
+view.view-hide-remove, view.view-hide-add {
+    display: block !important;
+}
 
 view.view-hide-add {
-  animation: .3s hide;
-  -webkit-animation: .3s hide;
+    animation: .3s hide;
+    -webkit-animation: .3s hide;
 }
 
 @keyframes hide {
-  from { opacity:1; }
-  to { opacity:0; }
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
 }
 
 @-webkit-keyframes hide {
-  from { opacity:1; }
-  to { opacity:0; }
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
 }
 
 view.view-hide-remove {
-  animation: .3s show;
-  -webkit-animation: .3s show;
+    animation: .3s show;
+    -webkit-animation: .3s show;
 }
 
 @keyframes show {
-  from { opacity:0; }
-  to { opacity:1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 @-webkit-keyframes show {
-  from { opacity:0; }
-  to { opacity:1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 /*-------------------------
@@ -119,6 +203,7 @@ view.view-hide-remove {
             > a {
                 color: @colDefault;
                 outline: 0;
+
                 &:hover, &:focus {
                     outline: 0;
                     color: @colHighlight;
@@ -146,6 +231,7 @@ view.view-hide-remove {
     .navbar-toggle {
         border-color: @bgHighlight;
         outline: 0;
+
         &:hover, &:focus {
             background-color: @bgHighlight;
             outline: 0;
@@ -179,6 +265,7 @@ view.view-hide-remove {
         > li > a {
             color: @colDefault;
             outline: 0;
+
             &:hover, &:focus {
                 color: @colHighlight;
                 outline: 0;
