@@ -1,72 +1,129 @@
-﻿
-<h2>Heat Pump ID: {{flexOffer.id}}</h2>
-<views>
-    <view name="show" initial>
-        <p>Hi, {{ user.name }}</p>
-        <button view-target="edit">
-            Edit
-        </button>
-    </view>
-    <view name="edit">
-        <p>
-            <input ng-model="user.name" />
-        </p>
-        <button view-target="show">
-            Done
-        </button>
-    </view>
-</views>
-<br />
-<br />
-<br />
-<br />
-<br />
-<views>
-    <ul>
-        <li><a view-target="foo">Foo</a></li>
-        <li><a view-target="bar">Bar</a></li>
-        <li><a view-target="faz">Faz</a></li>
-        <li><a view-target="baz">Baz</a></li>
-    </ul>
-    <view name="foo" initial>Foo</view>
-    <view name="bar">.......</view>
-    <view name="faz">.....................</view>
-    <view name="baz">................</view>
-</views>
-<br />
-<br />
-<br />
-<br />
-<br />
-<views>
-    <div>
-        <button view-target="one">
-            one
-        </button>
-        <button view-target="two">
-            two
-        </button>
+﻿<style>
+    .m-btn {
+        color: #333;
+        text-decoration: none;
+        background-color: #dcdcdc;
+        position: relative;
+        display: inline-block;
+        overflow: visible;
+        margin: 0;
+        padding: 10px 14px;
+        margin-top: 8px;
+        cursor: pointer;
+        outline: 0;
+        border: 0;
+        border-left: 3px solid #004676;
+        font: 14px "Segoe UI",Helvetica,Arial,sans-serif;
+        min-width: 42px;
+        text-shadow: #fff 0 1px 0;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: inherit;
+    }
+
+        .m-btn:hover, .m-btn:focus, .m-btn:active, .m-btn.active {
+            color: #333;
+            text-decoration: none;
+            background-color: #ccc;
+            background-image: -webkit-linear-gradient(top,#ccc,#ccc);
+            background-image: -o-linear-gradient(top,#ccc,#dcdcdc);
+            outline: 0;
+        }
+</style>
+
+<div class="container-fluid" style="margin-top: 20px;">
+    <views>
+        <div class="row">
+            <div class="col-md-10">
+                <a class="m-btn" view-target="flex">Flex Offer</a>
+                <a class="m-btn" view-target="temp">Tempureture</a>
+                <div class="row">
+                    <div class="col-md-12 col-md-offset-0">
+                        <view name="flex" initial><div timeslices="timeslices" schedule="schedule" data-ng-bar></div></view>
+                        <view name="temp">
+                            <div data-ng-controller="app.Controllers.TemperatureCtrl">
+                                <div temperatures="temperatures" data-ng-tem></div>
+                            </div>
+                        </view>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2" style="background-color: purple; height: 700px;">User Settings</div>
+            
+        </div>
+    </views>
+</div>
+
+
+
+<!--
+    <h2>Heat Pump ID: {{flexOffer.id}}</h2>
+    <views>
+        <view name="show" initial>
+            <p>Hi, {{ user.name }}</p>
+            <button view-target="edit">
+                Edit
+            </button>
+        </view>
+        <view name="edit">
+            <p>
+                <input ng-model="user.name" />
+            </p>
+            <button view-target="show">
+                Done
+            </button>
+        </view>
+    </views>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <views>
+        <ul>
+            <li><a view-target="foo">Foo</a></li>
+            <li><a view-target="bar">Bar</a></li>
+            <li><a view-target="faz">Faz</a></li>
+            <li><a view-target="baz">Baz</a></li>
+        </ul>
+        <view name="foo" initial>Foo</view>
+        <view name="bar">.......</view>
+        <view name="faz">.....................</view>
+        <view name="baz">................</view>
+    </views>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <views>
+        <div>
+            <button view-target="one">
+                one
+            </button>
+            <button view-target="two">
+                two
+            </button>
+        </div>
+        <br />
+        <br />
+        <br />
+        <div style="background-color:aqua; width: 600px; height: 400px;">
+
+            <view name="one" initial style="background-color: red; position: static"><p >Foo</p></view>
+            <view name="two" style="background-color: yellow; position: static"><p >Bar</p></view>
+        </div>
+    </views>
+    <br />
+    <br />
+    <div class="btn-group">
+        <button type="button" class="btn btn-default" viev-target="foo">Flexoffer</button>
+        <button type="button" class="btn btn-default" viev-target="bar">Temperature</button>
     </div>
     <br />
     <br />
     <br />
-    <div style="background-color:aqua; width: 600px; height: 400px;">
-       
-        <view name="one" initial style="background-color: red; position: static"><p >Foo</p></view>
-        <view name="two" style="background-color: yellow; position: static"><p >Bar</p></view>
-    </div>
-</views>
-<br />
-<br />
-<div class="btn-group">
-    <button type="button" class="btn btn-default" viev-target="foo">Flexoffer</button>
-    <button type="button" class="btn btn-default" viev-target="bar">Temperature</button>
-</div>
-<br />
-<br />
-<br />
-<br />
-<div timeslices="timeslices" schedule="schedule" data-ng-bar></div>
-<div data-ng-controller="app.Controllers.TemperatureCtrl">
-    <div temperatures="temperatures" data-ng-tem></div>
-</div>
+    <br />
+
+
+-->

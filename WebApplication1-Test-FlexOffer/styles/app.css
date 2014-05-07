@@ -1,7 +1,7 @@
 ﻿body {
   padding-top: 50px;
   padding-bottom: 20px;
-  font: 12px Segoe UI, Helvetica, Arial, sans-serif;
+  font: 14px Segoe UI, Helvetica, Arial, sans-serif;
 }
 /*-------------------------
 	Colors
@@ -9,43 +9,42 @@
 /*-------------------------
 	Front Bottons
 --------------------------*/
-.homebotton {
-  margin: 20px;
-  height: 500px;
-  margin-top: 100px;
-  padding: 0px;
+.homebutton {
+  padding: 0;
+  margin-top: 50px;
 }
-.homebotton > a {
+.homebutton > a {
   display: block;
   height: 100%;
   width: 100%;
   outline: none;
   color: #ffffff;
-  font: 50px Segoe UI, Helvetica, Arial, sans-serif;
-  padding: 20px;
-  padding-top: 100px;
+  padding: 0;
+  font: 4em Segoe UI, Helvetica, Arial, sans-serif;
+  padding-top: 50px;
   text-align: center;
 }
-.homebotton > a > img {
+.homebutton > a > img {
   padding-top: 20px;
+  padding-bottom: 50px;
   -webkit-filter: invert(100%);
   filter: invert(100%);
 }
-.homebotton.WM {
+.homebutton.WM {
   background: #008000;
 }
-.homebotton.WM > a:hover,
-.homebotton.WM > a:focus {
+.homebutton.WM > a:hover,
+.homebutton.WM > a:focus {
   color: #ffffff;
   text-decoration: none;
   outline: none;
   background: #004d00;
 }
-.homebotton.HP {
+.homebutton.HP {
   background: #004676;
 }
-.homebotton.HP > a:hover,
-.homebotton.HP > a:focus {
+.homebutton.HP > a:hover,
+.homebutton.HP > a:focus {
   color: #ffffff;
   text-decoration: none;
   outline: none;
@@ -101,8 +100,8 @@ view.view-hide-add {
   display: block !important;
 }
 view.view-hide-add {
-  animation: .3s hide;
-  -webkit-animation: .3s hide;
+  animation: .0s hide;
+  -webkit-animation: .0s hide;
 }
 @keyframes hide {
   from {
@@ -121,8 +120,8 @@ view.view-hide-add {
   }
 }
 view.view-hide-remove {
-  animation: .3s show;
-  -webkit-animation: .3s show;
+  animation: .0s show;
+  -webkit-animation: .0s show;
 }
 @keyframes show {
   from {

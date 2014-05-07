@@ -5,7 +5,7 @@
 
 //################## Controllers ###################
 /// <reference path='controllers/mainNavCtrl.ts' />
-/// <reference path='controllers/flexOfferCtrl.ts' />
+/// <reference path='controllers/heatPumpCtrl.ts' />
 /// <reference path='controllers/temperatureCtrl.ts' />
 
 //################## Directives ###################

@@ -69,7 +69,7 @@ var app;
                             })]).rangeRound([height, 0]);
 
                         // The color scale will set the stacked bar. The range decides the colors. The domain is computed from the timeslice model.
-                        var color = d3.scale.ordinal().range(["#BA6F79", "#6DB269"]).domain(d3.keys(timesliceData[0]).filter(function (key) {
+                        var color = d3.scale.ordinal().range(["#FF0097", "#8CBF26"]).domain(d3.keys(timesliceData[0]).filter(function (key) {
                             return key !== "date" && key !== "barValues";
                         }));
 
@@ -108,14 +108,13 @@ var app;
                         });
 
                         // Make schedule line
-                        var line = d3.svg.line().x(function (d) {
-                            return (xScale(parseDate(d.date)));
-                        }).y(function (d) {
-                            return yScale(d.consumption);
-                        });
-
-                        svg.select('g').append("path").datum(scheduleData).attr("class", "line").attr("d", line);
-
+                        //var line = d3.svg.line()
+                        //    .x(function (d) {return (xScale(parseDate(d.date)));})
+                        //    .y(function (d) {return yScale(d.consumption);});
+                        //svg.select('g').append("path")
+                        //    .datum(scheduleData)
+                        //    .attr("class", "line")
+                        //    .attr("d", line);
                         // Make Legend
                         var legend = svg.selectAll(".legend").data(color.domain().slice().reverse()).enter().append("g").attr("class", "legend").attr("transform", function (d, i) {
                             return "translate(0," + i * 20 + ")";

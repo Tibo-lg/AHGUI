@@ -77,7 +77,7 @@ module app.Directives {
 
                     // The color scale will set the stacked bar. The range decides the colors. The domain is computed from the timeslice model.
                     var color = d3.scale.ordinal()
-                        .range(["#BA6F79", "#6DB269"])
+                        .range(["#FF0097", "#8CBF26"])
                         .domain(d3.keys(timesliceData[0]).filter(function (key) { return key !== "date" && key !== "barValues"; }));
 
                     timesliceData.forEach(function (d) {
@@ -132,14 +132,15 @@ module app.Directives {
                         .style("fill", function (d) { return color(d.name); });
 
                     // Make schedule line
-                    var line = d3.svg.line()
-                        .x(function (d) {return (xScale(parseDate(d.date)));})
-                        .y(function (d) {return yScale(d.consumption);});
 
-                    svg.select('g').append("path")
-                        .datum(scheduleData)
-                        .attr("class", "line")
-                        .attr("d", line);
+                    //var line = d3.svg.line()
+                    //    .x(function (d) {return (xScale(parseDate(d.date)));})
+                    //    .y(function (d) {return yScale(d.consumption);});
+
+                    //svg.select('g').append("path")
+                    //    .datum(scheduleData)
+                    //    .attr("class", "line")
+                    //    .attr("d", line);
                   
 
                     // Make Legend

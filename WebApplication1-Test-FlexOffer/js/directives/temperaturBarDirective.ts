@@ -49,7 +49,9 @@ module app.Directives {
                     // Calculate the height and width of elements
                     //var height = (<HTMLElement><any>d3.select(element[0]).node()).offsetHeight - margin.top - margin.bottom;
                     var height = 300 - margin.top - margin.bottom;
-                    var width = (<HTMLElement>d3.select(element[0]).node()).offsetWidth - margin.right - margin.left;
+
+                    //TODO HACKY DI HACK RIKKE - Properly should get the div element with a angular selector query
+                    var width = (<HTMLElement>d3.select(element[0]).node().parentNode.parentNode.parentNode).offsetWidth - margin.right - margin.left;
 
                     //TODO This barwitdh giver ingen mening Rikke
                     var barWidth = width / temperaturesData.length;

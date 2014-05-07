@@ -75,7 +75,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="images\heating_room-256.png" />
     <Content Include="images\home-128.png" />
+    <Content Include="images\washing_machine-256.png" />
     <Content Include="index.html" />
     <Content Include="LICENSE.txt" />
     <Content Include="js-libs\angularjs\angular-animate.js" />
@@ -423,7 +425,7 @@
     <TypeScriptCompile Include="js-libs\typings\d3\plugins\d3.superformula.d.ts" />
     <TypeScriptCompile Include="js-libs\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="js\app.ts" />
-    <TypeScriptCompile Include="js\controllers\flexOfferCtrl.ts" />
+    <TypeScriptCompile Include="js\controllers\heatPumpCtrl.ts" />
     <TypeScriptCompile Include="js\controllers\mainNavCtrl.ts" />
     <TypeScriptCompile Include="js\controllers\temperatureCtrl.ts" />
     <TypeScriptCompile Include="js\directives\flexOfferBarDirective.ts" />
