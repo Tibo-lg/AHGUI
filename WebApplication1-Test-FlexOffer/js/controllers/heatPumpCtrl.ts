@@ -8,6 +8,7 @@ module app.Controllers {
         flexOffer: FlexOffer;
         timeslices: Array<TimeSlice>;
         schedule: Array<Schedule>
+        time: Date;
 
         //$parent: iLivingScope;
     }

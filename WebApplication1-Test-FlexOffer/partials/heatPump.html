@@ -2,7 +2,7 @@
     .m-btn {
         color: #333;
         text-decoration: none;
-        background-color: #dcdcdc;
+        background-color: #ffffff;
         position: relative;
         display: inline-block;
         overflow: visible;
@@ -13,32 +13,67 @@
         outline: 0;
         border: 0;
         border-left: 3px solid #004676;
+        border-bottom: 1px solid #000000;
+        border-right: 1px solid #000000;
+        border-top: 1px solid #000000;
         font: 14px "Segoe UI",Helvetica,Arial,sans-serif;
         min-width: 42px;
-        text-shadow: #fff 0 1px 0;
         text-align: center;
         white-space: nowrap;
         vertical-align: inherit;
     }
 
         .m-btn:hover, .m-btn:focus, .m-btn:active, .m-btn.active {
-            color: #333;
+            color: #ffffff;
             text-decoration: none;
-            background-color: #ccc;
-            background-image: -webkit-linear-gradient(top,#ccc,#ccc);
-            background-image: -o-linear-gradient(top,#ccc,#dcdcdc);
+            background-color: #007499;
             outline: 0;
         }
+
+    h1 {
+        color: #878787;
+        font: 2.1em "Segoe UI",Helvetica,Arial,sans-serif;
+        margin: 0;
+    }
+
+    h2 {
+        color: #878787;
+        font: 1.7em "Segoe UI",Helvetica,Arial,sans-serif;
+        margin: 0;
+    }
+
+    h3 {
+        color: #878787;
+        font: 1.3em "Segoe UI",Helvetica,Arial,sans-serif;
+        margin: 0;
+    }
+
+    [data-icon]:before {
+        font-family: 'MeteoconsRegular';
+        content: attr(data-icon);
+    }
 </style>
 
 <div class="container-fluid" style="margin-top: 20px;">
+
+    <div class="row">
+        <!-- CURRENT INFO DIV -->
+        <div class="col-md-6" style="border: 1px solid black">
+            <h2> Aalborg, Denmark </h2>
+            <h3><span current-time="'EEEE H:mm'"></span></h3>
+            <h3><span style="font-size: 6em;" data-icon="B"></span></h3>
+            <h3><span style="font-size: 3em;" data-icon="H"></span></h3>
+            <h3><span style="font-size: 3em; color: red;" data-icon="N"></span></h3>
+        </div>
+
+    </div>
     <views>
         <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-10" style="border: 1px solid black">
                 <a class="m-btn" view-target="flex">Flex Offer</a>
-                <a class="m-btn" view-target="temp">Tempureture</a>
+                <a class="m-btn" view-target="temp">Tempurature</a>
                 <div class="row">
-                    <div class="col-md-12 col-md-offset-0">
+                    <div class="col-md-12 col-md-offset-0" style="border: 1px solid black">
                         <view name="flex" initial><div timeslices="timeslices" schedule="schedule" data-ng-bar></div></view>
                         <view name="temp">
                             <div data-ng-controller="app.Controllers.TemperatureCtrl">
@@ -48,8 +83,34 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2" style="background-color: purple; height: 700px;">User Settings</div>
-            
+            <!-- USER SETTINGS DIV   -->
+            <div class="col-md-2" style="border: 1px solid black;" data-ng-controller="app.Controllers.ComfortSettingsCtrl">
+                <h2>Comfort Settings</h2>
+
+                <!-- MAX TEMP USER SETTINGS DIV   -->
+                <div class="row">
+                    <div class="col-md-12" style="border: 1px solid black;">
+                      Max Temp:  {{maxtemp}} <br/>
+                      Set Temp:  {{settemp}} <br/>
+                      Min Temp:  {{mintemp}} <br/>
+                        <div class="row">
+                            <div class="col-md-12" style="border: 1px solid black;">
+                                <div ng-model="maxtemp" temp-settings></div>
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SET TEMP USER SETTINGS DIV   -->
+                <div class="row">
+                    <div class="col-md-12" style="border: 1px solid black;
+">
+                        <span class="glyphicon glyphicon-chevron-up" style="font-size: 3em;"></span>
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </div>
+                </div>
+            </div>
         </div>
     </views>
 </div>

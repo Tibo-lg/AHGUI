@@ -35,11 +35,8 @@ module app.Directives {
             },
             link: function (scope: ViewsScope, el, attrs, viewsCtrl) {
 
-                console.debug(<any>el);
                 el.on('click', '[view-target]', function () {
-                 
                     var viewName = angular.element(this).attr('view-target');
-                    console.debug(viewName);
                     viewsCtrl.switchTo(viewName);
                 });
 

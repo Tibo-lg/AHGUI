@@ -370,6 +370,8 @@
     <Content Include="styles\bootstrap\bootstrap.min.css" />
     <Content Include="styles\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="partials\heatPump.html" />
+    <Content Include="styles\fonts\meteocons-webfont.svg" />
+    <Content Include="styles\fonts\meteocons-stylesheet.css" />
     <Content Include="Web.config" />
     <Content Include="styles\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="styles\fonts\glyphicons-halflings-regular.ttf" />
@@ -402,6 +404,11 @@
     <Content Include="styles\bootstrap\bootstrap-theme.css.map" />
     <Content Include="styles\bootstrap\bootstrap.css.map" />
     <None Include="Properties\PublishProfiles\Dev Arvixe.pubxml" />
+    <Content Include="styles\fonts\meteocons-webfont.eot" />
+    <Content Include="styles\fonts\meteocons-webfont.ttf" />
+    <Content Include="styles\fonts\meteocons-webfont.woff" />
+    <Content Include="styles\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="styles\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -425,12 +432,15 @@
     <TypeScriptCompile Include="js-libs\typings\d3\plugins\d3.superformula.d.ts" />
     <TypeScriptCompile Include="js-libs\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="js\app.ts" />
+    <TypeScriptCompile Include="js\controllers\comfortSettingsCtrl.ts" />
     <TypeScriptCompile Include="js\controllers\heatPumpCtrl.ts" />
     <TypeScriptCompile Include="js\controllers\mainNavCtrl.ts" />
     <TypeScriptCompile Include="js\controllers\temperatureCtrl.ts" />
+    <TypeScriptCompile Include="js\directives\currentTimeDirective.ts" />
     <TypeScriptCompile Include="js\directives\flexOfferBarDirective.ts" />
     <TypeScriptCompile Include="js\directives\exampleBarDirective.ts" />
     <TypeScriptCompile Include="js\directives\temperaturBarDirective.ts" />
+    <TypeScriptCompile Include="js\directives\tempSettingsDirective.ts" />
     <TypeScriptCompile Include="js\directives\viewDirective.ts" />
     <TypeScriptCompile Include="js\_all.ts" />
   </ItemGroup>
