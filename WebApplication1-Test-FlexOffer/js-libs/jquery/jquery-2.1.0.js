@@ -5061,7 +5061,7 @@ jQuery.extend({
 			}
 		}
 
-		// Remove wrapper from fragment
+		// Remove tempwrapper from fragment
 		fragment.textContent = "";
 
 		i = 0;

@@ -3351,7 +3351,7 @@ jQuery.support = (function( support ) {
 	support.tbody = !div.getElementsByTagName("tbody").length;
 
 	// Make sure that link elements get serialized correctly by innerHTML
-	// This requires a wrapper element in IE
+	// This requires a tempwrapper element in IE
 	support.htmlSerialize = !!div.getElementsByTagName("link").length;
 
 	// Get the style information from getAttribute
@@ -12070,7 +12070,7 @@ function jqLiteBuildFragment(html, context) {
     tmp.textContent = "";
   }
 
-  // Remove wrapper from fragment
+  // Remove tempwrapper from fragment
   fragment.textContent = "";
   fragment.innerHTML = ""; // Clear inner HTML
   return nodes;
@@ -14985,9 +14985,9 @@ function $TemplateCacheProvider() {
  *   If no `attr` name is specified then the attribute name is assumed to be the same as the
  *   local name. Given `<widget my-attr="count = count + value">` and widget definition of
  *   `scope: { localFn:'&myAttr' }`, then isolate scope property `localFn` will point to
- *   a function wrapper for the `count = count + value` expression. Often it's desirable to
+ *   a function tempwrapper for the `count = count + value` expression. Often it's desirable to
  *   pass data from the isolated scope via an expression and to the parent scope, this can be
- *   done by passing a map of local variable names and values into the expression wrapper fn.
+ *   done by passing a map of local variable names and values into the expression tempwrapper fn.
  *   For example, if the expression is `increment(amount)` then we can specify the amount value
  *   by calling the `localFn` as `localFn({amount: 22})`.
  *
@@ -16946,7 +16946,7 @@ function $ControllerProvider() {
  * @requires $window
  *
  * @description
- * A {@link angular.element jQuery or jqLite} wrapper for the browser's `window.document` object.
+ * A {@link angular.element jQuery or jqLite} tempwrapper for the browser's `window.document` object.
  *
  * @example
    <example>
@@ -17315,7 +17315,7 @@ function $HttpProvider() {
      * properties. These properties are by default an array of transform functions, which allows you
      * to `push` or `unshift` a new transformation function into the transformation chain. You can
      * also decide to completely override any default transformations by assigning your
-     * transformation functions to these properties directly without the array wrapper.  These defaults
+     * transformation functions to these properties directly without the array tempwrapper.  These defaults
      * are again available on the $http factory at run-time, which may be useful if you have run-time
      * services you wish to be involved in your transformations.
      *
@@ -18484,7 +18484,7 @@ function $IntervalProvider() {
       * @name $interval
       *
       * @description
-      * Angular's wrapper for `window.setInterval`. The `fn` function is executed every `delay`
+      * Angular's tempwrapper for `window.setInterval`. The `fn` function is executed every `delay`
       * milliseconds.
       *
       * The return value of registering an interval function is a promise. This promise will be
@@ -23775,7 +23775,7 @@ function $TimeoutProvider() {
       * @name $timeout
       *
       * @description
-      * Angular's wrapper for `window.setTimeout`. The `fn` function is wrapped into a try/catch
+      * Angular's tempwrapper for `window.setTimeout`. The `fn` function is wrapped into a try/catch
       * block and delegates any exceptions to
       * {@link ng.$exceptionHandler $exceptionHandler} service.
       *
@@ -28902,7 +28902,7 @@ var ngIfDirective = ['$animate', function($animate) {
               $transclude(childScope, function (clone) {
                 clone[clone.length++] = document.createComment(' end ngIf: ' + $attr.ngIf + ' ');
                 // Note: We only need the first/last node of the cloned nodes.
-                // However, we need to keep the reference to the jqlite wrapper as it might be changed later
+                // However, we need to keep the reference to the jqlite tempwrapper as it might be changed later
                 // by a directive with templateUrl when it's template arrives.
                 block = {
                   clone: clone
@@ -29879,7 +29879,7 @@ var ngRepeatDirective = ['$parse', '$animate', function($parse, $animate) {
                 previousNode = clone;
                 block.scope = childScope;
                 // Note: We only need the first/last node of the cloned nodes.
-                // However, we need to keep the reference to the jqlite wrapper as it might be changed later
+                // However, we need to keep the reference to the jqlite tempwrapper as it might be changed later
                 // by a directive with templateUrl when it's template arrives.
                 block.clone = clone;
                 nextBlockMap[block.id] = block;
@@ -31727,7 +31727,7 @@ _jQuery.fn.bindings = function(windowJquery, bindExp) {
  * Represents the application currently being tested and abstracts usage
  * of iframes or separate windows.
  *
- * @param {Object} context jQuery wrapper around HTML context.
+ * @param {Object} context jQuery tempwrapper around HTML context.
  */
 angular.scenario.Application = function(context) {
   this.context = context;

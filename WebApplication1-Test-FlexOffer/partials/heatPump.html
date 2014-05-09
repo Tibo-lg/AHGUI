@@ -30,23 +30,7 @@
             outline: 0;
         }
 
-    h1 {
-        color: #878787;
-        font: 2.1em "Segoe UI",Helvetica,Arial,sans-serif;
-        margin: 0;
-    }
-
-    h2 {
-        color: #878787;
-        font: 1.7em "Segoe UI",Helvetica,Arial,sans-serif;
-        margin: 0;
-    }
-
-    h3 {
-        color: #878787;
-        font: 1.3em "Segoe UI",Helvetica,Arial,sans-serif;
-        margin: 0;
-    }
+  
 
     [data-icon]:before {
         font-family: 'MeteoconsRegular';
@@ -57,8 +41,17 @@
 <div class="container-fluid" style="margin-top: 20px;">
 
     <div class="row">
-        <!-- CURRENT INFO DIV -->
+        <!-- CURRENT GENERAL INFO DIV -->
         <div class="col-md-6" style="border: 1px solid black">
+            <h2> Aalborg, Denmark </h2>
+            <h3><span current-time="'EEEE H:mm'"></span></h3>
+            <h3><span style="font-size: 6em;" data-icon="B"></span></h3>
+            <h3><span style="font-size: 3em;" data-icon="H"></span></h3>
+            <h3><span style="font-size: 3em; color: red;" data-icon="N"></span></h3>
+        </div>
+
+        <!-- CURRENT SETTINGS INFO DIV -->
+        <div class="col-md-2 col-md-offset-4" style="border: 1px solid black">
             <h2> Aalborg, Denmark </h2>
             <h3><span current-time="'EEEE H:mm'"></span></h3>
             <h3><span style="font-size: 6em;" data-icon="B"></span></h3>
@@ -85,31 +78,24 @@
             </div>
             <!-- USER SETTINGS DIV   -->
             <div class="col-md-2" style="border: 1px solid black;" data-ng-controller="app.Controllers.ComfortSettingsCtrl">
-                <h2>Comfort Settings</h2>
+                <h3>Comfort Settings</h3>
 
                 <!-- MAX TEMP USER SETTINGS DIV   -->
                 <div class="row">
                     <div class="col-md-12" style="border: 1px solid black;">
-                      Max Temp:  {{maxtemp}} <br/>
-                      Set Temp:  {{settemp}} <br/>
-                      Min Temp:  {{mintemp}} <br/>
+                        Max Temp:  {{maxtemp}} <br />
+                        Set Temp:  {{settemp}} <br />
+                        Min Temp:  {{mintemp}} <br />
                         <div class="row">
                             <div class="col-md-12" style="border: 1px solid black;">
-                                <div ng-model="maxtemp" temp-settings></div>
-                                <span class="glyphicon glyphicon-chevron-down"></span>
+                                <div ng-model="maxtemp" temp-settings style="font-size: 0.5em;"></div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- SET TEMP USER SETTINGS DIV   -->
-                <div class="row">
-                    <div class="col-md-12" style="border: 1px solid black;
-">
-                        <span class="glyphicon glyphicon-chevron-up" style="font-size: 3em;"></span>
-                        <span class="glyphicon glyphicon-chevron-down"></span>
-                    </div>
-                </div>
+
             </div>
         </div>
     </views>

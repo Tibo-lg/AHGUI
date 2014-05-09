@@ -13,7 +13,7 @@ var app;
                 scope: {
                     value: '=ngModel'
                 },
-                template: '<span class="glyphicon glyphicon-chevron-up" ng-click="decrement()"></span>' + '<div>{{ value }}</div>' + '<span class="glyphicon glyphicon-chevron-down" ng-click="increment()"></span>',
+                templateUrl: '../../partials/tempSettings.html',
                 link: function (scope, iElement, iAttrs) {
                     scope.increment = function () {
                         scope.value++;

@@ -12,7 +12,7 @@
  *
  * # ngCookies
  *
- * The `ngCookies` module provides a convenient wrapper for reading and writing browser cookies.
+ * The `ngCookies` module provides a convenient tempwrapper for reading and writing browser cookies.
  *
  *
  * <div doc-module-components="ngCookies"></div>
