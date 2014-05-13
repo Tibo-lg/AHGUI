@@ -8,6 +8,7 @@ module app.Controllers {
         maxtemp: number;
         settemp: number;
         mintemp: number;
+        outtemp: number;
 
     }
     export class ComfortSettingsCtrl {
@@ -19,6 +20,7 @@ module app.Controllers {
             this.scope.settemp = 20;
             this.scope.maxtemp = 23;
             this.scope.mintemp = 18;
+            this.scope.outtemp = 14;
         }
     }
 }

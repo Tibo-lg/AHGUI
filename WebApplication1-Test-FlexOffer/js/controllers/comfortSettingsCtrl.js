@@ -12,6 +12,7 @@ var app;
                 this.scope.settemp = 20;
                 this.scope.maxtemp = 23;
                 this.scope.mintemp = 18;
+                this.scope.outtemp = 14;
             }
             ComfortSettingsCtrl.$inject = ['$scope'];
             return ComfortSettingsCtrl;
