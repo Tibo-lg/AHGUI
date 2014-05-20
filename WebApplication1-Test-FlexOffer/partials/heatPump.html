@@ -1,83 +1,157 @@
 ﻿<style>
-    .m-btn {
-        color: #333;
-        text-decoration: none;
-        background-color: #ffffff;
-        position: relative;
-        display: inline-block;
-        overflow: visible;
-        margin: 0;
-        padding: 10px 14px;
-        margin-top: 8px;
-        cursor: pointer;
-        outline: 0;
-        border: 0;
-        border-left: 3px solid #004676;
-        border-bottom: 1px solid #000000;
-        border-right: 1px solid #000000;
-        border-top: 1px solid #000000;
-        font: 14px "Segoe UI",Helvetica,Arial,sans-serif;
-        min-width: 42px;
-        text-align: center;
-        white-space: nowrap;
-        vertical-align: inherit;
-    }
 
-        .m-btn:hover, .m-btn:focus, .m-btn:active, .m-btn.active {
-            color: #ffffff;
-            text-decoration: none;
-            background-color: #007499;
-            outline: 0;
-        }
-
-
-
-    [data-icon]:before {
-        font-family: 'MeteoconsRegular';
-        content: attr(data-icon);
-    }
 </style>
 
 <div class="container-fluid" style="margin-top: 20px;">
+    <views>
+        <div class="row" data-ng-controller="app.Controllers.ComfortSettingsCtrl">
+            <!-- CURRENT GENERAL INFO DIV -->
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h2> Aalborg, Denmark </h2>
+                        <h3><span current-time="'EEEE H:mm'"></span></h3>
+                        <br/>
+                        <h3>
+                            <span style="font-size: 3em;" data-icon="{{suneffect}}"></span>
+                            <span style="color: black; font-size: 2.5em; font-family:arial,sans-serif; font-weight: normal; padding-left: 10px;">{{outtemp}}&deg|{{settemp}}&deg </span> + {{maxtemp-settemp}} - {{settemp-mintemp}}<br />
+                        </h3>
+                        <br/>
+                        <span class="lbl-gray">Max temperature:</span> <span class="lbl-black">{{maxtemp}}&deg</span>
+                        <span class="lbl-gray">Min temperature:</span> <span class="lbl-black">{{mintemp}}&deg</span>
+                    </div>
+                 
+                    <div class="col-md-9">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h2 style="text-align: center; color: #000000">Heat Pump Comfort Settings</h2>
+                                </div>
+                            </div>
+                         
+                       
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="temp-wrapper">
+                                        <div class="temp-left-column">
+                                            <div>
+                                                <a class="ment-btn" ng-click="incrementMax()"><span class="glyphicon glyphicon-chevron-up"></span></a>
+                                            </div>
+                                            <div>
+                                                <a class="ment-btn" ng-click="decrementMax()"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                                            </div>
+                                        </div>
+                                        <div class="temp-right-column">
+                                            <div>{{ maxtemp }}&deg</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="temp-wrapper">
+                                        <div class="temp-left-column set">
+                                            <div>
+                                                <a class="ment-btn" ng-click="incrementSet()"><span class="glyphicon glyphicon-chevron-up"></span></a>
+                                            </div>
+                                            <div>
+                                                <a class="ment-btn" ng-click="decrementSet()"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                                            </div>
+                                        </div>
+                                        <div class="temp-right-column set">
+                                            <div>{{ settemp }}&deg</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="temp-wrapper">
+                                        <div class="temp-left-column">
+                                            <div>
+                                                <a class="ment-btn" ng-click="incrementMin()"><span class="glyphicon glyphicon-chevron-up"></span></a>
+                                            </div>
+                                            <div>
+                                                <a class="ment-btn" ng-click="decrementMin()"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                                            </div>
+                                        </div>
+                                        <div class="temp-right-column">
+                                            <div>{{ mintemp }}&deg</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="text-align: center;">
+                                <div class="col-md-3">Max</div>
+                                <div class="col-md-6">Set</div>
+                                <div class="col-md-3">Min</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a class="m-btn" style="min-width: 100%" view-target="flex" data-ng-click="generateFlexOffer()">
+                                        Get Flex Offer<span class="glyphicon glyphicon-share-alt"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-12" style="text-align: center; color: black;">
+                                    <h2>External Settings</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Outside
+                                    <div class="temp-wrapper">
+                                        <div class="temp-left-column">
+                                            <div>
+                                                <a class="ment-btn" ng-click="incrementOut()"><span class="glyphicon glyphicon-chevron-up"></span></a>
+                                            </div>
+                                            <div>
+                                                <a class="ment-btn" ng-click="decrementOut()"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                                            </div>
+                                        </div>
+                                        <div class="temp-right-column">
+                                            <div>{{ outtemp }}&deg</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                Sun Effect
+                                <h3>
+                                    <a data-ng-click="updateSunEffect('H')" style="font-size: 2.5em;" data-icon="H"></a>
+                                    <a data-ng-click="updateSunEffect('B')" style="font-size: 2.5em;" data-icon="B"></a>
+                                    <a data-ng-click="updateSunEffect('N')" style="font-size: 2.5em;" data-icon="N"></a>
+                                </h3>
+                            </div>
+                            <div class="row">
+                                <a class="m-btn" view-target="flex" data-ng-click="generateFlexOffer()">
+                                    Get Flex Offer<span class="glyphicon glyphicon-share-alt"></span>
+                                </a>
 
-    <div class="row" data-ng-controller="app.Controllers.ComfortSettingsCtrl">
-        <!-- CURRENT GENERAL INFO DIV -->
-        <div class="col-md-10" style="border: 1px solid black">
-            <div class="row">
-                <div class="col-md-4" style="border: 1px solid yellow">
-                    <h2> Aalborg, Denmark </h2>
-                    <h3><span current-time="'EEEE H:mm'"></span></h3>
-                    <h3>
-                        <span style="font-size: 3em;" data-icon="H"></span>
-                        <span style="font-size: 3em;" data-icon="B"></span>
-                        <span style="font-size: 3em;" data-icon="N"></span>
-                    </h3>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4" style="border: 1px solid red">
-                    <h2>Current Comfort Setting</h2>
-
-                    Max temperature:  {{maxtemp}}&deg <br />
-                    Set temperature:  {{settemp}}&deg<br />
-                    Min temperature:  {{mintemp}}&deg <br />
-
-                </div>
-                <div class="col-md-4" style="border: 1px solid blue">
-                    <h2>Current External Settings</h2>
-                    
-                    Outside temperature:  {{outtemp}}&deg <br />
-                </div>
-            </div>
 
 
-            <!-- Flex-offer DIV -->
-            <div class="row">
-                <views>
-                    <div class="col-md-12" style="border: 1px solid black">
-                        <a class="m-btn" view-target="flex">Flex Offer</a>
-                        <a class="m-btn" view-target="temp">Tempureture</a>
+                <!-- VIEW DIV -->
+
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-12 col-md-offset-0" style="border: 1px solid black">
-                                <view name="flex" initial><div timeslices="timeslices" schedule="schedule" data-ng-bar></div></view>
+                            <!-- USER SETTINGS DIV   -->
+                            <div class="col-md-12">
+                                <a class="m-btn" view-target="settings">Settings</a>
+                                <a class="m-btn" view-target="flex">Flex Offer</a>
+                                <a class="m-btn" view-target="temp">Temperature</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <view name="settings" initial>
+
+                                    HEAT PUMP
+                                </view>
+                                <view name="flex"><div timeslices="timeslices" schedule="schedule" data-ng-bar></div></view>
                                 <view name="temp">
                                     <div data-ng-controller="app.Controllers.TemperatureCtrl">
                                         <div temperatures="temperatures" data-ng-tem></div>
@@ -86,37 +160,8 @@
                             </div>
                         </div>
                     </div>
-                </views>
-            </div>
-
-        </div>
-
-        <!-- USER SETTINGS DIV   -->
-        <div class="col-md-2" style="border: 1px solid black;">
-            <h3>Comfort Settings</h3>
-
-            <!-- MAX TEMP USER SETTINGS DIV   -->
-            <div class="row">
-                <div class="col-md-12" style="border: 1px solid black;">
-                  Max  <div ng-model="maxtemp" temp-settings style="font-size: 1em;"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12" style="border: 1px solid black;">
-                    Set <div ng-model="settemp" temp-settings style="font-size: 1em;"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12" style="border: 1px solid black;">
-                    Min <div data-ng-model="mintemp" temp-settings style="font-size: 1em;"></div>
-                </div>
-            </div>
-            <h3>External Settings</h3>
-            <div class="row">
-                <div class="col-md-12" style="border: 1px solid black;">
-                    Outside <div ng-model="outtemp" temp-settings style="font-size: 1em;"></div>
                 </div>
             </div>
         </div>
-    </div>
+    </views>
 </div>

@@ -5,6 +5,10 @@ var app;
         var FlexOfferCtrl = (function () {
             function FlexOfferCtrl($scope) {
                 this.scope = $scope;
+                this.scope.generateFlexOffer = function () {
+                    console.debug("Generate Flex Offer");
+                };
+
                 this.scope.flexOffer = {
                     'id': 2,
                     'timeslices': [

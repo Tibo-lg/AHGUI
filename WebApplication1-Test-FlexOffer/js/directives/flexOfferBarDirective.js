@@ -38,7 +38,7 @@ var app;
                         if (!timesliceData)
                             return;
 
-                        //TODO These should really be attibutes input
+                        //TODO These should really be attributes input
                         // Margin and paddings
                         var margin = { top: 20, right: 30, bottom: 20, left: 30 };
                         var barPadding = 2;
@@ -49,15 +49,17 @@ var app;
                         var minimum = "#BEBEBE";
 
                         // Calculate the height and width of elements
-                        //var height = (<HTMLElement><any>d3.select(element[0]).node()).offsetHeight - margin.top - margin.bottom;
-                        var height = 300 - margin.top - margin.bottom;
-                        var width = d3.select(element[0]).node().offsetWidth - margin.right - margin.left;
+                        //var height = (<HTMLElement><any>d3.select(element[0]).node().parentNode.parentNode).offsetHeight - margin.top - margin.bottom;
+                        var height = 400 - margin.top - margin.bottom;
+
+                        //TODO HAcky di hack Rikke!
+                        var width = d3.select(element[0]).node().parentNode.parentNode.parentNode.offsetWidth - margin.right - margin.left;
                         var barWidth = width / timesliceData.length;
                         var timeTicks = barWidth / 2;
 
-                        console.debug('width:' + width + ' height:' + height + ' datalength:' + timesliceData.length + ' barWidth:' + barWidth);
+                        console.debug('width:' + width + ' height:' + height + ' data-length:' + timesliceData.length + ' barWidth:' + barWidth);
 
-                        // Adding width and heigt to the svg
+                        // Adding width and height to the svg
                         svg.attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom).append('g').attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
                         // Modified data for the xScale function. ParseDate is need when d.date is parsed in xScale

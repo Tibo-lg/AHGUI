@@ -15,11 +15,20 @@ var app;
                 },
                 templateUrl: '../../partials/tempSettings.html',
                 link: function (scope, iElement, iAttrs) {
+                    var min, max;
+
+                    min = iAttrs.min;
+                    max = iAttrs.max;
+
                     scope.increment = function () {
-                        scope.value++;
+                        if (scope.value < max) {
+                            scope.value++;
+                        }
                     };
                     scope.decrement = function () {
-                        scope.value--;
+                        if (scope.value > min) {
+                            scope.value--;
+                        }
                     };
                 }
             };

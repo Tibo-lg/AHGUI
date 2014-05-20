@@ -1,32 +1,12 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-    font: 14px Segoe UI, Helvetica, Arial, sans-serif;
-}
-
-h1 {
-    color: @colHeaders;
-    font-size: 2.1em;
-    margin: 0;
-}
-
-h2 {
-    color: @colHeaders;
-    font-size: 1.7em;
-    margin: 0;
-}
-
-h3 {
-    color: @colHeaders;
-    font: 1.3em;
-    margin: 0;
-}
-/*-------------------------
+﻿/*-------------------------
 	Colors
 --------------------------*/
 /* Generel Colors*/
 @colHeaders: #878787;
 @colFont: #000000;
+@colFlex: #64BE45;
+@colBlack: #000000;
+@colWhite: #ffffff;
 
 /* Nav Bar Colors*/
 @bgDefault: #004676;
@@ -40,6 +20,49 @@ h3 {
 @colFrontBnt: #ffffff;
 
 /* Temp Settings */
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    font: 14px Segoe UI, Helvetica, Arial, sans-serif;
+}
+
+h1 {
+    color: @colHeaders;
+    font-size: 2.1em;
+    margin: 0;
+}
+
+h2 {
+    color: @colHeaders;
+    font-size: 1.6em;
+    margin: 0;
+}
+
+h3 {
+    color: @colHeaders;
+    font-size: 1.3em;
+    margin: 0;
+}
+
+.lbl-gray {
+    color: @colHeaders;
+    display: block;
+    float: left;
+    text-align: left;
+    padding: 0 10px;
+    width: 160px;
+    font-weight:bold;
+    font-size: 1.1em;
+}
+.lbl-black {
+    color: @colBlack;
+    display: block;
+    float: left;
+    text-align: left;
+    font-weight:bold;
+    font-size: 1.2em;
+}
+
 
 /*-------------------------
 	Front Bottons
@@ -110,7 +133,7 @@ h3 {
     display: table-cell;
     vertical-align: middle;
     text-align: right;
-    font-size: 2.5em;
+    font-size: 1.7em;
     padding: 0;
     margin: 0;
     padding-right: 5px;
@@ -123,14 +146,25 @@ h3 {
     height: inherit;
     display: table-cell;
     vertical-align: middle;
-    font-size: 6em;
+    font-size: 4.0em;
     padding-left: 5px;
-    line-height: 100%;
+    line-height: 110%;
     font-weight: bold;
     color: @colFont;
     //background-color:greenyellow;
 }
-
+.temp-left-column.set {
+    font-size: 3.0em;
+    //background-color:green;
+}
+.temp-right-column.set {
+    font-size: 7.0em;
+    line-height: 100%;
+    //background-color:greenyellow;
+}
+/*-------------------------
+	Decrement/increment Buttons
+-------------------------*/
 .ment-btn {
     cursor: pointer;
 
@@ -138,16 +172,50 @@ h3 {
         display: block;
         height: 100%;
         width: 100%;
+        min-width: inherit;
         outline: none;
 
         &:hover, &:focus {
-            color: darken(@colHeaders, 90%);
             text-decoration: none;
             outline: none;
-            background: darken(@colHeaders, 50%);
-            background-color: forestgreen;
+            
         }
     }
+}
+/*-------------------------
+	Flat metro style Buttons
+-------------------------*/
+.m-btn {
+    color: @colWhite;
+    text-decoration: none;
+    background-color: @colFlex;
+    position: relative;
+    display: inline-block;
+    overflow: visible;
+    margin: 0;
+    padding: 10px 10px;
+    margin-top: 8px;
+    cursor: pointer;
+    outline: 0;
+    border: 0;
+    min-width: 300px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: inherit;
+}
+
+.m-btn:hover, .m-btn:focus, .m-btn:active, .m-btn.active {
+    color: @colWhite;
+    text-decoration: none;
+    background: darken(@colFlex, 10%);
+    outline: 0;
+}
+
+
+
+[data-icon]:before {
+    font-family: 'MeteoconsRegular';
+    content: attr(data-icon);
 }
 /*-------------------------
 	Charts

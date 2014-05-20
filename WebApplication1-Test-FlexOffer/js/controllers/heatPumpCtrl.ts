@@ -9,8 +9,8 @@ module app.Controllers {
         timeslices: Array<TimeSlice>;
         schedule: Array<Schedule>
         time: Date;
+        generateFlexOffer: Function;
 
-        //$parent: iLivingScope;
     }
 
 
@@ -21,6 +21,10 @@ module app.Controllers {
         constructor($scope: FlexOfferScope) {
 
             this.scope = $scope;
+            this.scope.generateFlexOffer = function() {
+                console.debug("Generate Flex Offer");
+            }
+       
             this.scope.flexOffer = {
                 'id': 2,
                 'timeslices': [

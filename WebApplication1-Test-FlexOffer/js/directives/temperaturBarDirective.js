@@ -44,8 +44,8 @@ var app;
                         var yAxisPaddaing = 0;
 
                         // Calculate the height and width of elements
-                        //var height = (<HTMLElement><any>d3.select(element[0]).node()).offsetHeight - margin.top - margin.bottom;
-                        var height = 300 - margin.top - margin.bottom;
+                        //var height = (<HTMLElement><any>d3.select(element[0]).node().parentNode.parentNode.parentNode).offsetHeight - margin.top - margin.bottom;
+                        var height = 400 - margin.top - margin.bottom;
 
                         //TODO HACKY DI HACK RIKKE - Properly should get the div element with a angular selector query
                         var width = d3.select(element[0]).node().parentNode.parentNode.parentNode.offsetWidth - margin.right - margin.left;
