@@ -13,7 +13,7 @@ module app.Controllers {
         static $inject = ['$scope', '$location'];
         constructor($scope: IMainNavScope, $location) {
             this.scope = $scope;
-            $scope.navClass = function (page) {
+            this.scope.navClass = function (page) {
                 var currentRoute = $location.path().substring(1);
                 return page === currentRoute ? 'active' : '';
             };

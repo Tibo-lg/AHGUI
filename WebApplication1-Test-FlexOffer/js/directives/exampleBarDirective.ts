@@ -1,5 +1,5 @@
 ﻿/// 
-/// Directives
+/// Directives - Obsolete - an example of Angularjs and do#
 /// -------------------------------------------------------------------------------------------------------------------
 /// <reference path='../_all.ts' />
 

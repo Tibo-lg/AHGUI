@@ -10,6 +10,7 @@
     -->
     <link rel="stylesheet" href="/styles/bootstrap/bootstrap.css" />
     <link rel="stylesheet" href="/styles/fonts/meteocons-stylesheet.css" />
+    <link rel="stylesheet" href="/styles/fonts/flaticon.css" />
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
     <link rel="stylesheet" href="/styles/app.css" />
 
@@ -36,7 +37,7 @@
                         <li data-ng-class="navClass('washingmachine')"><a href="#/washingmachine">Washing Machine</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">About</a></li>
+                        <li data-ng-class="navClass('about')"><a href="#/about">About</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -65,10 +66,9 @@
     <script src="/js/app.js"></script>
 
     <!-- App Controllers -->
-    <script src="/js/controllers/heatPumpCtrl.js"></script>
-    <script src="/js/controllers/temperatureCtrl.js"></script>
+    <script src="/js/controllers/flexOfferCtrl.js"></script>
     <script src="/js/controllers/mainNavCtrl.js"></script>
-    <script src="/js/controllers/comfortSettingsCtrl.js"></script>
+    <script src="/js/controllers/heatPumpInputCtrl.js"></script>
 
     <!-- App Directives -->
     <script src="/js/directives/flexOfferBarDirective.js"></script>

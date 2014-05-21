@@ -1,5 +1,5 @@
 ﻿/// 
-/// Directives
+/// Directives - Handles hide/show views
 /// -------------------------------------------------------------------------------------------------------------------
 /// <reference path='../_all.ts' />
 
@@ -24,7 +24,6 @@ module app.Directives {
 
                 this.switchTo = function (viewName) {
                     for (var k in views) {
-                        console.debug(k.toString());
                         if (k == viewName) {
                             views[k].show();
                         } else {

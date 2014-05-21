@@ -4,9 +4,8 @@
 /// <reference path='../js-libs/typings/d3/d3.d.ts'/>
 //################## Controllers ###################
 /// <reference path='controllers/mainNavCtrl.ts' />
-/// <reference path='controllers/heatPumpCtrl.ts' />
-/// <reference path='controllers/temperatureCtrl.ts' />
-/// <reference path='controllers/comfortSettingsCtrl.ts' />
+/// <reference path='controllers/flexOfferCtrl.ts' />
+/// <reference path='controllers/heatPumpInputCtrl.ts' />
 //################## Directives ###################
 /// <reference path='directives/viewDirective.ts' />
 /// <reference path='directives/flexOfferBarDirective.ts' />

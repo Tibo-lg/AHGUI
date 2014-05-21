@@ -8,7 +8,7 @@ var app;
         var MainNavCtrl = (function () {
             function MainNavCtrl($scope, $location) {
                 this.scope = $scope;
-                $scope.navClass = function (page) {
+                this.scope.navClass = function (page) {
                     var currentRoute = $location.path().substring(1);
                     return page === currentRoute ? 'active' : '';
                 };

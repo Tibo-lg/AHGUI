@@ -6,7 +6,7 @@
 module app.Directives {
     'use strict';
     interface currentTimeAttrs extends ng.IAttributes {
-        currentTime: any;
+        currentTime: string;
     }
 
     export function currentTime($interval, dateFilter): ng.IDirective {

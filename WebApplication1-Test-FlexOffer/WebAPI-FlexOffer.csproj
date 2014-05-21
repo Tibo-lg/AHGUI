@@ -75,6 +75,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="partials\about.html" />
     <Content Include="styles\app.css" />
     <Content Include="Global.asax" />
     <Content Include="images\heating_room-256.png" />
@@ -375,9 +376,20 @@
     <Content Include="styles\bootstrap\bootstrap-theme.min.css" />
     <Content Include="styles\bootstrap\bootstrap.css" />
     <Content Include="styles\bootstrap\bootstrap.min.css" />
+    <Content Include="styles\fonts\flaticon.css" />
+    <Content Include="styles\fonts\flaticon.html" />
+    <Content Include="styles\fonts\flaticon.svg" />
     <Content Include="styles\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="styles\fonts\heating1.png" />
+    <Content Include="styles\fonts\heating1.svg" />
+    <Content Include="styles\fonts\laundry7.png" />
+    <Content Include="styles\fonts\laundry7.svg" />
     <Content Include="styles\fonts\meteocons-stylesheet.css" />
     <Content Include="styles\fonts\meteocons-webfont.svg" />
+    <Content Include="styles\fonts\simple46.png" />
+    <Content Include="styles\fonts\simple46.svg" />
+    <Content Include="styles\fonts\thermometer4.png" />
+    <Content Include="styles\fonts\thermometer4.svg" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -411,6 +423,9 @@
     <Content Include="styles\fonts\meteocons-webfont.eot" />
     <Content Include="styles\fonts\meteocons-webfont.ttf" />
     <Content Include="styles\fonts\meteocons-webfont.woff" />
+    <Content Include="styles\fonts\flaticon.eot" />
+    <Content Include="styles\fonts\flaticon.ttf" />
+    <Content Include="styles\fonts\flaticon.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -434,10 +449,9 @@
     <TypeScriptCompile Include="js-libs\typings\d3\plugins\d3.superformula.d.ts" />
     <TypeScriptCompile Include="js-libs\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="js\app.ts" />
-    <TypeScriptCompile Include="js\controllers\comfortSettingsCtrl.ts" />
-    <TypeScriptCompile Include="js\controllers\heatPumpCtrl.ts" />
+    <TypeScriptCompile Include="js\controllers\heatPumpInputCtrl.ts" />
+    <TypeScriptCompile Include="js\controllers\flexOfferCtrl.ts" />
     <TypeScriptCompile Include="js\controllers\mainNavCtrl.ts" />
-    <TypeScriptCompile Include="js\controllers\temperatureCtrl.ts" />
     <TypeScriptCompile Include="js\directives\currentTimeDirective.ts" />
     <TypeScriptCompile Include="js\directives\flexOfferBarDirective.ts" />
     <TypeScriptCompile Include="js\directives\exampleBarDirective.ts" />

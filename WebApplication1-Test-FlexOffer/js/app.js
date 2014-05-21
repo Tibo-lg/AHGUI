@@ -16,12 +16,15 @@ angular.module('app').config([
         $routeProvider.when('/home', {
             templateUrl: 'partials/home.html'
         });
+        $routeProvider.when('/about', {
+            templateUrl: 'partials/about.html'
+        });
         $routeProvider.when('/washingmachine', {
             templateUrl: 'partials/washingmachine.html'
         });
         $routeProvider.when('/heatpump', {
             templateUrl: 'partials/heatpump.html',
-            controller: 'app.Controllers.FlexOfferCtrl'
+            controller: 'app.Controllers.HeatPumpInputCtrl'
         });
         $routeProvider.otherwise({
             redirectTo: '/home'

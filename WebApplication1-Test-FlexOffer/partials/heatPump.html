@@ -4,41 +4,71 @@
 
 <div class="container-fluid" style="margin-top: 20px;">
     <views>
-        <div class="row" data-ng-controller="app.Controllers.ComfortSettingsCtrl">
+        <div class="row" data-ng-controller="app.Controllers.FlexOfferCtrl">
             <!-- CURRENT GENERAL INFO DIV -->
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-3">
-                        <h2> Aalborg, Denmark </h2>
-                        <h3><span current-time="'EEEE H:mm'"></span></h3>
-                        <br/>
-                        <h3>
-                            <span style="font-size: 3em;" data-icon="{{suneffect}}"></span>
-                            <span style="color: black; font-size: 2.5em; font-family:arial,sans-serif; font-weight: normal; padding-left: 10px;">{{outtemp}}&deg|{{settemp}}&deg </span> + {{maxtemp-settemp}} - {{settemp-mintemp}}<br />
-                        </h3>
-                        <br/>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2> Aalborg, Denmark </h2>
+                                <h3><span current-time="'EEEE H:mm'"></span></h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <h3>
+                                    <span style="font-size: 3em;" data-icon="{{suneffect}}"></span>
+                                </h3>    
+                            </div>
+                            <div class="col-md-3">
+                                <div class="temp-wrapper">
+                                    <div class="temp-left-column">
+                                        <div>
+                                            <a class="ment-btn" data-ng-click="incrementOut()"><span class="glyphicon glyphicon-chevron-up"></span></a>
+                                        </div>
+                                        <div>
+                                            <a class="ment-btn" data-ng-click="decrementOut()"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                                        </div>
+                                    </div>
+                                    <div class="temp-right-column">
+                                        <div>{{ outtemp }}&deg</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                       
+                            
+                   
+                               
+                        <br />
                         <span class="lbl-gray">Max temperature:</span> <span class="lbl-black">{{maxtemp}}&deg</span>
                         <span class="lbl-gray">Min temperature:</span> <span class="lbl-black">{{mintemp}}&deg</span>
                     </div>
-                 
+
                     <div class="col-md-9">
                         <div class="col-md-8">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h2 style="text-align: center; color: #000000">Heat Pump Comfort Settings</h2>
+                                    <h2 style="text-align: center; color: #000000">Inside</h2>
                                 </div>
                             </div>
-                         
-                       
+
+                            <div class="row" style="text-align: center;">
+                                <div class="col-md-3">Max</div>
+                                <div class="col-md-6">Set</div>
+                                <div class="col-md-3">Min</div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="temp-wrapper">
                                         <div class="temp-left-column">
                                             <div>
-                                                <a class="ment-btn" ng-click="incrementMax()"><span class="glyphicon glyphicon-chevron-up"></span></a>
+                                                <a class="ment-btn" data-ng-click="incrementMax()"><span class="glyphicon glyphicon-chevron-up"></span></a>
                                             </div>
                                             <div>
-                                                <a class="ment-btn" ng-click="decrementMax()"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                                                <a class="ment-btn" data-ng-click="decrementMax()"><span class="glyphicon glyphicon-chevron-down"></span></a>
                                             </div>
                                         </div>
                                         <div class="temp-right-column">
@@ -50,10 +80,10 @@
                                     <div class="temp-wrapper">
                                         <div class="temp-left-column set">
                                             <div>
-                                                <a class="ment-btn" ng-click="incrementSet()"><span class="glyphicon glyphicon-chevron-up"></span></a>
+                                                <a class="ment-btn" data-ng-click="incrementSet()"><span class="glyphicon glyphicon-chevron-up"></span></a>
                                             </div>
                                             <div>
-                                                <a class="ment-btn" ng-click="decrementSet()"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                                                <a class="ment-btn" data-ng-click="decrementSet()"><span class="glyphicon glyphicon-chevron-down"></span></a>
                                             </div>
                                         </div>
                                         <div class="temp-right-column set">
@@ -65,10 +95,10 @@
                                     <div class="temp-wrapper">
                                         <div class="temp-left-column">
                                             <div>
-                                                <a class="ment-btn" ng-click="incrementMin()"><span class="glyphicon glyphicon-chevron-up"></span></a>
+                                                <a class="ment-btn" data-ng-click="incrementMin()"><span class="glyphicon glyphicon-chevron-up"></span></a>
                                             </div>
                                             <div>
-                                                <a class="ment-btn" ng-click="decrementMin()"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                                                <a class="ment-btn" data-ng-click="decrementMin()"><span class="glyphicon glyphicon-chevron-down"></span></a>
                                             </div>
                                         </div>
                                         <div class="temp-right-column">
@@ -77,51 +107,33 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" style="text-align: center;">
-                                <div class="col-md-3">Max</div>
-                                <div class="col-md-6">Set</div>
-                                <div class="col-md-3">Min</div>
-                            </div>
+
+
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a class="m-btn" style="min-width: 100%" view-target="flex" data-ng-click="generateFlexOffer()">
-                                        Get Flex Offer<span class="glyphicon glyphicon-share-alt"></span>
-                                    </a>
+                                    <h2 style="text-align: center; color: #000000">Outside</h2>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-8">
+
+                                    
+                                </div>
+                                <div class="col-md-4">
+                                    <h3>
+                                        <a data-ng-click="updateSunEffect('B')" style="font-size: 2.5em;" data-icon="B"></a>
+                                        <a class="ment-btn" data-ng-click="updateSunEffect('H')"><span data-icon="H"></span></a>
+                                        <a data-ng-click="updateSunEffect('N')" style="font-size: 2.5em;" data-icon="N"></a>
+                                    </h3>
+                                    <a class="ment-btn" ng-click="resetValues()"><span class="glyphicon glyphicon-refresh"></span></a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-12" style="text-align: center; color: black;">
-                                    <h2>External Settings</h2>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    Outside
-                                    <div class="temp-wrapper">
-                                        <div class="temp-left-column">
-                                            <div>
-                                                <a class="ment-btn" ng-click="incrementOut()"><span class="glyphicon glyphicon-chevron-up"></span></a>
-                                            </div>
-                                            <div>
-                                                <a class="ment-btn" ng-click="decrementOut()"><span class="glyphicon glyphicon-chevron-down"></span></a>
-                                            </div>
-                                        </div>
-                                        <div class="temp-right-column">
-                                            <div>{{ outtemp }}&deg</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                Sun Effect
-                                <h3>
-                                    <a data-ng-click="updateSunEffect('H')" style="font-size: 2.5em;" data-icon="H"></a>
-                                    <a data-ng-click="updateSunEffect('B')" style="font-size: 2.5em;" data-icon="B"></a>
-                                    <a data-ng-click="updateSunEffect('N')" style="font-size: 2.5em;" data-icon="N"></a>
-                                </h3>
-                            </div>
+
+
+
                             <div class="row">
                                 <a class="m-btn" view-target="flex" data-ng-click="generateFlexOffer()">
                                     Get Flex Offer<span class="glyphicon glyphicon-share-alt"></span>
@@ -153,9 +165,9 @@
                                 </view>
                                 <view name="flex"><div timeslices="timeslices" schedule="schedule" data-ng-bar></div></view>
                                 <view name="temp">
-                                    <div data-ng-controller="app.Controllers.TemperatureCtrl">
-                                        <div temperatures="temperatures" data-ng-tem></div>
-                                    </div>
+
+                                    <div temperatures="temperatures" data-ng-tem></div>
+
                                 </view>
                             </div>
                         </div>

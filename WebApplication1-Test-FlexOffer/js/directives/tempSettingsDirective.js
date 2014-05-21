@@ -1,5 +1,5 @@
 ﻿///
-/// Directives
+/// Directives - Obsolete as functionality is handled in the heatpumpinputctrl.
 /// -------------------------------------------------------------------------------------------------------------------
 /// <reference path='../_all.ts' />
 var app;
