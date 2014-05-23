@@ -7,6 +7,7 @@
 @colFlex: #64BE45;
 @colBlack: #000000;
 @colWhite: #ffffff;
+@colLightGreen: #B4DFA6;
 
 /* Nav Bar Colors*/
 @bgDefault: #004676;
@@ -146,7 +147,8 @@ h3 {
     font: 3.5em Segoe UI, Helvetica, Arial, sans-serif;
     padding-top: 50px;
     text-align: center;
-    padding-bottom: 50px;    cursor: pointer;
+    padding-bottom: 50px;
+    cursor: pointer;
     .setBackgroundOnHover(@colFlex)
 }
 /*-------------------------
@@ -260,10 +262,16 @@ h3 {
     cursor: pointer;
     outline: 0;
     border: 0;
-    min-width: 300px;
+    min-width: 100px;
+    width: auto;
     text-align: center;
     white-space: nowrap;
     vertical-align: inherit;
+}
+
+.m-btn.full {
+    width: 100%;
+    background-color: @colBlack;
 }
 
 .m-btn:hover, .m-btn:focus, .m-btn:active, .m-btn.active {

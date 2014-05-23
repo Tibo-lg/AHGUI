@@ -26,7 +26,7 @@
                 </div>
             </div> <!-- ./End Town & time info -->
             <!-- Inside info -->
-            <div class="col-sm-6">
+            <div class="col-sm-5">
                 <div class="row">
                     <div class="col-sm-12">
                         <h2 style="padding-bottom: 0;"> Heat Pump Settings </h2>
@@ -54,41 +54,42 @@
                 </div>
             </div> <!-- ./Inside info -->
             <!-- Controllers -->
-            <div class="col-sm-3" style="border: 1px solid black">
+            <div class="col-sm-4">
                 <div class="row" style="text-align: right">
                     <a class="ment-btn" ng-click="resetValues()" view-target="start"><span class="glyphicon glyphicon-refresh"></span></a>
                 </div>
 
-                    <div class="row" style="border: 1px solid black">
-                        <div class="col-sm-12">
-                            <a class="m-btn" view-target="flex" data-ng-click="generateFlexOffer()">
-                                Get Flex Offer <span class="glyphicon glyphicon-share-alt"></span>
-                            </a>
-                        </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <a class="m-btn full" view-target="flex" data-ng-click="generateFlexOffer()">
+                            Get Flex Offer <span class="glyphicon glyphicon-share-alt"></span>
+                        </a>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <!-- USER SETTINGS DIV   -->
+                    <div class="col-sm-12" data-ng-show="isFlexOfferGenerated">
+                        <a class="m-btn" view-target="flex">Flex Offer</a>
+                        <a class="m-btn" view-target="temp">Temperature</a>
+                        <a class="m-btn" view-target="schedule">Schedule</a>
                     </div>
 
-                    
-
-                        <div class="row">
-                            <!-- USER SETTINGS DIV   -->
-                            <div class="col-sm-12">
-                                <a class="m-btn" view-target="flex">Flex Offer</a>
-                                <a class="m-btn" view-target="temp">Temperature</a>
-                            </div>
-                        </div>
+                </div>
 
 
-       
-                </div>  <!-- ./Controllers -->
+
+            </div>  <!-- ./Controllers -->
         </div> <!-- ./Row info -->
         <!-- Graphs -->
         <div class="row">
             <div class="col-sm-12" style="height: 500px">
                 <view name="start" initial>
                     <a class="flexofferbutton" view-target="flex" data-ng-click="generateFlexOffer()">
-                        Get Flex Offer <br/> <span style="font-size: 6em;" class="glyphicon glyphicon-stats"></span>
+                        Get Flex Offer <br /> <span style="font-size: 6em;" class="glyphicon glyphicon-stats"></span>
                     </a>
-
                 </view>
                 <view name="flex">
                     <div style="height: 100px;">
@@ -96,7 +97,13 @@
                     </div>
                     <div timeslices="timeslices" schedule="schedule" data-ng-bar></div>
                 </view>
-                <view name="temp"><div temperatures="temperatures" data-ng-tem></div></view>
+                <view name="temp">
+                    <div style="height: 100px;">
+                        <h1>Flex Offer Id: {{flexOffer.id}} Max temperature: Min temperature:</h1>
+                    </div>
+                    <div temperatures="temperatures" data-ng-tem></div>
+                </view>
+                <view name="schedule"><div timeslices="timeslices" schedule="schedule" data-ng-bar></div></view>
             </div>
         </div><!-- ./Graphs -->
 

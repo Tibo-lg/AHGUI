@@ -460,7 +460,6 @@
     <TypeScriptCompile Include="js-libs\typings\d3\plugins\d3.superformula.d.ts" />
     <TypeScriptCompile Include="js-libs\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="js\app.ts" />
-    <TypeScriptCompile Include="js\controllers\heatPumpInputCtrl.ts" />
     <TypeScriptCompile Include="js\controllers\flexOfferCtrl.ts" />
     <TypeScriptCompile Include="js\controllers\mainNavCtrl.ts" />
     <TypeScriptCompile Include="js\directives\currentTimeDirective.ts" />
