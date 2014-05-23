@@ -5,14 +5,12 @@
 //################## Controllers ###################
 /// <reference path='controllers/mainNavCtrl.ts' />
 /// <reference path='controllers/flexOfferCtrl.ts' />
-/// <reference path='controllers/heatPumpInputCtrl.ts' />
 //################## Directives ###################
 /// <reference path='directives/viewDirective.ts' />
 /// <reference path='directives/flexOfferBarDirective.ts' />
 /// <reference path='directives/temperaturBarDirective.ts' />
 /// <reference path='directives/currentTimeDirective.ts' />
 /// <reference path='directives/degreeInputDirective.ts' />
-/// <reference path='directives/sunPopoverDirective.ts' />
 //################# App ###########################
 /// <reference path='app.ts' />
 //# sourceMappingURL=_all.js.map

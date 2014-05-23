@@ -54,9 +54,9 @@ module app.Controllers {
         }
 
         public incrementMin() {
-            if (this.scope.mintemp === this.scope.settemp) {
+            /*if (this.scope.mintemp === this.scope.settemp) {
                 this.scope.settemp++;
-            }
+            }*/
             if (this.scope.mintemp === this.scope.maxtemp) {
                 this.scope.maxtemp++;
             }
@@ -68,9 +68,9 @@ module app.Controllers {
         }
 
         public decrementMax() {
-            if (this.scope.maxtemp === this.scope.settemp) {
+            /*if (this.scope.maxtemp === this.scope.settemp) {
                 this.scope.settemp--;
-            }
+            }*/
             if (this.scope.maxtemp === this.scope.mintemp) {
                 this.scope.mintemp--;
             }

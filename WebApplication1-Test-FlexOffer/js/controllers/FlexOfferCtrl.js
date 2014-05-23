@@ -6,18 +6,122 @@ var app;
             function FlexOfferCtrl($scope) {
                 var _this = this;
                 this.scope = $scope;
+                this.scope.isFlexOfferGenerated = false;
+
+                /* Fetch Heat Pump Data*/
+                this.getHPParam();
+
+                /* Define Scope Functions */
+                this.scope.updateSunEffect = function (value) {
+                    _this.updateSunEffect(value);
+                };
+                this.scope.resetValues = function () {
+                    _this.resetValues();
+                };
+                this.scope.incrementMin = function () {
+                    _this.incrementMin();
+                };
+                this.scope.decrementMin = function () {
+                    _this.decrementMin();
+                };
+                this.scope.decrementMax = function () {
+                    _this.decrementMax();
+                };
+                this.scope.incrementMax = function () {
+                    _this.incrementMax();
+                };
+                this.scope.decrementSet = function () {
+                    _this.decrementSet();
+                };
+                this.scope.incrementSet = function () {
+                    _this.incrementSet();
+                };
+                this.scope.decrementOut = function () {
+                    _this.decrementOut();
+                };
+                this.scope.incrementOut = function () {
+                    _this.incrementOut();
+                };
 
                 /* Generates a FlexOffer + data for showing flexoffer, temperature and schedule*/
                 this.scope.generateFlexOffer = function () {
                     _this.generateFlexOffer();
                 };
             }
+            FlexOfferCtrl.prototype.updateSunEffect = function (value) {
+                console.debug(value);
+                this.scope.suneffect = value;
+            };
+
+            FlexOfferCtrl.prototype.resetValues = function () {
+                this.scope.isFlexOfferGenerated = false;
+                this.getHPParam();
+            };
+
+            FlexOfferCtrl.prototype.incrementMin = function () {
+                /*if (this.scope.mintemp === this.scope.settemp) {
+                this.scope.settemp++;
+                }*/
+                if (this.scope.mintemp === this.scope.maxtemp) {
+                    this.scope.maxtemp++;
+                }
+                this.scope.mintemp++;
+            };
+
+            FlexOfferCtrl.prototype.decrementMin = function () {
+                this.scope.mintemp--;
+            };
+
+            FlexOfferCtrl.prototype.decrementMax = function () {
+                /*if (this.scope.maxtemp === this.scope.settemp) {
+                this.scope.settemp--;
+                }*/
+                if (this.scope.maxtemp === this.scope.mintemp) {
+                    this.scope.mintemp--;
+                }
+                this.scope.maxtemp--;
+            };
+
+            FlexOfferCtrl.prototype.incrementMax = function () {
+                this.scope.maxtemp++;
+            };
+
+            FlexOfferCtrl.prototype.decrementSet = function () {
+                if (this.scope.settemp === this.scope.mintemp) {
+                    this.scope.mintemp--;
+                }
+                this.scope.settemp--;
+            };
+
+            FlexOfferCtrl.prototype.incrementSet = function () {
+                if (this.scope.settemp === this.scope.maxtemp) {
+                    this.scope.maxtemp++;
+                }
+                this.scope.settemp++;
+            };
+
+            FlexOfferCtrl.prototype.decrementOut = function () {
+                this.scope.outtemp--;
+            };
+
+            FlexOfferCtrl.prototype.incrementOut = function () {
+                this.scope.outtemp++;
+            };
+            FlexOfferCtrl.prototype.getHPParam = function () {
+                this.scope.settemp = 20;
+                this.scope.maxtemp = 23;
+                this.scope.mintemp = 18;
+                this.scope.outtemp = 14;
+                this.scope.suneffect = 'N';
+            };
+
             FlexOfferCtrl.prototype.generateFlexOffer = function () {
                 console.debug("Generate Flex Offer");
                 this.scope.flexOffer = this.fetchFlexOffers();
                 this.scope.timeslices = this.scope.flexOffer.timeslices;
                 this.scope.temperatures = this.fetchTemperatures();
                 this.scope.schedule = this.fetchSchedule();
+                this.scope.isFlexOfferGenerated = true;
             };
             FlexOfferCtrl.prototype.fetchFlexOffers = function () {
                 var rtn;
@@ -377,6 +481,7 @@ var app;
 
                 return rtn;
             };
+            FlexOfferCtrl.$inject = ['$scope'];
             return FlexOfferCtrl;
         })();
         Controllers.FlexOfferCtrl = FlexOfferCtrl;

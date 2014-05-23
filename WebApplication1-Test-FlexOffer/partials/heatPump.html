@@ -4,102 +4,186 @@
 
 <div class="container-fluid" style="margin-top: 20px;">
     <views>
-        <div class="row" data-ng-controller="app.Controllers.FlexOfferCtrl">
+        <div class="row">
             <!-- Info & Views -->
-            <div class="col-sm-9">
-                <div class="row">
-                    <!-- Town & time & outside info -->
-                    <div class="col-sm-4">
+            <!-- Town & time & outside info -->
+            <div class="col-sm-3">
 
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h2> Aalborg, Denmark </h2>
-                                <h3><span current-time="'EEEE H:mm'"></span></h3>
-                            </div>
-                        </div>
-
-                        <div class="row" style="padding: 10px 0;">
-                            <div class=" col-sm-4">
-                                <span class="sun-effect" data-icon="{{suneffect}}" title="Please Choose A Sun Effect" data-template="/partials/sunInput.html" data-animation="am-flip-x" data-placement="right" data-trigger="click" bs-popover></span>
-                            </div>
-                            <div class="col-sm-8">
-                                <degree-input style="font-size: 1.3em;" data-ng-model="outtemp" on-increment="incrementOut()" on-decrement="decrementOut()"></degree-input>
-                            </div>
-                        </div>
-                    </div> <!-- ./End Town & time info -->
-                    <!-- Inside info -->
-                    <div class="col-sm-6">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h2 style="padding-bottom: 25px;"> Heat Pump Settings </h2>
-                            </div>
-                        </div>
-
-                        <div class="row" >
-                            <div class="col-sm-3">
-                                <i class="flaticon-heating1 sun-effect"></i>
-                            </div>
-                            <div class="col-sm-9">
-                                <div class="row">
-                                    <div class="col-sm-12" style="padding: 0;">
-                                        <span class="lbl-gray">Max temperature:</span> <span class="lbl-black">{{maxtemp}}&deg</span>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-12" style="padding: 0;">
-                                        <span class="lbl-gray">Min temperature:</span> <span class="lbl-black">{{mintemp}}&deg</span>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div> <!-- ./Inside info -->
-                </div> <!-- ./Row info -->
-                <!-- Graphs -->
                 <div class="row">
                     <div class="col-sm-12">
-                        <view name="settings" initial> HEAT PUMP</view>
-                        <view name="flex"><div timeslices="timeslices" schedule="schedule" data-ng-bar></div></view>
-                        <view name="temp"><div temperatures="temperatures" data-ng-tem></div></view>
+                        <h2> Aalborg, Denmark </h2>
+                        <h3><span current-time="'EEEE H:mm'"></span></h3>
                     </div>
-                </div><!-- ./Graphs -->
-            </div>  <!-- ./Info & Views -->
+                </div>
+
+                <div class="row" style="padding: 10px 0;">
+                    <div class=" col-sm-4">
+                        <span class="sun-effect" data-icon="{{suneffect}}" title="Please Choose A Sun Effect" data-template="/partials/sunInput.html" data-animation="am-flip-x" data-placement="right" data-trigger="click" bs-popover></span>
+                    </div>
+                    <div class="col-sm-8">
+                        <degree-input style="font-size: 1.3em;" data-ng-model="outtemp" on-increment="incrementOut()" on-decrement="decrementOut()"></degree-input>
+                    </div>
+                </div>
+            </div> <!-- ./End Town & time info -->
+            <!-- Inside info -->
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2 style="padding-bottom: 0;"> Heat Pump Settings </h2>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-2">
+                        <i class="flaticon-heating1 sun-effect" style="line-height: 150%" title="Please Choose A Sun Effect" data-template="/partials/heatPumpInput.html" data-animation="am-flip-x" data-placement="bottom" data-trigger="click" bs-popover></i>
+                    </div>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-sm-12" style="padding: 0;">
+                                <span class="lbl-gray">Max temperature:</span> <span class="lbl-black"><degree-input style="font-size: 1.3em;" data-ng-model="maxtemp" on-increment="incrementMax()" on-decrement="decrementMax()"></degree-input></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12" style="padding: 0;">
+                                <span class="lbl-gray">Min temperature:</span> <span class="lbl-black"><degree-input style="font-size: 1.3em;" data-ng-model="mintemp" on-increment="incrementMin()" on-decrement="decrementMin()"></degree-input></span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- ./Inside info -->
             <!-- Controllers -->
             <div class="col-sm-3" style="border: 1px solid black">
-                <div class="row" style="border: 1px solid black">
+                <div class="row" style="text-align: right">
+                    <a class="ment-btn" ng-click="resetValues()" view-target="start"><span class="glyphicon glyphicon-refresh"></span></a>
+                </div>
+
+                    <div class="row" style="border: 1px solid black">
+                        <div class="col-sm-12">
+                            <a class="m-btn" view-target="flex" data-ng-click="generateFlexOffer()">
+                                Get Flex Offer <span class="glyphicon glyphicon-share-alt"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    
+
+                        <div class="row">
+                            <!-- USER SETTINGS DIV   -->
+                            <div class="col-sm-12">
+                                <a class="m-btn" view-target="flex">Flex Offer</a>
+                                <a class="m-btn" view-target="temp">Temperature</a>
+                            </div>
+                        </div>
+
+
+       
+                </div>  <!-- ./Controllers -->
+        </div> <!-- ./Row info -->
+        <!-- Graphs -->
+        <div class="row">
+            <div class="col-sm-12" style="height: 500px">
+                <view name="start" initial>
+                    <a class="flexofferbutton" view-target="flex" data-ng-click="generateFlexOffer()">
+                        Get Flex Offer <br/> <span style="font-size: 6em;" class="glyphicon glyphicon-stats"></span>
+                    </a>
+
+                </view>
+                <view name="flex">
+                    <div style="height: 100px;">
+                        <h1>Flex Offer Id: {{flexOffer.id}} Max consumption: Min consumption:</h1>
+                    </div>
+                    <div timeslices="timeslices" schedule="schedule" data-ng-bar></div>
+                </view>
+                <view name="temp"><div temperatures="temperatures" data-ng-tem></div></view>
+            </div>
+        </div><!-- ./Graphs -->
+
+    </views>
+</div>
+<!-- ***************************** OLD STUFF *****************************************
+
+<div class="col-sm-12">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2> Aalborg, Denmark </h2>
+                    <h3><span current-time="'EEEE H:mm'"></span></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3" style="text-align: right">
+                    <h3>
+                        <span style="font-size: 3em;" data-icon="{{suneffect}}"></span>
+                    </h3>
+                </div>
+                <div class="col-sm-6">
+                    <div class="temp-wrapper">
+                        <div class="temp-left-column">
+                            <div>
+                                <a class="ment-btn" data-ng-click="incrementOut()"><span class="glyphicon glyphicon-chevron-up"></span></a>
+                            </div>
+                            <div>
+                                <a class="ment-btn" data-ng-click="decrementOut()"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                            </div>
+                        </div>
+                        <div class="temp-right-column">
+                            <div>{{ outtemp }}&deg</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3" style="text-align: right">
+                    <h3>
+                        <i style="font-size: 3em;" class="flaticon-heating1"></i>
+                    </h3>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+
+                        <div class="col-sm-6 temp" style="text-align: right; padding: 0;">{{ settemp }}&deg</div>
+                        <div class="col-sm-6">
+                            <div class="row">
+
+                                <div class="col-sm-12" style="font-size: 1.5em; padding: 0;">+ {{ maxtemp - settemp }}&deg</div>
+
+                            </div>
+                            <div class="row">
+
+                                <div class="col-sm-12" style="font-size: 1.5em;padding: 0;">- {{ settemp - mintemp }}&deg</div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+        <div class="col-sm-9">
+            <div class="col-sm-8">
+                <div class="row">
                     <div class="col-sm-12">
-                        <span class="lbl-gray">Max temperature:</span> <span class="lbl-black">{{maxtemp}}&deg</span>
+                        <h2 style="text-align: center; color: #000000">Inside</h2>
                     </div>
                 </div>
 
-
-                <div class="row" style="border: 1px solid black">
-                    <div class="col-sm-12">
-                        <span class="lbl-gray">Min temperature:</span> <span class="lbl-black">{{mintemp}}&deg</span>
-                    </div>
+                <div class="row" style="text-align: center;">
+                    <div class="col-sm-3">Max</div>
+                    <div class="col-sm-6">Set</div>
+                    <div class="col-sm-3">Min</div>
                 </div>
-
-                <div class="row" style="border: 1px solid black">
-                    <div class="col-sm-12">
-                        <h3>
-                            <a data-ng-click="updateSunEffect('B')" style="font-size: 2.5em;" data-icon="B"></a>
-                            <a data-ng-click="updateSunEffect('H')" style="font-size: 2.5em;"><span data-icon="H"></span></a>
-                            <a data-ng-click="updateSunEffect('N')" style="font-size: 2.5em;" data-icon="N"></a>
-                        </h3>
-                        <a class="ment-btn" ng-click="resetValues()"><span class="glyphicon glyphicon-refresh"></span></a>
-                    </div>
-                </div>
-
-                <div class="row" style="border: 1px solid black">
-                    <div class="col-sm-12">
-                        <a class="m-btn" view-target="flex" data-ng-click="generateFlexOffer()">
-                            Get Flex Offer <span class="glyphicon glyphicon-share-alt"></span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="row" style="border: 1px solid black">
+                <div class="row">
                     <div class="col-sm-3">
                         <div class="temp-wrapper">
                             <div class="temp-left-column">
@@ -115,7 +199,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-sm-6">
                         <div class="temp-wrapper">
                             <div class="temp-left-column set">
@@ -146,213 +229,70 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="row">
-                        <!-- USER SETTINGS DIV   -->
-                        <div class="col-sm-12">
-                            <a class="m-btn" view-target="settings">Settings</a>
-                            <a class="m-btn" view-target="flex">Flex Offer</a>
-                            <a class="m-btn" view-target="temp">Temperature</a>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>  <!-- ./Controllers -->
-            <!-- ***************************** OLD STUFF *****************************************
-
-            <div class="col-sm-12">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h2> Aalborg, Denmark </h2>
-                                <h3><span current-time="'EEEE H:mm'"></span></h3>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-3" style="text-align: right">
-                                <h3>
-                                    <span style="font-size: 3em;" data-icon="{{suneffect}}"></span>
-                                </h3>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="temp-wrapper">
-                                    <div class="temp-left-column">
-                                        <div>
-                                            <a class="ment-btn" data-ng-click="incrementOut()"><span class="glyphicon glyphicon-chevron-up"></span></a>
-                                        </div>
-                                        <div>
-                                            <a class="ment-btn" data-ng-click="decrementOut()"><span class="glyphicon glyphicon-chevron-down"></span></a>
-                                        </div>
-                                    </div>
-                                    <div class="temp-right-column">
-                                        <div>{{ outtemp }}&deg</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-3" style="text-align: right">
-                                <h3>
-                                    <i style="font-size: 3em;" class="flaticon-heating1"></i>
-                                </h3>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="row">
-
-                                    <div class="col-sm-6 temp" style="text-align: right; padding: 0;">{{ settemp }}&deg</div>
-                                    <div class="col-sm-6">
-                                        <div class="row">
-
-                                            <div class="col-sm-12" style="font-size: 1.5em; padding: 0;">+ {{ maxtemp - settemp }}&deg</div>
-
-                                        </div>
-                                        <div class="row">
-
-                                            <div class="col-sm-12" style="font-size: 1.5em;padding: 0;">- {{ settemp - mintemp }}&deg</div>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-
-
-                            </div>
-                        </div>
-
-
-
-
-                    </div>
-
-                    <div class="col-sm-9">
-                        <div class="col-sm-8">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <h2 style="text-align: center; color: #000000">Inside</h2>
-                                </div>
-                            </div>
-
-                            <div class="row" style="text-align: center;">
-                                <div class="col-sm-3">Max</div>
-                                <div class="col-sm-6">Set</div>
-                                <div class="col-sm-3">Min</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <div class="temp-wrapper">
-                                        <div class="temp-left-column">
-                                            <div>
-                                                <a class="ment-btn" data-ng-click="incrementMax()"><span class="glyphicon glyphicon-chevron-up"></span></a>
-                                            </div>
-                                            <div>
-                                                <a class="ment-btn" data-ng-click="decrementMax()"><span class="glyphicon glyphicon-chevron-down"></span></a>
-                                            </div>
-                                        </div>
-                                        <div class="temp-right-column">
-                                            <div>{{ maxtemp }}&deg</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="temp-wrapper">
-                                        <div class="temp-left-column set">
-                                            <div>
-                                                <a class="ment-btn" data-ng-click="incrementSet()"><span class="glyphicon glyphicon-chevron-up"></span></a>
-                                            </div>
-                                            <div>
-                                                <a class="ment-btn" data-ng-click="decrementSet()"><span class="glyphicon glyphicon-chevron-down"></span></a>
-                                            </div>
-                                        </div>
-                                        <div class="temp-right-column set">
-                                            <div>{{ settemp }}&deg</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="temp-wrapper">
-                                        <div class="temp-left-column">
-                                            <div>
-                                                <a class="ment-btn" data-ng-click="incrementMin()"><span class="glyphicon glyphicon-chevron-up"></span></a>
-                                            </div>
-                                            <div>
-                                                <a class="ment-btn" data-ng-click="decrementMin()"><span class="glyphicon glyphicon-chevron-down"></span></a>
-                                            </div>
-                                        </div>
-                                        <div class="temp-right-column">
-                                            <div>{{ mintemp }}&deg</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <h2 style="text-align: center; color: #000000">Outside</h2>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-8">
-
-
-                                </div>
-                                <div class="col-sm-4">
-                                    <h3>
-                                        <a data-ng-click="updateSunEffect('B')" style="font-size: 2.5em;" data-icon="B"></a>
-                                        <a class="ment-btn" data-ng-click="updateSunEffect('H')"><span data-icon="H"></span></a>
-                                        <a data-ng-click="updateSunEffect('N')" style="font-size: 2.5em;" data-icon="N"></a>
-                                    </h3>
-                                    <a class="ment-btn" ng-click="resetValues()"><span class="glyphicon glyphicon-refresh"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-
-
-
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <a class="m-btn" view-target="flex" data-ng-click="generateFlexOffer()">
-                                        Get Flex Offer <span class="glyphicon glyphicon-share-alt"></span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="row">
-
-                            <div class="col-sm-12">
-                                <a class="m-btn" view-target="settings">Settings</a>
-                                <a class="m-btn" view-target="flex">Flex Offer</a>
-                                <a class="m-btn" view-target="temp">Temperature</a>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <view name="settings" initial>
-
-                                    HEAT PUMP
-                                </view>
-                                <view name="flex"><div timeslices="timeslices" schedule="schedule" data-ng-bar></div></view>
-                                <view name="temp">
-
-                                    <div temperatures="temperatures" data-ng-tem></div>
-
-                                </view>
-                            </div>
-                        </div>
+                        <h2 style="text-align: center; color: #000000">Outside</h2>
                     </div>
                 </div>
-            </div>-->
+
+                <div class="row">
+                    <div class="col-sm-8">
+
+
+                    </div>
+                    <div class="col-sm-4">
+                        <h3>
+                            <a data-ng-click="updateSunEffect('B')" style="font-size: 2.5em;" data-icon="B"></a>
+                            <a class="ment-btn" data-ng-click="updateSunEffect('H')"><span data-icon="H"></span></a>
+                            <a data-ng-click="updateSunEffect('N')" style="font-size: 2.5em;" data-icon="N"></a>
+                        </h3>
+                        <a class="ment-btn" ng-click="resetValues()"><span class="glyphicon glyphicon-refresh"></span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+
+
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <a class="m-btn" view-target="flex" data-ng-click="generateFlexOffer()">
+                            Get Flex Offer <span class="glyphicon glyphicon-share-alt"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-    </views>
-</div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <a class="m-btn" view-target="settings">Settings</a>
+                    <a class="m-btn" view-target="flex">Flex Offer</a>
+                    <a class="m-btn" view-target="temp">Temperature</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <view name="settings" initial>
+
+                        HEAT PUMP
+                    </view>
+                    <view name="flex"><div timeslices="timeslices" schedule="schedule" data-ng-bar></div></view>
+                    <view name="temp">
+
+                        <div temperatures="temperatures" data-ng-tem></div>
+
+                    </view>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->

@@ -467,7 +467,6 @@
     <TypeScriptCompile Include="js\directives\flexOfferBarDirective.ts" />
     <TypeScriptCompile Include="js\directives\exampleBarDirective.ts" />
     <TypeScriptCompile Include="js\directives\plusMinusButtonDirective.ts" />
-    <TypeScriptCompile Include="js\directives\sunPopoverDirective.ts" />
     <TypeScriptCompile Include="js\directives\temperaturBarDirective.ts" />
     <TypeScriptCompile Include="js\directives\degreeInputDirective.ts" />
     <TypeScriptCompile Include="js\directives\viewDirective.ts" />

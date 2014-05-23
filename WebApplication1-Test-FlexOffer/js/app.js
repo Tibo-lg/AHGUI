@@ -26,7 +26,7 @@ angular.module('app').config([
         });
         $routeProvider.when('/heatpump', {
             templateUrl: 'partials/heatpump.html',
-            controller: 'app.Controllers.HeatPumpInputCtrl'
+            controller: 'app.Controllers.FlexOfferCtrl'
         });
         $routeProvider.otherwise({
             redirectTo: '/home'
