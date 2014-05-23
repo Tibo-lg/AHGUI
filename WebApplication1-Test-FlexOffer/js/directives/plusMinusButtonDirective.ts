@@ -1,24 +1,25 @@
 ﻿/// 
-/// Directives - Obsolete as functionality is handled in the heatpumpinputctrl.  
+/// Directives - Generic Button not currently used  
 /// -------------------------------------------------------------------------------------------------------------------
 /// <reference path='../_all.ts' />
 
 module app.Directives {
     'use strict';
-    interface ItempSettingsScope extends ng.IScope {
+    interface genericButtonScope extends ng.IScope {
         value: number;
         increment: Function;
         decrement: Function;
     }
 
-    export function tempSettings(): ng.IDirective {
+    export function genericButton(): ng.IDirective {
         return {
-            restrict: 'A',
+            restrict: 'E',
+            transclude: true,
             scope: {
-                value: '=ngModel'
+                value: '=ngModel',
             },
-            templateUrl: '../../partials/tempSettings.html',
-            link: function (scope: ItempSettingsScope, iElement, iAttrs) {
+            templateUrl: '../../partials/degreeInput.html',
+            link: function (scope: genericButtonScope, iElement, iAttrs) {
                 var min, max;
 
                 min = iAttrs.min;
@@ -35,8 +36,8 @@ module app.Directives {
                         scope.value--;
                     }
                 }
-        }
+            }
         };
     }
 }
-app.registerDirective('tempSettings');    
+app.registerDirective('genericButton');     

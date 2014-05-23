@@ -8,6 +8,8 @@ var modules = ['app.Controllers', 'app.Directives'];
 modules.forEach(function (module) { angular.module(module, []); });
 modules.push('ngRoute');
 modules.push('ngAnimate');
+modules.push('ngSanitize');
+modules.push('mgcrea.ngStrap');
 angular.module('app', modules);
 
 angular.module('app').config(['$routeProvider',

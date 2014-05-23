@@ -13,7 +13,8 @@
 /// <reference path='directives/flexOfferBarDirective.ts' />
 /// <reference path='directives/temperaturBarDirective.ts' />
 /// <reference path='directives/currentTimeDirective.ts' />
-/// <reference path='directives/tempSettingsDirective.ts' />
+/// <reference path='directives/degreeInputDirective.ts' />
+/// <reference path='directives/sunPopoverDirective.ts' />
 
 
 //################# App ###########################

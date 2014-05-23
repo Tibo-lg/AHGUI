@@ -13,32 +13,31 @@ body {
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\0000329}}
 h1 {
-  color: #878787;
+  color: #333333;
   font-size: 2.1em;
   margin: 0;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\0000335}}
 h2 {
-  color: #878787;
+  color: #333333;
   font-size: 1.6em;
   margin: 0;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\0000341}}
 h3 {
-  color: #878787;
+  color: #333333;
   font-size: 1.3em;
   margin: 0;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\0000347}}
 .lbl-gray {
-  color: #878787;
+  color: #333333;
   display: block;
+  line-height: 200%;
   float: left;
   text-align: left;
-  padding: 0 10px;
-  width: 160px;
-  font-weight: bold;
-  font-size: 1.1em;
+  padding: 0;
+  font-size: 1.4em;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\0000358}}
 .lbl-black {
@@ -46,18 +45,26 @@ h3 {
   display: block;
   float: left;
   text-align: left;
-  font-weight: bold;
-  font-size: 1.2em;
+  font-size: 2.5em;
+  font-family: arial, sans-serif;
+  padding-left: 5px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\0000368}}
+.sign {
+  width: 20px;
+  display: block;
+  float: left;
+  text-align: left;
 }
 /*-------------------------
 	Front Bottons
 --------------------------*/
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\0000386}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\0000393}}
 .homebutton {
   padding: 0;
   margin-top: 50px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\0000390}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\0000397}}
 .homebutton > a {
   display: block;
   height: 100%;
@@ -69,22 +76,22 @@ h3 {
   padding-top: 50px;
   text-align: center;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003101}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003108}}
 .homebutton > a > img {
   padding-top: 20px;
   padding-bottom: 50px;
   -webkit-filter: invert(100%);
   filter: invert(100%);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003110}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003117}}
 .homebutton.WM {
   background: #008000;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\0000374}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\0000381}}
 .homebutton.WM > a {
   outline: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\0000377}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\0000384}}
 .homebutton.WM > a:hover,
 .homebutton.WM > a:focus {
   color: #ffffff;
@@ -92,15 +99,15 @@ h3 {
   outline: none;
   background: #004d00;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003114}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003121}}
 .homebutton.HP {
   background: #004676;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\0000374}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\0000381}}
 .homebutton.HP > a {
   outline: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\0000377}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\0000384}}
 .homebutton.HP > a:hover,
 .homebutton.HP > a:focus {
   color: #ffffff;
@@ -109,24 +116,43 @@ h3 {
   background: #002843;
 }
 /*-------------------------
+	Sun Effect 
+-------------------------*/
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003128}}
+.sun-effect {
+  font-size: 6em;
+  padding: 0;
+  margin: 0;
+  line-height: 100%;
+  color: #333333;
+  cursor: pointer;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003136}}
+.sun-effect:hover,
+.sun-effect:focus {
+  text-decoration: none;
+  outline: none;
+  color: #666666;
+}
+/*-------------------------
 	Temperature setting 
 -------------------------*/
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003120}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003145}}
 .temp-wrapper {
   width: 100%;
   height: 100%;
   margin: 0 auto;
   padding: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003127}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003152}}
 .temp-left-column,
 .temp-right-column {
   float: left;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003131}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003156}}
 .temp-left-column {
-  width: 30%;
   height: inherit;
+  width: 20%;
   display: table-cell;
   vertical-align: middle;
   text-align: right;
@@ -135,35 +161,43 @@ h3 {
   margin: 0;
   padding-right: 5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003144}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003169}}
 .temp-right-column {
-  width: 70%;
   height: inherit;
+  width: 80%;
   display: table-cell;
   vertical-align: middle;
+  font-size: 4.0em;
+  padding: 0;
+  line-height: 110%;
+  font-family: arial, sans-serif;
+  color: #000000;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003182}}
+.temp-left-column.set {
+  font-size: 3.0em;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003187}}
+.temp-right-column.set {
+  font-size: 7.0em;
+  line-height: 100%;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003193}}
+.temp {
   font-size: 4.0em;
   padding-left: 5px;
   line-height: 110%;
   font-family: arial, sans-serif;
   color: #000000;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003157}}
-.temp-left-column.set {
-  font-size: 3.0em;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003162}}
-.temp-right-column.set {
-  font-size: 7.0em;
-  line-height: 100%;
-}
 /*-------------------------
 	Decrement/increment Buttons
 -------------------------*/
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003170}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003203}}
 .ment-btn {
   cursor: pointer;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003173}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003206}}
 .ment-btn > a {
   display: block;
   height: 100%;
@@ -171,7 +205,7 @@ h3 {
   min-width: inherit;
   outline: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003180}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003213}}
 .ment-btn > a:hover,
 .ment-btn > a:focus {
   text-decoration: none;
@@ -180,7 +214,7 @@ h3 {
 /*-------------------------
 	Flat metro style Buttons
 -------------------------*/
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003189}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003222}}
 .m-btn {
   color: #ffffff;
   text-decoration: none;
@@ -199,7 +233,7 @@ h3 {
   white-space: nowrap;
   vertical-align: inherit;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003208}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003241}}
 .m-btn:hover,
 .m-btn:focus,
 .m-btn:active,
@@ -209,7 +243,7 @@ h3 {
   background: #509a36;
   outline: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003217}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003250}}
 [data-icon]:before {
   font-family: 'MeteoconsRegular';
   content: attr(data-icon);
@@ -217,7 +251,7 @@ h3 {
 /*-------------------------
 	Charts
 --------------------------*/
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003225}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003258}}
 .axis path,
 .axis line {
   fill: none;
@@ -225,26 +259,26 @@ h3 {
   stroke-width: 1px;
   shape-rendering: crispEdges;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003233}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003266}}
 .x.axis path {
   display: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003237}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003270}}
 .axis text {
   fill: black;
   font: 12px sans-serif;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003242}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003275}}
 .line {
   fill: none;
   stroke: yellowgreen;
   stroke-width: 5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003248}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003281}}
 .area {
   fill: #FFF5CC;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003252}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003285}}
 .temp.line {
   fill: none;
   stroke: #FFE990;
@@ -262,61 +296,61 @@ view {
   width:500px;
   text-align: right;
 }*/
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003271}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003304}}
 view.view-hide {
   display: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003275}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003308}}
 view.view-hide-remove,
 view.view-hide-add {
   display: block !important;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003279}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003312}}
 view.view-hide-add {
   animation: .0s hide;
   -webkit-animation: .0s hide;
 }
 @keyframes hide {
-  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003285}}
+  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003318}}
   from {
     opacity: 1;
   }
-  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003289}}
+  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003322}}
   to {
     opacity: 0;
   }
 }
 @-webkit-keyframes hide {
-  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003295}}
+  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003328}}
   from {
     opacity: 1;
   }
-  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003299}}
+  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003332}}
   to {
     opacity: 0;
   }
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003304}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003337}}
 view.view-hide-remove {
   animation: .0s show;
   -webkit-animation: .0s show;
 }
 @keyframes show {
-  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003310}}
+  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003343}}
   from {
     opacity: 0;
   }
-  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003314}}
+  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003347}}
   to {
     opacity: 1;
   }
 }
 @-webkit-keyframes show {
-  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003320}}
+  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003353}}
   from {
     opacity: 0;
   }
-  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003324}}
+  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003357}}
   to {
     opacity: 1;
   }
@@ -324,39 +358,39 @@ view.view-hide-remove {
 /*-------------------------
 	NavBar
 --------------------------*/
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003333}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003366}}
 .navbar-default {
   background-color: #004676;
   border-color: #007499;
   outline: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003338}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003371}}
 .navbar-default .navbar-brand {
   color: #ffffff;
   outline: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003342}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003375}}
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
   color: #ffffff;
   outline: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003348}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003381}}
 .navbar-default .navbar-text {
   color: #ffffff;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003354}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003387}}
 .navbar-default .navbar-nav > li > a {
   color: #ffffff;
   outline: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003358}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003391}}
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
   outline: 0;
   color: #ffffff;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003366}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003399}}
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
@@ -364,7 +398,7 @@ view.view-hide-remove {
   color: #ffffff;
   background-color: #007499;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003374}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003407}}
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
@@ -372,51 +406,51 @@ view.view-hide-remove {
   background-color: #007499;
   outline: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003382}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003415}}
 .navbar-default .navbar-toggle {
   border-color: #007499;
   outline: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003386}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003419}}
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
   background-color: #007499;
   outline: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003391}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003424}}
 .navbar-default .navbar-toggle .icon-bar {
   background-color: #ffffff;
   outline: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003397}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003430}}
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
   border-color: #ffffff;
   outline: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003403}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003436}}
 .navbar-default .navbar-link {
   color: #ffffff;
   outline: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003407}}
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003440}}
 .navbar-default .navbar-link:hover {
   color: #ffffff;
   outline: 0;
 }
 @media (max-width: 767px) {
-  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003416}}
+  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003449}}
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #ffffff;
     outline: 0;
   }
-  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003420}}
+  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003453}}
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
     color: #ffffff;
     outline: 0;
   }
-  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003427}}
+  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\/Users\/rjens\/Google Drev\/Development\/AngularJs\/WebApplication - Test - FlexOffer\/WebApplication1-Test-FlexOffer\/styles\/app\.less}line{font-family:\00003460}}
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {

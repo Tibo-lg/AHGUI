@@ -76,6 +76,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="partials\about.html" />
+    <Content Include="partials\heatPumpInput.html" />
+    <Content Include="scripts\angular-mocks.js" />
+    <Content Include="scripts\angular-strap.js" />
+    <Content Include="scripts\angular-strap.min.js" />
+    <Content Include="scripts\angular-strap.tpl.js" />
+    <Content Include="scripts\angular-strap.tpl.min.js" />
+    <Content Include="scripts\angular.js" />
+    <Content Include="scripts\angular.min.js" />
     <Content Include="styles\app.css" />
     <Content Include="Global.asax" />
     <Content Include="images\heating_room-256.png" />
@@ -368,7 +376,7 @@
     <Content Include="js-libs\ui-bootstrap\ui-bootstrap-tpls-0.10.0.js" />
     <Content Include="js-libs\ui-bootstrap\ui-bootstrap-tpls-0.10.0.min.js" />
     <Content Include="partials\home.html" />
-    <Content Include="partials\tempSettings.html" />
+    <Content Include="partials\degreeInput.html" />
     <Content Include="partials\washingmachine.html" />
     <Content Include="partials\heatPump.html" />
     <Content Include="styles\bootstrap\angular-csp.css" />
@@ -426,6 +434,9 @@
     <Content Include="styles\fonts\flaticon.eot" />
     <Content Include="styles\fonts\flaticon.ttf" />
     <Content Include="styles\fonts\flaticon.woff" />
+    <Content Include="scripts\angular.min.js.map" />
+    <Content Include="scripts\angular-strap.tpl.min.js.map" />
+    <Content Include="scripts\angular-strap.min.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -455,10 +466,13 @@
     <TypeScriptCompile Include="js\directives\currentTimeDirective.ts" />
     <TypeScriptCompile Include="js\directives\flexOfferBarDirective.ts" />
     <TypeScriptCompile Include="js\directives\exampleBarDirective.ts" />
+    <TypeScriptCompile Include="js\directives\plusMinusButtonDirective.ts" />
+    <TypeScriptCompile Include="js\directives\sunPopoverDirective.ts" />
     <TypeScriptCompile Include="js\directives\temperaturBarDirective.ts" />
-    <TypeScriptCompile Include="js\directives\tempSettingsDirective.ts" />
+    <TypeScriptCompile Include="js\directives\degreeInputDirective.ts" />
     <TypeScriptCompile Include="js\directives\viewDirective.ts" />
     <TypeScriptCompile Include="js\_all.ts" />
+    <Content Include="partials\sunInput.html" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

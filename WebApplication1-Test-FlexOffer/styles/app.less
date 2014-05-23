@@ -2,7 +2,7 @@
 	Colors
 --------------------------*/
 /* General Colors*/
-@colHeaders: #878787;
+@colHeaders: #333333;
 @colFont: #000000;
 @colFlex: #64BE45;
 @colBlack: #000000;
@@ -47,12 +47,12 @@ h3 {
 .lbl-gray {
     color: @colHeaders;
     display: block;
+    line-height: 200%;
     float: left;
     text-align: left;
-    padding: 0 10px;
-    width: 160px;
-    font-weight: bold;
-    font-size: 1.1em;
+    padding: 0;
+    //width: 200px;
+    font-size: 1.4em;
 }
 
 .lbl-black {
@@ -60,10 +60,17 @@ h3 {
     display: block;
     float: left;
     text-align: left;
-    font-weight: bold;
-    font-size: 1.2em;
+    font-size: 2.5em;
+    font-family: arial,sans-serif;
+    padding-left: 5px;
 }
 
+.sign {
+    width: 20px;
+    display: block;
+    float: left;
+    text-align: left;
+}
 
 /*-------------------------
 	Front Bottons
@@ -115,6 +122,24 @@ h3 {
     .setHomeBtnBackground(@bgHP);
 }
 /*-------------------------
+	Sun Effect 
+-------------------------*/
+
+.sun-effect {
+    font-size: 6em;
+    padding: 0;
+    margin: 0;
+    line-height: 100%;
+    color: @colHeaders;
+    cursor: pointer;
+
+    &:hover, &:focus {
+        text-decoration: none;
+        outline: none;
+        color: lighten(@colHeaders, 20%);
+    }
+}
+/*-------------------------
 	Temperature setting 
 -------------------------*/
 .temp-wrapper {
@@ -129,8 +154,8 @@ h3 {
 }
 
 .temp-left-column {
-    width: 30%;
     height: inherit;
+    width: 20%;
     display: table-cell;
     vertical-align: middle;
     text-align: right;
@@ -142,12 +167,12 @@ h3 {
 }
 
 .temp-right-column {
-    width: 70%;
     height: inherit;
+    width: 80%;
     display: table-cell;
     vertical-align: middle;
     font-size: 4.0em;
-    padding-left: 5px;
+    padding: 0;
     line-height: 110%;
     font-family: arial,sans-serif;
     color: @colFont;
@@ -163,6 +188,14 @@ h3 {
     font-size: 7.0em;
     line-height: 100%;
     //background-color:greenyellow;
+}
+
+.temp {
+    font-size: 4.0em;
+    padding-left: 5px;
+    line-height: 110%;
+    font-family: arial,sans-serif;
+    color: @colBlack;
 }
 /*-------------------------
 	Decrement/increment Buttons

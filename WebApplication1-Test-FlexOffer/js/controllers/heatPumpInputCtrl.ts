@@ -45,6 +45,7 @@ module app.Controllers {
         }
 
         public updateSunEffect(value: string) {
+            console.debug(value);
             this.scope.suneffect = value;
         }
 

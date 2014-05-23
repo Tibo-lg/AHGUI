@@ -8,6 +8,8 @@ modules.forEach(function (module) {
 });
 modules.push('ngRoute');
 modules.push('ngAnimate');
+modules.push('ngSanitize');
+modules.push('mgcrea.ngStrap');
 angular.module('app', modules);
 
 angular.module('app').config([
