@@ -55,10 +55,12 @@ module app {
         barValues: any;
     }
 
-    export interface ComfortSettings {
-        setTemp: number;
-        upperTemp: number;
-        lowerTemp: number;
+    export interface HeatPumpParams {
+        maxtemp: number;
+        settemp: number;
+        mintemp: number;
+        outtemp: number;
+        suneffect: string;
     }
     export interface Schedule {
         date: string;
@@ -68,13 +70,7 @@ module app {
         date: string;
         temperature: number;
     }
-    export interface HeatPump {
-        id: number;
-        insideTemp: number;
-        outsideTemp: number;
-        comfort: ComfortSettings;
-        sunIndex: number;
-    }
+
     export interface Values {
         [name: string]: Array<number>;
     }

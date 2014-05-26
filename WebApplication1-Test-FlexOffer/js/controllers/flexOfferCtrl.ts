@@ -5,36 +5,27 @@ module app.Controllers {
 
   
     export interface FlexOfferScope {
-        maxtemp: number;
-        settemp: number;
-        mintemp: number;
-        outtemp: number;
-        suneffect: string;
+        /* Data */
+        heatPumpParams: HeatPumpParams;
+        flexOffer: FlexOffer;
+        timeslices: Array<TimeSlice>;
+        temperatures: Array<Temperature>;
+        schedule: Array<Schedule>
 
         /* Methods used for user interaction */
         updateSunEffect: Function;
+        generateFlexOffer: Function;
         resetValues: Function;
+
         incrementMin: Function;
         decrementMin: Function;
         incrementMax: Function;
         decrementMax: Function;
-        incrementSet: Function;
-        decrementSet: Function;
         incrementOut: Function;
         decrementOut: Function;
 
         /* Bool that decides if buttons is to be shown*/
         isFlexOfferGenerated: boolean;
-
-        /* Data */
-        heatPumpParams: any;
-
-
-        flexOffer: FlexOffer;
-        timeslices: Array<TimeSlice>;
-        temperatures: Array<Temperature>;
-        schedule: Array<Schedule>
-        generateFlexOffer: Function;
 
         /* Scope specifics */
         status: string;
@@ -76,8 +67,6 @@ module app.Controllers {
             this.scope.decrementMin = () => { this.decrementMin(); };
             this.scope.decrementMax = () => { this.decrementMax(); };
             this.scope.incrementMax = () => { this.incrementMax(); };
-            this.scope.decrementSet = () => { this.decrementSet(); };
-            this.scope.incrementSet = () => { this.incrementSet(); };
             this.scope.decrementOut = () => { this.decrementOut(); };
             this.scope.incrementOut = () => { this.incrementOut(); };
 
@@ -87,7 +76,7 @@ module app.Controllers {
         }
         public updateSunEffect(value: string) {
             console.debug(value);
-            this.scope.suneffect = value;
+            this.scope.heatPumpParams.suneffect = value;
         }
 
         public resetValues() {
@@ -96,53 +85,33 @@ module app.Controllers {
         }
 
         public incrementMin() {
-            /*if (this.scope.mintemp === this.scope.settemp) {
-                this.scope.settemp++;
-            }*/
-            if (this.scope.mintemp === this.scope.maxtemp) {
-                this.scope.maxtemp++;
+            if (this.scope.heatPumpParams.mintemp === this.scope.heatPumpParams.maxtemp) {
+                this.scope.heatPumpParams.maxtemp++;
             }
-            this.scope.mintemp++;
+            this.scope.heatPumpParams.mintemp++;
         }
 
         public decrementMin() {
-            this.scope.mintemp--;
+            this.scope.heatPumpParams.mintemp--;
         }
 
         public decrementMax() {
-            /*if (this.scope.maxtemp === this.scope.settemp) {
-                this.scope.settemp--;
-            }*/
-            if (this.scope.maxtemp === this.scope.mintemp) {
-                this.scope.mintemp--;
+            if (this.scope.heatPumpParams.maxtemp === this.scope.heatPumpParams.mintemp) {
+                this.scope.heatPumpParams.mintemp--;
             }
-            this.scope.maxtemp--;
+            this.scope.heatPumpParams.maxtemp--;
         }
 
         public incrementMax() {
-            this.scope.maxtemp++;
-        }
-
-        public decrementSet() {
-            if (this.scope.settemp === this.scope.mintemp) {
-                this.scope.mintemp--;
-            }
-            this.scope.settemp--;
-        }
-
-        public incrementSet() {
-            if (this.scope.settemp === this.scope.maxtemp) {
-                this.scope.maxtemp++;
-            }
-            this.scope.settemp++;
+            this.scope.heatPumpParams.maxtemp++;
         }
 
         public decrementOut() {
-            this.scope.outtemp--;
+            this.scope.heatPumpParams.outtemp--;
         }
 
         public incrementOut() {
-            this.scope.outtemp++;
+            this.scope.heatPumpParams.outtemp++;
         }
         private getHPParam() {
             /*this.dataFactory.getHPParam()
@@ -158,11 +127,11 @@ module app.Controllers {
                     console.debug(this.scope.status);
                 });*/
 
-            this.scope.settemp = 20;
-            this.scope.maxtemp = 23;
-            this.scope.mintemp = 18;
-            this.scope.outtemp = 14;
-            this.scope.suneffect = 'N';
+            this.scope.heatPumpParams.settemp = 20;
+            this.scope.heatPumpParams.maxtemp = 23;
+            this.scope.heatPumpParams.mintemp = 18;
+            this.scope.heatPumpParams.outtemp = 14;
+            this.scope.heatPumpParams.suneffect = 'N';
         }
     
         public generateFlexOffer() {
