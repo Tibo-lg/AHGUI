@@ -55,13 +55,6 @@ module app {
         barValues: any;
     }
 
-    export interface HeatPumpParams {
-        maxtemp: number;
-        settemp: number;
-        mintemp: number;
-        outtemp: number;
-        suneffect: string;
-    }
     export interface Schedule {
         date: string;
         consumption: number;

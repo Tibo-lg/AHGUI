@@ -3,10 +3,19 @@
 
 module app.Controllers {
 
+    export interface HeatPumpParams {
+        maxtemp: number;
+        mintemp: number;
+        outtemp: number;
+        suneffect: string;
+    }
   
     export interface FlexOfferScope {
         /* Data */
-        heatPumpParams: HeatPumpParams;
+        maxtemp: number;
+        mintemp: number;
+        outtemp: number;
+        suneffect: string;
         flexOffer: FlexOffer;
         timeslices: Array<TimeSlice>;
         temperatures: Array<Temperature>;
@@ -51,13 +60,14 @@ module app.Controllers {
             this.scope = $scope;
             this.dataFactory = dataFactory;
 
-
+            
             this.scope.username = "";
             this.scope.password = "";
             this.scope.isFlexOfferGenerated = false;
             /* Fetch Heat Pump Data*/
-      
+  
             this.getHPParam();
+
             $scope.modal = { title: 'Title', content: 'Hello Modal<br />This is a multiline message!' };
 
             /* Define Scope Functions */
@@ -76,7 +86,7 @@ module app.Controllers {
         }
         public updateSunEffect(value: string) {
             console.debug(value);
-            this.scope.heatPumpParams.suneffect = value;
+            this.scope.suneffect = value;
         }
 
         public resetValues() {
@@ -85,33 +95,33 @@ module app.Controllers {
         }
 
         public incrementMin() {
-            if (this.scope.heatPumpParams.mintemp === this.scope.heatPumpParams.maxtemp) {
-                this.scope.heatPumpParams.maxtemp++;
+            if (this.scope.mintemp === this.scope.maxtemp) {
+                this.scope.maxtemp++;
             }
-            this.scope.heatPumpParams.mintemp++;
+            this.scope.mintemp++;
         }
 
         public decrementMin() {
-            this.scope.heatPumpParams.mintemp--;
+            this.scope.mintemp--;
         }
 
         public decrementMax() {
-            if (this.scope.heatPumpParams.maxtemp === this.scope.heatPumpParams.mintemp) {
-                this.scope.heatPumpParams.mintemp--;
+            if (this.scope.maxtemp === this.scope.mintemp) {
+                this.scope.mintemp--;
             }
-            this.scope.heatPumpParams.maxtemp--;
+            this.scope.maxtemp--;
         }
 
         public incrementMax() {
-            this.scope.heatPumpParams.maxtemp++;
+            this.scope.maxtemp++;
         }
 
         public decrementOut() {
-            this.scope.heatPumpParams.outtemp--;
+            this.scope.outtemp--;
         }
 
         public incrementOut() {
-            this.scope.heatPumpParams.outtemp++;
+            this.scope.outtemp++;
         }
         private getHPParam() {
             /*this.dataFactory.getHPParam()
@@ -126,12 +136,11 @@ module app.Controllers {
                     this.scope.status = 'Unable to load customer data: ' + error.message;
                     console.debug(this.scope.status);
                 });*/
-
-            this.scope.heatPumpParams.settemp = 20;
-            this.scope.heatPumpParams.maxtemp = 23;
-            this.scope.heatPumpParams.mintemp = 18;
-            this.scope.heatPumpParams.outtemp = 14;
-            this.scope.heatPumpParams.suneffect = 'N';
+            this.scope.maxtemp = 23;
+            this.scope.mintemp = 18;
+            this.scope.outtemp = 14;
+            this.scope.suneffect = 'N';
+            
         }
     
         public generateFlexOffer() {
