@@ -77,6 +77,7 @@
   <ItemGroup>
     <Content Include="partials\about.html" />
     <Content Include="partials\heatPumpInput.html" />
+    <Content Include="partials\login.html" />
     <Content Include="scripts\angular-mocks.js" />
     <Content Include="scripts\angular-strap.js" />
     <Content Include="scripts\angular-strap.min.js" />

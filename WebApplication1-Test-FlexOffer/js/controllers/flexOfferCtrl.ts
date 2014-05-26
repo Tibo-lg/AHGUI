@@ -38,6 +38,8 @@ module app.Controllers {
 
         /* Scope specifics */
         status: string;
+        username: string;
+        password: string;
     }
 
 
@@ -52,15 +54,20 @@ module app.Controllers {
         private urlf = 'http://api.neogrid.dk/arrowhead/flexoffers'
        
 
-        static $inject = ['$scope', '$http', 'dataFactory'];
-        constructor($scope: FlexOfferScope, $http, dataFactory) {
+        static $inject = ['$scope', '$http', 'dataFactory', 'Auth'];
+        constructor($scope: FlexOfferScope, $http, dataFactory, Auth) {
             this.http = $http;
             this.scope = $scope;
             this.dataFactory = dataFactory;
 
+
+            this.scope.username = "";
+            this.scope.password = "";
             this.scope.isFlexOfferGenerated = false;
             /* Fetch Heat Pump Data*/
+      
             this.getHPParam();
+            $scope.modal = { title: 'Title', content: 'Hello Modal<br />This is a multiline message!' };
 
             /* Define Scope Functions */
             this.scope.updateSunEffect = (value: string) => { this.updateSunEffect(value); };
@@ -73,6 +80,7 @@ module app.Controllers {
             this.scope.incrementSet = () => { this.incrementSet(); };
             this.scope.decrementOut = () => { this.decrementOut(); };
             this.scope.incrementOut = () => { this.incrementOut(); };
+
             /* Generates a FlexOffer + data for showing flexoffer, temperature and schedule*/
             this.scope.generateFlexOffer = () => { this.generateFlexOffer(); };
             
@@ -137,7 +145,7 @@ module app.Controllers {
             this.scope.outtemp++;
         }
         private getHPParam() {
-            this.dataFactory.getHPParam()
+            /*this.dataFactory.getHPParam()
                 .success(function (custs) {
                     this.dataset = custs;
                     console.debug("calling factory from getParam");
@@ -148,7 +156,7 @@ module app.Controllers {
                     console.debug(this.scope.status);
                     this.scope.status = 'Unable to load customer data: ' + error.message;
                     console.debug(this.scope.status);
-                });
+                });*/
 
             this.scope.settemp = 20;
             this.scope.maxtemp = 23;
@@ -525,4 +533,4 @@ module app.Controllers {
 
 }
 
-app.registerController('FlexOfferCtrl', ['$scope', '$http', 'dataFactory']); 
+app.registerController('FlexOfferCtrl', ['$scope', '$http', 'dataFactory', 'Auth']); 

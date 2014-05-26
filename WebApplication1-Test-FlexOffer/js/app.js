@@ -10,8 +10,11 @@ modules.push('ngRoute');
 modules.push('ngAnimate');
 modules.push('ngSanitize');
 modules.push('ngResource');
+modules.push('ngCookies');
+
 modules.push('mgcrea.ngStrap');
 
+//modules.push('ui.bootstrap');
 angular.module('app', modules);
 
 angular.module('app').config([
