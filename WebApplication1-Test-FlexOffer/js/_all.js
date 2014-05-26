@@ -11,6 +11,9 @@
 /// <reference path='directives/temperaturBarDirective.ts' />
 /// <reference path='directives/currentTimeDirective.ts' />
 /// <reference path='directives/degreeInputDirective.ts' />
+//################## Directives ###################
+/// <reference path='factories/dataFactory.ts' />
+/// <reference path='factories/dataService.ts' />
 //################# App ###########################
 /// <reference path='app.ts' />
 //# sourceMappingURL=_all.js.map

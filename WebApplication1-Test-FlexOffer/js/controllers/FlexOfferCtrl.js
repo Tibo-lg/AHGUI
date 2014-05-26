@@ -3,9 +3,16 @@ var app;
 (function (app) {
     (function (Controllers) {
         var FlexOfferCtrl = (function () {
-            function FlexOfferCtrl($scope) {
+            function FlexOfferCtrl($scope, $http, dataFactory) {
                 var _this = this;
+                this.dataset = [];
+                this.urlb = "http://api.openweathermap.org/data/2.5/forecast/daily?mode=json&units=imperial&cnt=14&callback=JSON_CALLBACK&q=Aalborg";
+                this.urlBase = 'http://api.neogrid.dk/arrowhead/trigger';
+                this.urlf = 'http://api.neogrid.dk/arrowhead/flexoffers';
+                this.http = $http;
                 this.scope = $scope;
+                this.dataFactory = dataFactory;
+
                 this.scope.isFlexOfferGenerated = false;
 
                 /* Fetch Heat Pump Data*/
@@ -108,6 +115,16 @@ var app;
                 this.scope.outtemp++;
             };
             FlexOfferCtrl.prototype.getHPParam = function () {
+                this.dataFactory.getHPParam().success(function (custs) {
+                    this.dataset = custs;
+                    console.debug("calling factory from getParam");
+                    console.debug(this.dataset);
+                }).error(function (error) {
+                    console.debug(this.scope.status);
+                    this.scope.status = 'Unable to load customer data: ' + error.message;
+                    console.debug(this.scope.status);
+                });
+
                 this.scope.settemp = 20;
                 this.scope.maxtemp = 23;
                 this.scope.mintemp = 18;
@@ -481,7 +498,7 @@ var app;
 
                 return rtn;
             };
-            FlexOfferCtrl.$inject = ['$scope'];
+            FlexOfferCtrl.$inject = ['$scope', '$http', 'dataFactory'];
             return FlexOfferCtrl;
         })();
         Controllers.FlexOfferCtrl = FlexOfferCtrl;
@@ -489,5 +506,5 @@ var app;
     var Controllers = app.Controllers;
 })(app || (app = {}));
 
-app.registerController('FlexOfferCtrl', ['$scope']);
+app.registerController('FlexOfferCtrl', ['$scope', '$http', 'dataFactory']);
 //# sourceMappingURL=flexOfferCtrl.js.map

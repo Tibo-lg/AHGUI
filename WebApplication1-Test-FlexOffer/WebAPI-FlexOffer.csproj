@@ -469,6 +469,8 @@
     <TypeScriptCompile Include="js\directives\temperaturBarDirective.ts" />
     <TypeScriptCompile Include="js\directives\degreeInputDirective.ts" />
     <TypeScriptCompile Include="js\directives\viewDirective.ts" />
+    <TypeScriptCompile Include="js\factories\dataService.ts" />
+    <TypeScriptCompile Include="js\factories\dataFactory.ts" />
     <TypeScriptCompile Include="js\_all.ts" />
     <Content Include="partials\sunInput.html" />
   </ItemGroup>

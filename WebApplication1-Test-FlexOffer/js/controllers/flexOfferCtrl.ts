@@ -10,6 +10,8 @@ module app.Controllers {
         mintemp: number;
         outtemp: number;
         suneffect: string;
+
+        /* Methods used for user interaction */
         updateSunEffect: Function;
         resetValues: Function;
         incrementMin: Function;
@@ -21,23 +23,41 @@ module app.Controllers {
         incrementOut: Function;
         decrementOut: Function;
 
+        /* Bool that decides if buttons is to be shown*/
+        isFlexOfferGenerated: boolean;
+
+        /* Data */
+        heatPumpParams: any;
+
+
         flexOffer: FlexOffer;
         timeslices: Array<TimeSlice>;
         temperatures: Array<Temperature>;
         schedule: Array<Schedule>
         generateFlexOffer: Function;
-        isFlexOfferGenerated: boolean;
+
+        /* Scope specifics */
+        status: string;
     }
 
 
     export class FlexOfferCtrl {
 
         private scope: FlexOfferScope;
+        private http;
+        private dataFactory;
+        private dataset = [];
+        private urlb = "http://api.openweathermap.org/data/2.5/forecast/daily?mode=json&units=imperial&cnt=14&callback=JSON_CALLBACK&q=Aalborg";
+        private urlBase = 'http://api.neogrid.dk/arrowhead/trigger';
+        private urlf = 'http://api.neogrid.dk/arrowhead/flexoffers'
+       
 
-        static $inject = ['$scope'];
-        constructor($scope: FlexOfferScope) {
-
+        static $inject = ['$scope', '$http', 'dataFactory'];
+        constructor($scope: FlexOfferScope, $http, dataFactory) {
+            this.http = $http;
             this.scope = $scope;
+            this.dataFactory = dataFactory;
+
             this.scope.isFlexOfferGenerated = false;
             /* Fetch Heat Pump Data*/
             this.getHPParam();
@@ -117,6 +137,19 @@ module app.Controllers {
             this.scope.outtemp++;
         }
         private getHPParam() {
+            this.dataFactory.getHPParam()
+                .success(function (custs) {
+                    this.dataset = custs;
+                    console.debug("calling factory from getParam");
+                    console.debug(this.dataset);
+
+                })
+                .error(function (error) {
+                    console.debug(this.scope.status);
+                    this.scope.status = 'Unable to load customer data: ' + error.message;
+                    console.debug(this.scope.status);
+                });
+
             this.scope.settemp = 20;
             this.scope.maxtemp = 23;
             this.scope.mintemp = 18;
@@ -492,4 +525,4 @@ module app.Controllers {
 
 }
 
-app.registerController('FlexOfferCtrl', ['$scope']); 
+app.registerController('FlexOfferCtrl', ['$scope', '$http', 'dataFactory']); 

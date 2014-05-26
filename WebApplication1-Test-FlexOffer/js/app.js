@@ -2,14 +2,16 @@
 /// <reference path='_all.ts' />
 'use strict';
 //modules:'app.controllers', 'app.directives', 'app.filters', 'app.services'
-var modules = ['app.Controllers', 'app.Directives'];
+var modules = ['app.Controllers', 'app.Directives', 'app.Services'];
 modules.forEach(function (module) {
     angular.module(module, []);
 });
 modules.push('ngRoute');
 modules.push('ngAnimate');
 modules.push('ngSanitize');
+modules.push('ngResource');
 modules.push('mgcrea.ngStrap');
+
 angular.module('app', modules);
 
 angular.module('app').config([
@@ -35,6 +37,19 @@ angular.module('app').config([
 
 var app;
 (function (app) {
+    (function (Controllers) {
+        null;
+    })(app.Controllers || (app.Controllers = {}));
+    var Controllers = app.Controllers;
+    (function (Directives) {
+        null;
+    })(app.Directives || (app.Directives = {}));
+    var Directives = app.Directives;
+    (function (Services) {
+        null;
+    })(app.Services || (app.Services = {}));
+    var Services = app.Services;
+
     
 
     /**
@@ -74,5 +89,22 @@ var app;
         angular.module('app.Directives').directive(directive, services);
     }
     app.registerDirective = registerDirective;
+
+    /**
+    * Register new service.
+    *
+    * @param className
+    * @param services
+    */
+    function registerService(className, services) {
+        if (typeof services === "undefined") { services = []; }
+        var service = className[0].toLowerCase() + className.slice(1);
+        services.push(function () {
+            return new app.Services[className]();
+        });
+        console.debug(service, services);
+        angular.module('app.Services').factory(service, services);
+    }
+    app.registerService = registerService;
 })(app || (app = {}));
 //# sourceMappingURL=app.js.map

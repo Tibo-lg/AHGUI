@@ -4,12 +4,14 @@
 'use strict';
 
 //modules:'app.controllers', 'app.directives', 'app.filters', 'app.services'
-var modules = ['app.Controllers', 'app.Directives'];
+var modules = ['app.Controllers', 'app.Directives', 'app.Services'];
 modules.forEach(function (module) { angular.module(module, []); });
 modules.push('ngRoute');
 modules.push('ngAnimate');
 modules.push('ngSanitize');
+modules.push('ngResource');
 modules.push('mgcrea.ngStrap');
+
 angular.module('app', modules);
 
 angular.module('app').config(['$routeProvider',
@@ -33,10 +35,9 @@ angular.module('app').config(['$routeProvider',
     }]);
 
 module app {
-    export module Controllers { }
-    export module Directives { }
-    export module filters { }
-    export module services { }
+    export module Controllers { null; }
+    export module Directives { null; }
+    export module Services { null; }
 
     export interface FlexOffer {
         id: number;
@@ -116,9 +117,21 @@ module app {
      * @param className
      * @param services
      */
-    //    export function registerService (className: string, services = []) {
-    //        var service = className[0].toLowerCase() + className.slice(1);
-    //        services.push(() => new app.services[className]());
-    //        angular.module('app.services').factory(service, services);
-    //    }
+        export function registerService (className: string, services = []) {
+            var service = className[0].toLowerCase() + className.slice(1);
+            services.push(() => new app.Services[className]());
+            console.debug(service, services);
+            angular.module('app.Services').factory(service, services);
+        }
+     /**
+     * Register new factory.
+     *
+     * @param className
+     * @param services
+     */
+        //export function registerFactory(className: string, services = []) {
+        //    var factory = className[0].toLowerCase() + className.slice(1);
+        //    services.push(() => new app.Factories[className]());
+        //    angular.module('app.Factories').factory(factory, services);
+        //}
 }
