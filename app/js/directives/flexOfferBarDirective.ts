@@ -11,7 +11,7 @@ module app.Directives {
 
         return {
             restrict: 'A',
-            scope: { timeslices: '=', schedule: '='},
+            scope: { timeslices: '=', schedule: '=', height: '=', width: '='},
             link(scope, element: JQuery, attrs: ng.IAttributes) {
 
             // Add the svg element to the dom
@@ -44,7 +44,7 @@ module app.Directives {
 
                     //TODO These should really be attributes input
                     // Margin and paddings
-                    var margin = { top: 20, right: 30, bottom: 20, left: 30 };
+                    var margin = { top: 20, right: 40, bottom: 20, left: 40 };
                     var barPadding = 2;
                     var yAxisPadding = -5;
                   
@@ -56,12 +56,14 @@ module app.Directives {
                     //var height = (<HTMLElement><any>d3.select(element[0]).node().parentNode.parentNode).offsetHeight - margin.top - margin.bottom;
                     var height = 400 - margin.top - margin.bottom;
                     //TODO HAcky di hack Rikke!
-                    var width = (<HTMLElement>d3.select(element[0]).node().parentNode.parentNode.parentNode).offsetWidth - margin.right - margin.left;
+                    var width = element[0].clientWidth != 0 ? element[0].clientWidth : $window.innerWidth;
+		    width -= (margin.right + margin.left);
                     var barWidth = width / timesliceData.length;
                     var timeTicks = barWidth / 2;
 
 
                     console.debug('width:' + width + ' height:' + height + ' data-length:' + timesliceData.length + ' barWidth:' + barWidth);
+		    console.debug('test ' + element[0].clientWidth); 
 
                     // Adding width and height to the svg
                     svg.attr('width', width + margin.left + margin.right)

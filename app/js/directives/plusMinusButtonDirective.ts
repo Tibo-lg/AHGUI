@@ -18,7 +18,7 @@ module app.Directives {
             scope: {
                 value: '=ngModel',
             },
-            templateUrl: '../../partials/degreeInput.html',
+            templateUrl: 'partials/degreeInput.html',
             link: function (scope: genericButtonScope, iElement, iAttrs) {
                 var min, max;
 

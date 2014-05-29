@@ -1,74 +1,65 @@
-﻿/// <reference path='../_all.ts' />
+/// <reference path='../_all.ts' />
 
 
 module app.Controllers {
 
-    export interface HeatPumpParams {
-        maxtemp: number;
-        mintemp: number;
-        outtemp: number;
-        suneffect: string;
-    }
   
-    export interface FlexOfferScope {
-        /* Data */
+    export interface AggScope {
         maxtemp: number;
+        settemp: number;
         mintemp: number;
         outtemp: number;
         suneffect: string;
-        flexOffer: FlexOffer;
-        timeslices: Array<TimeSlice>;
-        temperatures: Array<Temperature>;
-        schedule: Array<Schedule>
 
         /* Methods used for user interaction */
         updateSunEffect: Function;
-        generateFlexOffer: Function;
         resetValues: Function;
-
         incrementMin: Function;
         decrementMin: Function;
         incrementMax: Function;
         decrementMax: Function;
+        incrementSet: Function;
+        decrementSet: Function;
         incrementOut: Function;
         decrementOut: Function;
 
         /* Bool that decides if buttons is to be shown*/
         isFlexOfferGenerated: boolean;
 
+        /* Data */
+        heatPumpParams: any;
+
+
+        flexOffers: Array<FlexOffer>;
+	aggFlexOffers: Array<FlexOffer>;
+        generateFlexOffer: Function;
+        schedule: Array<Schedule>;
+	
         /* Scope specifics */
         status: string;
-        username: string;
-        password: string;
     }
 
 
-    export class FlexOfferCtrl {
+    export class AggCtrl {
 
-        private scope: FlexOfferScope;
+        private scope: AggScope;
         private http;
         private dataFactory;
         private dataset = [];
         private urlb = "http://api.openweathermap.org/data/2.5/forecast/daily?mode=json&units=imperial&cnt=14&callback=JSON_CALLBACK&q=Aalborg";
-        private urlBase = 'http://api.neogrid.dk/arrowhead/trigger';
+        private urlBase = 'http://localhost:9998';
         private urlf = 'http://api.neogrid.dk/arrowhead/flexoffers'
        
 
-        static $inject = ['$scope', '$http', 'dataFactory', 'Auth'];
-        constructor($scope: FlexOfferScope, $http, dataFactory, Auth) {
+        static $inject = ['$scope', '$http', 'dataFactory'];
+        constructor($scope: AggScope, $http, dataFactory) {
             this.http = $http;
             this.scope = $scope;
             this.dataFactory = dataFactory;
 
-            
-            this.scope.username = "";
-            this.scope.password = "";
             this.scope.isFlexOfferGenerated = false;
             /* Fetch Heat Pump Data*/
-  
             this.getHPParam();
-
-            $scope.modal = { title: 'Title', content: 'Hello Modal<br />This is a multiline message!' };
 
             /* Define Scope Functions */
             this.scope.updateSunEffect = (value: string) => { this.updateSunEffect(value); };
@@ -77,11 +68,24 @@ module app.Controllers {
             this.scope.decrementMin = () => { this.decrementMin(); };
             this.scope.decrementMax = () => { this.decrementMax(); };
             this.scope.incrementMax = () => { this.incrementMax(); };
+            this.scope.decrementSet = () => { this.decrementSet(); };
+            this.scope.incrementSet = () => { this.incrementSet(); };
             this.scope.decrementOut = () => { this.decrementOut(); };
             this.scope.incrementOut = () => { this.incrementOut(); };
-
             /* Generates a FlexOffer + data for showing flexoffer, temperature and schedule*/
             this.scope.generateFlexOffer = () => { this.generateFlexOffer(); };
+
+	    this.scope.flexOffers = new Array<FlexOffer>();
+	    this.scope.aggFlexOffers = new Array<FlexOffer>();
+
+	    for(var i=0; i<10; i++){
+	      this.scope.flexOffers.push(this.fetchFlexOffers());
+	    }
+	    for(var i=0; i<2; i++){
+	      this.scope.aggFlexOffers.push(this.fetchFlexOffers());
+	    }
+
+	    console.log(this.scope.flexOffers.length);
             
         }
         public updateSunEffect(value: string) {
@@ -95,6 +99,9 @@ module app.Controllers {
         }
 
         public incrementMin() {
+            /*if (this.scope.mintemp === this.scope.settemp) {
+                this.scope.settemp++;
+            }*/
             if (this.scope.mintemp === this.scope.maxtemp) {
                 this.scope.maxtemp++;
             }
@@ -106,6 +113,9 @@ module app.Controllers {
         }
 
         public decrementMax() {
+            /*if (this.scope.maxtemp === this.scope.settemp) {
+                this.scope.settemp--;
+            }*/
             if (this.scope.maxtemp === this.scope.mintemp) {
                 this.scope.mintemp--;
             }
@@ -116,6 +126,20 @@ module app.Controllers {
             this.scope.maxtemp++;
         }
 
+        public decrementSet() {
+            if (this.scope.settemp === this.scope.mintemp) {
+                this.scope.mintemp--;
+            }
+            this.scope.settemp--;
+        }
+
+        public incrementSet() {
+            if (this.scope.settemp === this.scope.maxtemp) {
+                this.scope.maxtemp++;
+            }
+            this.scope.settemp++;
+        }
+
         public decrementOut() {
             this.scope.outtemp--;
         }
@@ -124,7 +148,7 @@ module app.Controllers {
             this.scope.outtemp++;
         }
         private getHPParam() {
-            /*this.dataFactory.getHPParam()
+            this.dataFactory.getHPParam()
                 .success(function (custs) {
                     this.dataset = custs;
                     console.debug("calling factory from getParam");
@@ -135,21 +159,22 @@ module app.Controllers {
                     console.debug(this.scope.status);
                     this.scope.status = 'Unable to load customer data: ' + error.message;
                     console.debug(this.scope.status);
-                });*/
+                });
+
+            this.scope.settemp = 20;
             this.scope.maxtemp = 23;
             this.scope.mintemp = 18;
             this.scope.outtemp = 14;
             this.scope.suneffect = 'N';
-            
         }
     
         public generateFlexOffer() {
             console.debug("Generate Flex Offer");
-            this.scope.flexOffer = this.fetchFlexOffers();
-            this.scope.timeslices = this.scope.flexOffer.timeslices;
-            this.scope.temperatures = this.fetchTemperatures();
-            this.scope.schedule = this.fetchSchedule();
-            this.scope.isFlexOfferGenerated = true;
+//            this.scope.flexOffer = this.fetchFlexOffers();
+//            this.scope.timeslices = this.scope.flexOffer.timeslices;
+//            this.scope.temperatures = this.fetchTemperatures();
+//            this.scope.schedule = this.fetchSchedule();
+//            this.scope.isFlexOfferGenerated = true;
         }
         private fetchFlexOffers() : FlexOffer {
             var rtn : FlexOffer;
@@ -511,4 +536,4 @@ module app.Controllers {
 
 }
 
-app.registerController('FlexOfferCtrl', ['$scope', '$http', 'dataFactory', 'Auth']); 
+app.registerController('AggCtrl', ['$scope', '$http', 'dataFactory']); 

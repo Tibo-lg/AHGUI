@@ -8,13 +8,16 @@
     <!-- In production use:
        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
     -->
-    <link rel="stylesheet" href="/styles/bootstrap/bootstrap.css" />
-    <link rel="stylesheet" href="/styles/fonts/meteocons-stylesheet.css" />
-    <link rel="stylesheet" href="/styles/fonts/flaticon.css" />
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
-    <link rel="stylesheet" href="//mgcrea.github.io/angular-strap/styles/angular-motion.min.css">
-    <link rel="stylesheet" href="//mgcrea.github.io/angular-strap/styles/bootstrap-additions.min.css">
-    <link rel="stylesheet" href="/styles/app.css" />
+    <link rel="stylesheet" href="styles/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" href="styles/fonts/meteocons-stylesheet.css" />
+    <link rel="stylesheet" href="styles/fonts/flaticon.css" />
+    <link rel="stylesheet" href="styles/agg.css" />
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
+    <link rel="stylesheet" href="http://mgcrea.github.io/angular-strap/styles/angular-motion.min.css">
+    <link rel="stylesheet" href="http://mgcrea.github.io/angular-strap/styles/bootstrap-additions.min.css">
+
+
+    <link rel="stylesheet" href="styles/app.css" />
 
 </head>
 <body>
@@ -57,39 +60,42 @@
     <script src="http://w3resource.com/twitter-bootstrap/twitter-bootstrap-v2/js/bootstrap-popover.js"></script>
         -->
     <!-- Vendor Libs: jQuery only used for Bootstrap functionality -->
-    <script src="/js-libs/jquery/jquery-2.1.0.min.js"></script>
-    <script src="/js-libs/angularjs/angular.js"></script>
-    <script src="/js-libs/angularjs/angular-route.js"></script>
-    <script src="/js-libs/angularjs/angular-animate.js"></script>
-    <script src="/js-libs/angularjs/angular-sanitize.min.js"></script>
-    <script src="/js-libs/angularjs/angular-resource.js"></script>
-    <script src="/scripts/angular-strap.js"></script>
-    <script src="/scripts/angular-strap.tpl.min.js"></script>
+    <script src="js-libs/jquery/jquery-2.1.0.min.js"></script>
+    <script src="js-libs/angularjs/angular.js"></script>
+    <script src="js-libs/angularjs/angular-route.js"></script>
+    <script src="js-libs/angularjs/angular-animate.js"></script>
+    <script src="js-libs/angularjs/angular-sanitize.min.js"></script>
+    <script src="js-libs/angularjs/angular-resource.js"></script>
+    <script src="js-libs/angularjs/angular-cookies.js"></script>
+
 
     <!-- UI -->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
-    <script src="/js-libs/d3/d3.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
+    <script src="js-libs/d3/d3.min.js"></script>
+    <script src="scripts/angular-strap.js"></script>
+    <script src="scripts/angular-strap.tpl.min.js"></script>
    
 
 
     <!-- App libs -->
-    <script src="/js/app.js"></script>
+    <script src="js/app.js"></script>
 
     <!-- App Controllers -->
-    <script src="/js/controllers/flexOfferCtrl.js"></script>
-    <script src="/js/controllers/mainNavCtrl.js"></script>
+    <script src="js/controllers/aggCtrl.js"></script>
+    <script src="js/controllers/flexOfferCtrl.js"></script>
+    <script src="js/controllers/mainNavCtrl.js"></script>
 
     <!-- App Directives -->
-    <script src="/js/directives/flexOfferBarDirective.js"></script>
-    <script src="/js/directives/temperaturBarDirective.js"></script>
-    <script src="/js/directives/currentTimeDirective.js"></script>
-    <script src="/js/directives/viewDirective.js"></script>
-    <script src="/js/directives/degreeInputDirective.js"></script>
+    <script src="js/directives/flexOfferBarDirective.js"></script>
+    <script src="js/directives/temperaturBarDirective.js"></script>
+    <script src="js/directives/currentTimeDirective.js"></script>
+    <script src="js/directives/viewDirective.js"></script>
+    <script src="js/directives/degreeInputDirective.js"></script>
     
     <!-- App Factories -->
-    <script src="/js/factories/dataFactory.js"></script>
-    <script src="/js/factories/dataService.js"></script>
+    <script src="js/factories/dataFact.js"></script>
+    <script src="js/factories/dataService.js"></script>
 
 </body>
 </html>

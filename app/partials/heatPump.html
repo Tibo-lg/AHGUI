@@ -3,6 +3,7 @@
 </style>
 
 <div class="container-fluid" style="margin-top: 20px;">
+
     <views>
         <div class="row">
             <!-- Info & Views -->
@@ -18,7 +19,7 @@
 
                 <div class="row" style="padding: 10px 0;">
                     <div class=" col-sm-4">
-                        <span class="sun-effect" data-icon="{{suneffect}}" title="Please Choose A Sun Effect" data-template="/partials/sunInput.html" data-animation="am-flip-x" data-placement="right" data-trigger="click" bs-popover></span>
+                        <span class="sun-effect" data-icon="{{suneffect}}" title="Please Choose A Sun Effect" data-template="partials/sunInput.html" data-animation="am-flip-x" data-placement="right" data-trigger="click" bs-popover></span>
                     </div>
                     <div class="col-sm-8">
                         <degree-input style="font-size: 1.3em;" data-ng-model="outtemp" on-increment="incrementOut()" on-decrement="decrementOut()"></degree-input>
@@ -34,10 +35,10 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-2">
+                    <!--<div class="col-sm-2">
                         <i class="flaticon-heating1 sun-effect" style="line-height: 150%" title="Please Choose A Sun Effect" data-template="/partials/heatPumpInput.html" data-animation="am-flip-x" data-placement="bottom" data-trigger="click" bs-popover></i>
-                    </div>
-                    <div class="col-sm-10">
+                    </div>-->
+                    <div class="col-sm-12">
                         <div class="row">
                             <div class="col-sm-12" style="padding: 0;">
                                 <span class="lbl-gray">Max temperature:</span> <span class="lbl-black"><degree-input style="font-size: 1.3em;" data-ng-model="maxtemp" on-increment="incrementMax()" on-decrement="decrementMax()"></degree-input></span>
@@ -56,8 +57,14 @@
             <!-- Controllers -->
             <div class="col-sm-4">
                 <div class="row" style="text-align: right">
-                    <a class="ment-btn" ng-click="resetValues()" view-target="start"><span class="glyphicon glyphicon-refresh"></span></a>
+                    <button type="button" class="btn btn-danger" data-animation="am-fade-and-scale" data-template="partials/login.html" bs-modal="modal">
+                        Login
+                    </button>
                 </div>
+                <div class="row" style="text-align: right">
+                    <a class="ment-btn" ng-click="resetValues()" view-target="start"><span class="glyphicon glyphicon-refresh"></span></a>
+                </div> 
+             
 
                 <div class="row">
                     <div class="col-sm-12">

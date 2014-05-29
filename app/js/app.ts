@@ -10,7 +10,10 @@ modules.push('ngRoute');
 modules.push('ngAnimate');
 modules.push('ngSanitize');
 modules.push('ngResource');
+modules.push('ngCookies');
+
 modules.push('mgcrea.ngStrap');
+//modules.push('ui.bootstrap');
 
 angular.module('app', modules);
 
@@ -26,8 +29,12 @@ angular.module('app').config(['$routeProvider',
             templateUrl: 'partials/washingmachine.html'
         });
         $routeProvider.when('/heatpump', {
-            templateUrl: 'partials/heatpump.html',
+            templateUrl: 'partials/heatPump.html',
             controller: 'app.Controllers.FlexOfferCtrl'
+        });
+        $routeProvider.when('/aggregator', {
+            templateUrl: 'partials/agg.html',
+            controller: 'app.Controllers.AggCtrl'
         });
         $routeProvider.otherwise({
             redirectTo: '/home'
@@ -52,11 +59,6 @@ module app {
         barValues: any;
     }
 
-    export interface ComfortSettings {
-        setTemp: number;
-        upperTemp: number;
-        lowerTemp: number;
-    }
     export interface Schedule {
         date: string;
         consumption: number;
@@ -65,13 +67,7 @@ module app {
         date: string;
         temperature: number;
     }
-    export interface HeatPump {
-        id: number;
-        insideTemp: number;
-        outsideTemp: number;
-        comfort: ComfortSettings;
-        sunIndex: number;
-    }
+
     export interface Values {
         [name: string]: Array<number>;
     }
