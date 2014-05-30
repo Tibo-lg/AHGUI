@@ -15,6 +15,23 @@
         }
         }
  }]); 
+
+angular.module('app')
+    .factory('aggFactory', ['$http', function ($http) {
+
+        var url = 'http://localhost:9997/aggfos';
+
+        return {
+            getAggFos: function () {
+              return  $http({
+                    method: 'GET',
+                    url: url
+                });
+            //return $http.get(urlBase);
+        }
+        }
+ }]); 
+
 angular.module('app').factory('Auth', ['Base64', '$cookieStore', '$http', function (Base64, $cookieStore, $http) {
     // initialize to whatever is in the cookie, if anything
     $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');

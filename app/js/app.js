@@ -30,8 +30,12 @@ angular.module('app').config([
             templateUrl: 'partials/washingmachine.html'
         });
         $routeProvider.when('/heatpump', {
-            templateUrl: 'partials/heatpump.html',
+            templateUrl: 'partials/heatPump.html',
             controller: 'app.Controllers.FlexOfferCtrl'
+        });
+        $routeProvider.when('/aggregator', {
+            templateUrl: 'partials/agg.html',
+            controller: 'app.Controllers.AggCtrl'
         });
         $routeProvider.otherwise({
             redirectTo: '/home'
@@ -53,7 +57,29 @@ var app;
     })(app.Services || (app.Services = {}));
     var Services = app.Services;
 
-    
+    var FlexOffer = (function () {
+        function FlexOffer() {
+            this.timeslices = new Array();
+        }
+        return FlexOffer;
+    })();
+    app.FlexOffer = FlexOffer;
+
+    var AggFlexOffer = (function () {
+        function AggFlexOffer() {
+            this.flexOffers = new Array();
+        }
+        return AggFlexOffer;
+    })();
+    app.AggFlexOffer = AggFlexOffer;
+
+    // barValues is a needed for manipulated data.
+    var TimeSlice = (function () {
+        function TimeSlice() {
+        }
+        return TimeSlice;
+    })();
+    app.TimeSlice = TimeSlice;
 
     /**
     * Register new controller.
@@ -110,4 +136,3 @@ var app;
     }
     app.registerService = registerService;
 })(app || (app = {}));
-//# sourceMappingURL=app.js.map

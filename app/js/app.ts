@@ -46,17 +46,34 @@ module app {
     export module Directives { null; }
     export module Services { null; }
 
-    export interface FlexOffer {
+    export class FlexOffer {
         id: number;
+	startAfterTime: Date;
+	startBeforeTime: Date;
+	endTime: Date;
         timeslices: Array<TimeSlice>;
+	schedule: Schedule;
+	constructor(){
+	  this.timeslices = new Array<TimeSlice>();
+	}
+    }
+
+    export class AggFlexOffer {
+      aggFlexOffer: FlexOffer;
+      flexOffers: Array<FlexOffer>;
+      constructor(){
+	this.flexOffers = new Array<FlexOffer>();
+      }
     }
     
     // barValues is a needed for manipulated data. 
-    export interface TimeSlice {
-        date: string;
+    export class TimeSlice {
+        date: Date;
+	duration: number;
         minConsumption: number;
         maxConsumption: number;
         barValues: any;
+	constructor(){}
     }
 
     export interface Schedule {

@@ -5,35 +5,12 @@ module app.Controllers {
 
   
     export interface AggScope {
-        maxtemp: number;
-        settemp: number;
-        mintemp: number;
-        outtemp: number;
-        suneffect: string;
-
-        /* Methods used for user interaction */
-        updateSunEffect: Function;
-        resetValues: Function;
-        incrementMin: Function;
-        decrementMin: Function;
-        incrementMax: Function;
-        decrementMax: Function;
-        incrementSet: Function;
-        decrementSet: Function;
-        incrementOut: Function;
-        decrementOut: Function;
 
         /* Bool that decides if buttons is to be shown*/
         isFlexOfferGenerated: boolean;
 
-        /* Data */
-        heatPumpParams: any;
-
-
-        flexOffers: Array<FlexOffer>;
-	aggFlexOffers: Array<FlexOffer>;
+	aggFlexOffers: Array<AggFlexOffer>;
         generateFlexOffer: Function;
-        schedule: Array<Schedule>;
 	
         /* Scope specifics */
         status: string;
@@ -44,496 +21,430 @@ module app.Controllers {
 
         private scope: AggScope;
         private http;
-        private dataFactory;
+        private aggFactory;
         private dataset = [];
         private urlb = "http://api.openweathermap.org/data/2.5/forecast/daily?mode=json&units=imperial&cnt=14&callback=JSON_CALLBACK&q=Aalborg";
         private urlBase = 'http://localhost:9998';
         private urlf = 'http://api.neogrid.dk/arrowhead/flexoffers'
        
 
-        static $inject = ['$scope', '$http', 'dataFactory'];
-        constructor($scope: AggScope, $http, dataFactory) {
+        static $inject = ['$scope', '$http', 'aggFactory'];
+        constructor($scope: AggScope, $http, aggFactory) {
             this.http = $http;
             this.scope = $scope;
-            this.dataFactory = dataFactory;
+            this.aggFactory = aggFactory;
 
             this.scope.isFlexOfferGenerated = false;
             /* Fetch Heat Pump Data*/
-            this.getHPParam();
+	    this.scope.aggFlexOffers = new Array<AggFlexOffer>();
+            this.getAggFos();
 
-            /* Define Scope Functions */
-            this.scope.updateSunEffect = (value: string) => { this.updateSunEffect(value); };
-            this.scope.resetValues = () => { this.resetValues(); };
-            this.scope.incrementMin = () => { this.incrementMin(); };
-            this.scope.decrementMin = () => { this.decrementMin(); };
-            this.scope.decrementMax = () => { this.decrementMax(); };
-            this.scope.incrementMax = () => { this.incrementMax(); };
-            this.scope.decrementSet = () => { this.decrementSet(); };
-            this.scope.incrementSet = () => { this.incrementSet(); };
-            this.scope.decrementOut = () => { this.decrementOut(); };
-            this.scope.incrementOut = () => { this.incrementOut(); };
-            /* Generates a FlexOffer + data for showing flexoffer, temperature and schedule*/
-            this.scope.generateFlexOffer = () => { this.generateFlexOffer(); };
-
-	    this.scope.flexOffers = new Array<FlexOffer>();
-	    this.scope.aggFlexOffers = new Array<FlexOffer>();
-
-	    for(var i=0; i<10; i++){
-	      this.scope.flexOffers.push(this.fetchFlexOffers());
-	    }
-	    for(var i=0; i<2; i++){
-	      this.scope.aggFlexOffers.push(this.fetchFlexOffers());
-	    }
-
-	    console.log(this.scope.flexOffers.length);
+	    console.log(this.scope.aggFlexOffers);
             
         }
-        public updateSunEffect(value: string) {
-            console.debug(value);
-            this.scope.suneffect = value;
-        }
 
-        public resetValues() {
-            this.scope.isFlexOfferGenerated = false;
-            this.getHPParam();
-        }
-
-        public incrementMin() {
-            /*if (this.scope.mintemp === this.scope.settemp) {
-                this.scope.settemp++;
-            }*/
-            if (this.scope.mintemp === this.scope.maxtemp) {
-                this.scope.maxtemp++;
-            }
-            this.scope.mintemp++;
-        }
-
-        public decrementMin() {
-            this.scope.mintemp--;
-        }
-
-        public decrementMax() {
-            /*if (this.scope.maxtemp === this.scope.settemp) {
-                this.scope.settemp--;
-            }*/
-            if (this.scope.maxtemp === this.scope.mintemp) {
-                this.scope.mintemp--;
-            }
-            this.scope.maxtemp--;
-        }
-
-        public incrementMax() {
-            this.scope.maxtemp++;
-        }
-
-        public decrementSet() {
-            if (this.scope.settemp === this.scope.mintemp) {
-                this.scope.mintemp--;
-            }
-            this.scope.settemp--;
-        }
-
-        public incrementSet() {
-            if (this.scope.settemp === this.scope.maxtemp) {
-                this.scope.maxtemp++;
-            }
-            this.scope.settemp++;
-        }
-
-        public decrementOut() {
-            this.scope.outtemp--;
-        }
-
-        public incrementOut() {
-            this.scope.outtemp++;
-        }
-        private getHPParam() {
-            this.dataFactory.getHPParam()
-                .success(function (custs) {
+        private getAggFos() {
+            this.aggFactory.getAggFos()
+                .success( (custs) => {
                     this.dataset = custs;
-                    console.debug("calling factory from getParam");
-                    console.debug(this.dataset);
-
+                    console.debug("calling factory from getAggFos");
+		    console.debug(this.dataset);
+		    this.dataset.forEach((entry) => {
+		      var aggFO: AggFlexOffer= new AggFlexOffer();
+		      aggFO.aggFlexOffer = this.convertFlexOffer(entry);
+		      entry.subFoMetas.forEach((subFO) => { aggFO.flexOffers.push(this.convertFlexOffer(subFO.subFlexOffer)); });
+		      this.scope.aggFlexOffers.push(aggFO);
+		      console.log(aggFO);
+		    });
                 })
                 .error(function (error) {
                     console.debug(this.scope.status);
                     this.scope.status = 'Unable to load customer data: ' + error.message;
                     console.debug(this.scope.status);
                 });
-
-            this.scope.settemp = 20;
-            this.scope.maxtemp = 23;
-            this.scope.mintemp = 18;
-            this.scope.outtemp = 14;
-            this.scope.suneffect = 'N';
         }
     
-        public generateFlexOffer() {
-            console.debug("Generate Flex Offer");
-//            this.scope.flexOffer = this.fetchFlexOffers();
-//            this.scope.timeslices = this.scope.flexOffer.timeslices;
-//            this.scope.temperatures = this.fetchTemperatures();
-//            this.scope.schedule = this.fetchSchedule();
-//            this.scope.isFlexOfferGenerated = true;
+	public convertFlexOffer( original : any): FlexOffer {
+	  console.debug("Generate Flex Offer");
+	  var fo = new FlexOffer();
+	  
+	  fo.startAfterTime = new Date(original.startAfterInterval*1000);
+	  fo.startBeforeTime = new Date(original.startBeforeInterval*1000);
+	  /** Get end time */
+	  fo.id = original.id;
+	  /**TODO take care of schedule */
+	  //fo.schedule = original.flexOfferSchedule;
+	  var sliceDelay=0;
+	  for(var i=0; i<original.slices.length; i++){
+	    var timeSlice = new TimeSlice();
+	    timeSlice.minConsumption = original.slices[i].energyConstraint.lower;
+	    timeSlice.maxConsumption = original.slices[i].energyConstraint.upper;
+	    timeSlice.date = new Date((original.startAfterInterval + sliceDelay )*1000);
+	    sliceDelay += 3600/original.slices[i].duration;
+	    timeSlice.duration = original.slices[i].duration;
+	    fo.timeslices.push(timeSlice);
+	  }
+	  fo.endTime = new Date((original.startBeforeInterval + sliceDelay)*1000);
+	  return fo;
         }
-        private fetchFlexOffers() : FlexOffer {
-            var rtn : FlexOffer;
-            rtn = {
-                'id': 2,
-                'timeslices': [
-                    {
-                        'date': "October 13, 1975, 10:00:00",
-                        'minConsumption': 7,
-                        'maxConsumption': 24,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 13, 1975, 11:00:00",
-                        'minConsumption': 2,
-                        'maxConsumption': 16,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 13, 1975, 12:00:00",
-                        'minConsumption': 6,
-                        'maxConsumption': 17,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 13, 1975, 13:00:00",
-                        'minConsumption': 7,
-                        'maxConsumption': 14,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 13, 1975, 14:00:00",
-                        'minConsumption': 8,
-                        'maxConsumption': 13,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 13, 1975, 15:00:00",
-                        'minConsumption': 9,
-                        'maxConsumption': 15,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 13, 1975, 16:00:00",
-                        'minConsumption': 2,
-                        'maxConsumption': 11,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 13, 1975, 17:00:00",
-                        'minConsumption': 3,
-                        'maxConsumption': 4,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 13, 1975, 18:00:00",
-                        'minConsumption': 3,
-                        'maxConsumption': 5,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 13, 1975, 19:00:00",
-                        'minConsumption': 7,
-                        'maxConsumption': 14,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 13, 1975, 20:00:00",
-                        'minConsumption': 6,
-                        'maxConsumption': 20,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 13, 1975, 21:00:00",
-                        'minConsumption': 14,
-                        'maxConsumption': 24,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 13, 1975, 22:00:00",
-                        'minConsumption': 13,
-                        'maxConsumption': 28,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 13, 1975, 23:00:00",
-                        'minConsumption': 5,
-                        'maxConsumption': 14,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 13, 1975, 24:00:00",
-                        'minConsumption': 7,
-                        'maxConsumption': 8,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 14, 1975, 01:00:00",
-                        'minConsumption': 3,
-                        'maxConsumption': 14,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 14, 1975, 02:00:00",
-                        'minConsumption': 7,
-                        'maxConsumption': 14,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 14, 1975, 03:00:00",
-                        'minConsumption': 8,
-                        'maxConsumption': 21,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 14, 1975, 04:00:00",
-                        'minConsumption': 4,
-                        'maxConsumption': 18,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 14, 1975, 05:00:00",
-                        'minConsumption': 6,
-                        'maxConsumption': 19,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 14, 1975, 06:00:00",
-                        'minConsumption': 4,
-                        'maxConsumption': 21,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 14, 1975, 07:00:00",
-                        'minConsumption': 7,
-                        'maxConsumption': 12,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 14, 1975, 08:00:00",
-                        'minConsumption': 9,
-                        'maxConsumption': 11,
-                        'barValues': {}
-                    },
-                    {
-                        'date': "October 14, 1975, 09:00:00",
-                        'minConsumption': 4,
-                        'maxConsumption': 14,
-                        'barValues': {}
-                    }
-                ]
-            };
-            return rtn;
-        }
-        private fetchTemperatures() : Array<Temperature> {
-            var rtn: Array<Temperature>;
-            rtn = [{
-                'date': "October 13, 1975, 10:00:00",
-                'temperature': 9,
-            },
-                {
-                    'date': "October 13, 1975, 11:00:00",
-                    'temperature': 4
-                },
-                {
-                    'date': "October 13, 1975, 12:00:00",
-                    'temperature': 7
-                },
-                {
-                    'date': "October 13, 1975, 13:00:00",
-                    'temperature': 10
-                },
-                {
-                    'date': "October 13, 1975, 14:00:00",
-                    'temperature': 9
-                },
-                {
-                    'date': "October 13, 1975, 15:00:00",
-                    'temperature': 8
-                },
-                {
-                    'date': "October 13, 1975, 16:00:00",
-                    'temperature': 4
-                },
-                {
-                    'date': "October 13, 1975, 17:00:00",
-                    'temperature': 5
-                },
-                {
-                    'date': "October 13, 1975, 18:00:00",
-                    'temperature': 7
-                },
-                {
-                    'date': "October 13, 1975, 19:00:00",
-                    'temperature': 15
-                },
-                {
-                    'date': "October 13, 1975, 20:00:00",
-                    'temperature': 9
-                },
-                {
-                    'date': "October 13, 1975, 21:00:00",
-                    'temperature': 19
-                },
-                {
-                    'date': "October 13, 1975, 22:00:00",
-                    'temperature': 16
-                },
-                {
-                    'date': "October 13, 1975, 23:00:00",
-                    'temperature': 7
-                },
-                {
-                    'date': "October 13, 1975, 24:00:00",
-                    'temperature': 8
-                },
-                {
-                    'date': "October 14, 1975, 01:00:00",
-                    'temperature': 5
-                },
-                {
-                    'date': "October 14, 1975, 02:00:00",
-                    'temperature': 9
-                },
-                {
-                    'date': "October 14, 1975, 03:00:00",
-                    'temperature': 10
-                },
-                {
-                    'date': "October 14, 1975, 04:00:00",
-                    'temperature': 7
-                },
-                {
-                    'date': "October 14, 1975, 05:00:00",
-                    'temperature': 7
-                },
-                {
-                    'date': "October 14, 1975, 06:00:00",
-                    'temperature': 5
-                },
-                {
-                    'date': "October 14, 1975, 07:00:00",
-                    'temperature': 9
-                },
-                {
-                    'date': "October 14, 1975, 08:00:00",
-                    'temperature': 10
-                },
-                {
-                    'date': "October 14, 1975, 09:00:00",
-                    'temperature': 7
-                }
-            ];
-            return rtn;
-        }
-        private fetchSchedule(): Array<Schedule> {
-            var rtn: Array<Schedule>;
-            rtn = [{
-                'date': "October 13, 1975, 10:00:00",
-                'consumption': 9,
-            },
-                {
-                    'date': "October 13, 1975, 11:00:00",
-                    'consumption': 4
-                },
-                {
-                    'date': "October 13, 1975, 12:00:00",
-                    'consumption': 7
-                },
-                {
-                    'date': "October 13, 1975, 13:00:00",
-                    'consumption': 10
-                },
-                {
-                    'date': "October 13, 1975, 14:00:00",
-                    'consumption': 9
-                },
-                {
-                    'date': "October 13, 1975, 15:00:00",
-                    'consumption': 8
-                },
-                {
-                    'date': "October 13, 1975, 16:00:00",
-                    'consumption': 4
-                },
-                {
-                    'date': "October 13, 1975, 17:00:00",
-                    'consumption': 5
-                },
-                {
-                    'date': "October 13, 1975, 18:00:00",
-                    'consumption': 7
-                },
-                {
-                    'date': "October 13, 1975, 19:00:00",
-                    'consumption': 15
-                },
-                {
-                    'date': "October 13, 1975, 20:00:00",
-                    'consumption': 9
-                },
-                {
-                    'date': "October 13, 1975, 21:00:00",
-                    'consumption': 19
-                },
-                {
-                    'date': "October 13, 1975, 22:00:00",
-                    'consumption': 16
-                },
-                {
-                    'date': "October 13, 1975, 23:00:00",
-                    'consumption': 7
-                },
-                {
-                    'date': "October 13, 1975, 24:00:00",
-                    'consumption': 8
-                },
-                {
-                    'date': "October 14, 1975, 01:00:00",
-                    'consumption': 5
-                },
-                {
-                    'date': "October 14, 1975, 02:00:00",
-                    'consumption': 9
-                },
-                {
-                    'date': "October 14, 1975, 03:00:00",
-                    'consumption': 10
-                },
-                {
-                    'date': "October 14, 1975, 04:00:00",
-                    'consumption': 7
-                },
-                {
-                    'date': "October 14, 1975, 05:00:00",
-                    'consumption': 7
-                },
-                {
-                    'date': "October 14, 1975, 06:00:00",
-                    'consumption': 5
-                },
-                {
-                    'date': "October 14, 1975, 07:00:00",
-                    'consumption': 9
-                },
-                {
-                    'date': "October 14, 1975, 08:00:00",
-                    'consumption': 10
-                },
-                {
-                    'date': "October 14, 1975, 09:00:00",
-                    'consumption': 7
-                }
-            ];
-        
-            return rtn;
-        }
+//        private fetchFlexOffers() : FlexOffer {
+//            var rtn : FlexOffer;
+//            rtn = {
+//                'id': 2,
+//                'timeslices': [
+//                    {
+//                        'date': "October 13, 1975, 10:00:00",
+//                        'minConsumption': 7,
+//                        'maxConsumption': 24,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 13, 1975, 11:00:00",
+//                        'minConsumption': 2,
+//                        'maxConsumption': 16,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 13, 1975, 12:00:00",
+//                        'minConsumption': 6,
+//                        'maxConsumption': 17,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 13, 1975, 13:00:00",
+//                        'minConsumption': 7,
+//                        'maxConsumption': 14,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 13, 1975, 14:00:00",
+//                        'minConsumption': 8,
+//                        'maxConsumption': 13,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 13, 1975, 15:00:00",
+//                        'minConsumption': 9,
+//                        'maxConsumption': 15,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 13, 1975, 16:00:00",
+//                        'minConsumption': 2,
+//                        'maxConsumption': 11,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 13, 1975, 17:00:00",
+//                        'minConsumption': 3,
+//                        'maxConsumption': 4,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 13, 1975, 18:00:00",
+//                        'minConsumption': 3,
+//                        'maxConsumption': 5,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 13, 1975, 19:00:00",
+//                        'minConsumption': 7,
+//                        'maxConsumption': 14,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 13, 1975, 20:00:00",
+//                        'minConsumption': 6,
+//                        'maxConsumption': 20,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 13, 1975, 21:00:00",
+//                        'minConsumption': 14,
+//                        'maxConsumption': 24,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 13, 1975, 22:00:00",
+//                        'minConsumption': 13,
+//                        'maxConsumption': 28,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 13, 1975, 23:00:00",
+//                        'minConsumption': 5,
+//                        'maxConsumption': 14,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 13, 1975, 24:00:00",
+//                        'minConsumption': 7,
+//                        'maxConsumption': 8,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 14, 1975, 01:00:00",
+//                        'minConsumption': 3,
+//                        'maxConsumption': 14,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 14, 1975, 02:00:00",
+//                        'minConsumption': 7,
+//                        'maxConsumption': 14,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 14, 1975, 03:00:00",
+//                        'minConsumption': 8,
+//                        'maxConsumption': 21,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 14, 1975, 04:00:00",
+//                        'minConsumption': 4,
+//                        'maxConsumption': 18,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 14, 1975, 05:00:00",
+//                        'minConsumption': 6,
+//                        'maxConsumption': 19,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 14, 1975, 06:00:00",
+//                        'minConsumption': 4,
+//                        'maxConsumption': 21,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 14, 1975, 07:00:00",
+//                        'minConsumption': 7,
+//                        'maxConsumption': 12,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 14, 1975, 08:00:00",
+//                        'minConsumption': 9,
+//                        'maxConsumption': 11,
+//                        'barValues': {}
+//                    },
+//                    {
+//                        'date': "October 14, 1975, 09:00:00",
+//                        'minConsumption': 4,
+//                        'maxConsumption': 14,
+//                        'barValues': {}
+//                    }
+//                ]
+//            };
+//            return rtn;
+//        }
+//        private fetchTemperatures() : Array<Temperature> {
+//            var rtn: Array<Temperature>;
+//            rtn = [{
+//                'date': "October 13, 1975, 10:00:00",
+//                'temperature': 9,
+//            },
+//                {
+//                    'date': "October 13, 1975, 11:00:00",
+//                    'temperature': 4
+//                },
+//                {
+//                    'date': "October 13, 1975, 12:00:00",
+//                    'temperature': 7
+//                },
+//                {
+//                    'date': "October 13, 1975, 13:00:00",
+//                    'temperature': 10
+//                },
+//                {
+//                    'date': "October 13, 1975, 14:00:00",
+//                    'temperature': 9
+//                },
+//                {
+//                    'date': "October 13, 1975, 15:00:00",
+//                    'temperature': 8
+//                },
+//                {
+//                    'date': "October 13, 1975, 16:00:00",
+//                    'temperature': 4
+//                },
+//                {
+//                    'date': "October 13, 1975, 17:00:00",
+//                    'temperature': 5
+//                },
+//                {
+//                    'date': "October 13, 1975, 18:00:00",
+//                    'temperature': 7
+//                },
+//                {
+//                    'date': "October 13, 1975, 19:00:00",
+//                    'temperature': 15
+//                },
+//                {
+//                    'date': "October 13, 1975, 20:00:00",
+//                    'temperature': 9
+//                },
+//                {
+//                    'date': "October 13, 1975, 21:00:00",
+//                    'temperature': 19
+//                },
+//                {
+//                    'date': "October 13, 1975, 22:00:00",
+//                    'temperature': 16
+//                },
+//                {
+//                    'date': "October 13, 1975, 23:00:00",
+//                    'temperature': 7
+//                },
+//                {
+//                    'date': "October 13, 1975, 24:00:00",
+//                    'temperature': 8
+//                },
+//                {
+//                    'date': "October 14, 1975, 01:00:00",
+//                    'temperature': 5
+//                },
+//                {
+//                    'date': "October 14, 1975, 02:00:00",
+//                    'temperature': 9
+//                },
+//                {
+//                    'date': "October 14, 1975, 03:00:00",
+//                    'temperature': 10
+//                },
+//                {
+//                    'date': "October 14, 1975, 04:00:00",
+//                    'temperature': 7
+//                },
+//                {
+//                    'date': "October 14, 1975, 05:00:00",
+//                    'temperature': 7
+//                },
+//                {
+//                    'date': "October 14, 1975, 06:00:00",
+//                    'temperature': 5
+//                },
+//                {
+//                    'date': "October 14, 1975, 07:00:00",
+//                    'temperature': 9
+//                },
+//                {
+//                    'date': "October 14, 1975, 08:00:00",
+//                    'temperature': 10
+//                },
+//                {
+//                    'date': "October 14, 1975, 09:00:00",
+//                    'temperature': 7
+//                }
+//            ];
+//            return rtn;
+//        }
+//        private fetchSchedule(): Array<Schedule> {
+//            var rtn: Array<Schedule>;
+//            rtn = [{
+//                'date': "October 13, 1975, 10:00:00",
+//                'consumption': 9,
+//            },
+//                {
+//                    'date': "October 13, 1975, 11:00:00",
+//                    'consumption': 4
+//                },
+//                {
+//                    'date': "October 13, 1975, 12:00:00",
+//                    'consumption': 7
+//                },
+//                {
+//                    'date': "October 13, 1975, 13:00:00",
+//                    'consumption': 10
+//                },
+//                {
+//                    'date': "October 13, 1975, 14:00:00",
+//                    'consumption': 9
+//                },
+//                {
+//                    'date': "October 13, 1975, 15:00:00",
+//                    'consumption': 8
+//                },
+//                {
+//                    'date': "October 13, 1975, 16:00:00",
+//                    'consumption': 4
+//                },
+//                {
+//                    'date': "October 13, 1975, 17:00:00",
+//                    'consumption': 5
+//                },
+//                {
+//                    'date': "October 13, 1975, 18:00:00",
+//                    'consumption': 7
+//                },
+//                {
+//                    'date': "October 13, 1975, 19:00:00",
+//                    'consumption': 15
+//                },
+//                {
+//                    'date': "October 13, 1975, 20:00:00",
+//                    'consumption': 9
+//                },
+//                {
+//                    'date': "October 13, 1975, 21:00:00",
+//                    'consumption': 19
+//                },
+//                {
+//                    'date': "October 13, 1975, 22:00:00",
+//                    'consumption': 16
+//                },
+//                {
+//                    'date': "October 13, 1975, 23:00:00",
+//                    'consumption': 7
+//                },
+//                {
+//                    'date': "October 13, 1975, 24:00:00",
+//                    'consumption': 8
+//                },
+//                {
+//                    'date': "October 14, 1975, 01:00:00",
+//                    'consumption': 5
+//                },
+//                {
+//                    'date': "October 14, 1975, 02:00:00",
+//                    'consumption': 9
+//                },
+//                {
+//                    'date': "October 14, 1975, 03:00:00",
+//                    'consumption': 10
+//                },
+//                {
+//                    'date': "October 14, 1975, 04:00:00",
+//                    'consumption': 7
+//                },
+//                {
+//                    'date': "October 14, 1975, 05:00:00",
+//                    'consumption': 7
+//                },
+//                {
+//                    'date': "October 14, 1975, 06:00:00",
+//                    'consumption': 5
+//                },
+//                {
+//                    'date': "October 14, 1975, 07:00:00",
+//                    'consumption': 9
+//                },
+//                {
+//                    'date': "October 14, 1975, 08:00:00",
+//                    'consumption': 10
+//                },
+//                {
+//                    'date': "October 14, 1975, 09:00:00",
+//                    'consumption': 7
+//                }
+//            ];
+//        
+//            return rtn;
+//        }
     }
 
 }
 
-app.registerController('AggCtrl', ['$scope', '$http', 'dataFactory']); 
+app.registerController('AggCtrl', ['$scope', '$http', 'aggFactory']); 

@@ -11,7 +11,7 @@ module app.Directives {
 
         return {
             restrict: 'A',
-            scope: { timeslices: '=', schedule: '=', height: '=', width: '='},
+            scope: { flexoffer: '=', height: '=', width: '='},
             link(scope, element: JQuery, attrs: ng.IAttributes) {
 
             // Add the svg element to the dom
@@ -28,23 +28,24 @@ module app.Directives {
                         return $window.innerWidth;
                     },
                     function () {
-                        scope.render(scope.timeslices, scope.schedule);
+                        scope.render(scope.flexoffer);
                     });
 
                 // Watch for newData event
-                scope.$watch('timeslices', function (newTimeslices: Array<TimeSlice>) {
-                    scope.render(newTimeslices, scope.schedule);
+                scope.$watch('flexoffer', function (newFlexoffer: Array<FlexOffer>) {
+                    scope.render(newFlexoffer);
                 });
 
-                scope.render = function (timesliceData: Array<TimeSlice>, scheduleData: Array<Schedule>) {
+                scope.render = function (flexoffer: FlexOffer) {
 
+		  var timesliceData: Array<TimeSlice> = flexoffer.timeslices;
                     // Delete old data
                     svg.selectAll('*').remove();
                     if (!timesliceData) return;
 
                     //TODO These should really be attributes input
                     // Margin and paddings
-                    var margin = { top: 20, right: 40, bottom: 20, left: 40 };
+                    var margin = { top: 20, right: 40, bottom: 20, left: 60 };
                     var barPadding = 2;
                     var yAxisPadding = -5;
                   
@@ -58,9 +59,16 @@ module app.Directives {
                     //TODO HAcky di hack Rikke!
                     var width = element[0].clientWidth != 0 ? element[0].clientWidth : $window.innerWidth;
 		    width -= (margin.right + margin.left);
-                    var barWidth = width / timesliceData.length;
-                    var timeTicks = barWidth / 2;
-
+		    var start = +flexoffer.startAfterTime;
+		    var lateStart = +flexoffer.startBeforeTime;
+		    var end = +flexoffer.endTime;
+		    /** Divide the width by the flex offer "duration" in hours */
+		    console.debug(end-lateStart);
+                    var timeTicks = width / ( (end-start) / 3600000) ;
+		    console.debug("HEY " + timeTicks);
+		    var barWidth = timeTicks;
+		    console.debug( ( (end-lateStart) / 3600000 ));
+		    console.debug(flexoffer);
 
                     console.debug('width:' + width + ' height:' + height + ' data-length:' + timesliceData.length + ' barWidth:' + barWidth);
 		    console.debug('test ' + element[0].clientWidth); 
@@ -75,12 +83,12 @@ module app.Directives {
                     var parseDate = d3.time.format("%B %d, %Y, %X").parse;
            
                     var date = [];
-                    date = timesliceData.map(function (d) { return parseDate(d.date); });
+                    date.push(flexoffer.startAfterTime, flexoffer.endTime); 
 
                     // Scales
                     var xScale = d3.time.scale()
                         .domain(d3.extent(date))
-                        .range([timeTicks, width - timeTicks]);
+                        .range([0, width]);
 
                     var yScale = d3.scale.linear()
                         .domain([0, d3.max(timesliceData, function (d) { return d.maxConsumption; })])
@@ -89,11 +97,11 @@ module app.Directives {
                     // The color scale will set the stacked bar. The range decides the colors. The domain is computed from the timeslice model.
                     var color = d3.scale.ordinal()
                         .range([minimum, flex])
-                        .domain(d3.keys(timesliceData[0]).filter(function (key) { return key !== "date" && key !== "barValues"; }));
+                        .domain(d3.keys(timesliceData[0]).filter(function (key) { return key !== "date" && key !== "barValues" && key !== "duration"; }));
 
                     timesliceData.forEach(function (d) {
                         var y0 = 0;
-                        d.barValues = color.domain().map(function (name) { return { name: name, y0: y0, y1: +d[name] }; });
+                        d.barValues = color.domain().map(function (name) { return { name: name, y0: y0, y1: +d[name], duration: d.duration }; });
                         //TODO Hacky di hack: have to adjust y0 for the second mapping as the map function is funkieee
                         d.barValues[1].y0 += d.barValues[0].y1;
                     });
@@ -102,7 +110,7 @@ module app.Directives {
                     var xAxis = d3.svg.axis()
                         .scale(xScale)
                         .orient("bottom")
-                        .ticks(timesliceData.length)
+                        .ticks((end-start)/3600000)
                         .tickFormat(d3.time.format("%H"));
 
                     var yAxis = d3.svg.axis()
@@ -132,12 +140,12 @@ module app.Directives {
                         .data(timesliceData)
                         .enter().append("g")
                         .attr("class", "g")
-                        .attr("transform", function (d) { return "translate(" + (xScale(parseDate(d.date)) - timeTicks) + ",0)";});
+                        .attr("transform", function (d) { console.debug(d);return "translate(" + (xScale(d.date)) + ",0)";});
 
                     consumption.selectAll("rect")
                         .data(function (d) { return d.barValues; })
                         .enter().append("rect")
-                        .attr("width", barWidth - barPadding)
+                        .attr("width", function (d) { return (barWidth/d.duration - barPadding); })
                         .attr("y", function (d) { return yScale(d.y1); })
                         .attr("height", function (d) { return yScale(d.y0) - yScale(d.y1); })
                         .style("fill", function (d) { return color(d.name); });
@@ -152,6 +160,9 @@ module app.Directives {
                     //    .datum(scheduleData)
                     //    .attr("class", "line")
                     //    .attr("d", line);
+
+		    //Make arrow if time flexibility
+		    
                   
 
                     // Make Legend
