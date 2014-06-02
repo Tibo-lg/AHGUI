@@ -32,6 +32,22 @@ angular.module('app')
         }
  }]); 
 
+angular.module('app')
+    .factory('wmFactory', ['$http', function ($http) {
+
+        var url = 'http://localhost:9998/flexoffers';
+
+        return {
+            getWmFos: function () {
+              return  $http({
+                    method: 'GET',
+                    url: url
+                });
+            //return $http.get(urlBase);
+        }
+        }
+ }]); 
+
 angular.module('app').factory('Auth', ['Base64', '$cookieStore', '$http', function (Base64, $cookieStore, $http) {
     // initialize to whatever is in the cookie, if anything
     $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');

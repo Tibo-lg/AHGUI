@@ -10,7 +10,10 @@ module app.Controllers {
         isFlexOfferGenerated: boolean;
 
 	aggFlexOffers: Array<AggFlexOffer>;
+	curAggFlexOffer: number;
         generateFlexOffer: Function;
+	nextAggFO: Function;
+	prevAggFO: Function;
 	
         /* Scope specifics */
         status: string;
@@ -38,55 +41,44 @@ module app.Controllers {
             /* Fetch Heat Pump Data*/
 	    this.scope.aggFlexOffers = new Array<AggFlexOffer>();
             this.getAggFos();
-
-	    console.log(this.scope.aggFlexOffers);
-            
+	    this.scope.curAggFlexOffer = 0;
+	    this.scope.nextAggFO = () => {this.nextAggFO()};
+	    this.scope.prevAggFO = () => {this.prevAggFO()};
         }
 
         private getAggFos() {
             this.aggFactory.getAggFos()
                 .success( (custs) => {
                     this.dataset = custs;
-                    console.debug("calling factory from getAggFos");
-		    console.debug(this.dataset);
 		    this.dataset.forEach((entry) => {
 		      var aggFO: AggFlexOffer= new AggFlexOffer();
-		      aggFO.aggFlexOffer = this.convertFlexOffer(entry);
-		      entry.subFoMetas.forEach((subFO) => { aggFO.flexOffers.push(this.convertFlexOffer(subFO.subFlexOffer)); });
+		      aggFO.aggFlexOffer = convertFlexOffer(entry);
+		      entry.subFoMetas.forEach((subFO) => { aggFO.flexOffers.push(convertFlexOffer(subFO.subFlexOffer)); });
 		      this.scope.aggFlexOffers.push(aggFO);
-		      console.log(aggFO);
 		    });
                 })
                 .error(function (error) {
-                    console.debug(this.scope.status);
                     this.scope.status = 'Unable to load customer data: ' + error.message;
-                    console.debug(this.scope.status);
                 });
         }
-    
-	public convertFlexOffer( original : any): FlexOffer {
-	  console.debug("Generate Flex Offer");
-	  var fo = new FlexOffer();
-	  
-	  fo.startAfterTime = new Date(original.startAfterInterval*1000);
-	  fo.startBeforeTime = new Date(original.startBeforeInterval*1000);
-	  /** Get end time */
-	  fo.id = original.id;
-	  /**TODO take care of schedule */
-	  //fo.schedule = original.flexOfferSchedule;
-	  var sliceDelay=0;
-	  for(var i=0; i<original.slices.length; i++){
-	    var timeSlice = new TimeSlice();
-	    timeSlice.minConsumption = original.slices[i].energyConstraint.lower;
-	    timeSlice.maxConsumption = original.slices[i].energyConstraint.upper;
-	    timeSlice.date = new Date((original.startAfterInterval + sliceDelay )*1000);
-	    sliceDelay += 3600/original.slices[i].duration;
-	    timeSlice.duration = original.slices[i].duration;
-	    fo.timeslices.push(timeSlice);
+
+	private nextAggFO(){
+	  if(this.scope.curAggFlexOffer + 1 < this.scope.aggFlexOffers.length){
+	    this.scope.curAggFlexOffer++;
 	  }
-	  fo.endTime = new Date((original.startBeforeInterval + sliceDelay)*1000);
-	  return fo;
-        }
+	  else{
+	    this.scope.curAggFlexOffer = 0;
+	  }
+	}
+    
+	private prevAggFO(){
+	  if(this.scope.curAggFlexOffer > 0){
+	    this.scope.curAggFlexOffer--;
+	  }
+	  else{
+	    this.scope.curAggFlexOffer = this.scope.aggFlexOffers.length - 1;
+	  }
+	}
 //        private fetchFlexOffers() : FlexOffer {
 //            var rtn : FlexOffer;
 //            rtn = {

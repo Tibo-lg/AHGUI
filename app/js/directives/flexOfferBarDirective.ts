@@ -11,9 +11,10 @@ module app.Directives {
 
         return {
             restrict: 'A',
-            scope: { flexoffer: '=', height: '=', width: '='},
+            scope: { flexoffer: '=', view: '='},
             link(scope, element: JQuery, attrs: ng.IAttributes) {
 
+            var dirWidth = element[0].clientWidth != 0 ? element[0].clientWidth : $window.innerWidth;
             // Add the svg element to the dom
             var svg = d3.select(element[0])
                     .append('svg:svg');
@@ -28,12 +29,15 @@ module app.Directives {
                         return $window.innerWidth;
                     },
                     function () {
-                        scope.render(scope.flexoffer);
+		      if(scope.flexoffer != null){
+			scope.render(scope.flexoffer);
+		      }
                     });
-
                 // Watch for newData event
                 scope.$watch('flexoffer', function (newFlexoffer: Array<FlexOffer>) {
-                    scope.render(newFlexoffer);
+		  if(newFlexoffer != null){
+		    scope.render(newFlexoffer);
+		  }
                 });
 
                 scope.render = function (flexoffer: FlexOffer) {
@@ -57,21 +61,17 @@ module app.Directives {
                     //var height = (<HTMLElement><any>d3.select(element[0]).node().parentNode.parentNode).offsetHeight - margin.top - margin.bottom;
                     var height = 400 - margin.top - margin.bottom;
                     //TODO HAcky di hack Rikke!
-                    var width = element[0].clientWidth != 0 ? element[0].clientWidth : $window.innerWidth;
+		    var width = dirWidth;
 		    width -= (margin.right + margin.left);
 		    var start = +flexoffer.startAfterTime;
 		    var lateStart = +flexoffer.startBeforeTime;
 		    var end = +flexoffer.endTime;
 		    /** Divide the width by the flex offer "duration" in hours */
-		    console.debug(end-lateStart);
                     var timeTicks = width / ( (end-start) / 3600000) ;
-		    console.debug("HEY " + timeTicks);
+		    var pixelTime = (end-start)/width;
 		    var barWidth = timeTicks;
-		    console.debug( ( (end-lateStart) / 3600000 ));
-		    console.debug(flexoffer);
-
-                    console.debug('width:' + width + ' height:' + height + ' data-length:' + timesliceData.length + ' barWidth:' + barWidth);
-		    console.debug('test ' + element[0].clientWidth); 
+                    //console.debug('width:' + width + ' height:' + height + ' data-length:' + timesliceData.length + ' barWidth:' + barWidth);
+		    //console.debug('test ' + element[0].clientWidth); 
 
                     // Adding width and height to the svg
                     svg.attr('width', width + margin.left + margin.right)
@@ -111,7 +111,7 @@ module app.Directives {
                         .scale(xScale)
                         .orient("bottom")
                         .ticks((end-start)/3600000)
-                        .tickFormat(d3.time.format("%H"));
+                        .tickFormat(d3.time.format("%H:%M"));
 
                     var yAxis = d3.svg.axis()
                         .scale(yScale)
@@ -119,7 +119,7 @@ module app.Directives {
                     
                     svg.select('g')
                         .append("g")
-                        .attr("class", "x axis")
+                        .attr("class", "axis")
                         .attr("transform", "translate(0," + height + ")")
                         .call(xAxis);
 
@@ -136,11 +136,12 @@ module app.Directives {
                         .text("kWh");
 
                     // Make bars
-                    var consumption = svg.select('g').selectAll(".consumption")
-                        .data(timesliceData)
-                        .enter().append("g")
-                        .attr("class", "g")
-                        .attr("transform", function (d) { console.debug(d);return "translate(" + (xScale(d.date)) + ",0)";});
+		    var barGroup = svg.select('g').selectAll('.consumption').data(timesliceData);
+                        //.data(timesliceData);
+                    var consumption = barGroup
+			.enter().append("g")
+                        .attr("class", "g ")
+                        .attr("transform", function (d) { return "translate(" + (xScale(d.date)) + ",0)";});
 
                     consumption.selectAll("rect")
                         .data(function (d) { return d.barValues; })
@@ -161,10 +162,6 @@ module app.Directives {
                     //    .attr("class", "line")
                     //    .attr("d", line);
 
-		    //Make arrow if time flexibility
-		    
-                  
-
                     // Make Legend
                     var legend = svg.selectAll(".legend")
                         .data(color.domain().slice().reverse())
@@ -184,6 +181,187 @@ module app.Directives {
                         .attr("dy", ".35em")
                         .style("text-anchor", "end")
                         .text(function (d) { return d; });
+		    //Drag
+		    var drag = d3.behavior.drag()
+		      //.origin(function(d){console.debug(d); return d;})
+		      .on("drag", function(){
+			/** Filter weird dx that create jumps */
+			if(d3.event.dx < 50){
+			  var delta = d3.event.dx * pixelTime;
+			  if( +scope.flexoffer.timeslices[0].date + delta > +scope.flexoffer.startBeforeTime ){
+			    delta = +scope.flexoffer.startBeforeTime - +scope.flexoffer.timeslices[0].date
+			  }
+			  if( +scope.flexoffer.timeslices[0].date + delta < +scope.flexoffer.startAfterTime ){
+			    delta = +scope.flexoffer.startAfterTime - +scope.flexoffer.timeslices[0].date;
+			  }
+			  if( delta != 0 ){
+			    scope.flexoffer.timeslices.forEach(function(e){
+			      e.date = new Date( +e.date + delta )
+			    });
+			  }
+			  scope.render(scope.flexoffer);
+			}
+		      });
+		    barGroup.call(drag);
+                }
+            
+
+            }
+        }
+    }
+
+    export function ngBarSchedule($window: Window): ng.IDirective {
+
+        return {
+            restrict: 'A',
+            scope: { flexoffer: '=', height: '=', width: '='},
+            link(scope, element: JQuery, attrs: ng.IAttributes) {
+
+            var dirWidth = element[0].clientWidth != 0 ? element[0].clientWidth : $window.innerWidth;
+            // Add the svg element to the dom
+            var svg = d3.select(element[0])
+                    .append('svg:svg');
+                // Browser onresize event
+                window.onresize = function () {
+                    scope.$apply();
+                };
+
+                // Watch for resize event
+                scope.$watch(
+                    function () {
+                        return $window.innerWidth;
+                    },
+                    function () {
+		      if(scope.flexoffer != null && scope.flexoffer.schedule != null){
+			scope.render(scope.flexoffer);
+		      }
+                    });
+
+                // Watch for newData event
+                scope.$watch('flexoffer', function (newFlexoffer) {
+		  if(newFlexoffer != null && newFlexoffer.schedule != null){
+		    scope.render(newFlexoffer);
+		  }
+                });
+
+                scope.render = function (flexoffer: FlexOffer) {
+
+		  var timesliceData: Array<TimeSlice> = flexoffer.timeslices;
+		  var energyAmounts = flexoffer.schedule.energyAmounts;
+		  var startInterval = flexoffer.schedule.startInterval;
+                    // Delete old data
+                    svg.selectAll('*').remove();
+                    if (!timesliceData) return;
+
+                    //TODO These should really be attributes input
+                    // Margin and paddings
+                    var margin = { top: 20, right: 40, bottom: 20, left: 60 };
+                    var barPadding = 2;
+                    var yAxisPadding = -5;
+                  
+                    // Colour
+                    var color = "#033E6B";
+
+                    // Calculate the height and width of elements
+                    //var height = (<HTMLElement><any>d3.select(element[0]).node().parentNode.parentNode).offsetHeight - margin.top - margin.bottom;
+                    var height = 400 - margin.top - margin.bottom;
+                    //TODO HAcky di hack Rikke!
+		    var width = dirWidth;
+		    width -= (margin.right + margin.left);
+		    var start = +flexoffer.startAfterTime;
+		    var lateStart = +flexoffer.startBeforeTime;
+		    var end = +flexoffer.endTime;
+		    /** Divide the width by the flex offer "duration" in hours */
+                    var timeTicks = width / ( (end-start) / 3600000) ;
+		    var pixelTime = (end-start)/width;
+		    var barWidth = timeTicks;
+                    //console.debug('sch width:' + width + ' height:' + height + ' data-length:' + timesliceData.length + ' barWidth:' + barWidth);
+		    //console.debug('test ' + element[0].clientWidth); 
+
+                    // Adding width and height to the svg
+                    svg.attr('width', width + margin.left + margin.right)
+                        .attr('height', height + margin.top + margin.bottom)
+                        .append('g')
+                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                    var date = [];
+                    date.push(flexoffer.startAfterTime, flexoffer.endTime); 
+
+                    // Scales
+                    var xScale = d3.time.scale()
+                        .domain(d3.extent(date))
+                        .range([0, width]);
+
+                    var yScale = d3.scale.linear()
+                        .domain([0, d3.max(timesliceData, function (d) { return d.maxConsumption; })])
+                        .rangeRound([height, 0]);
+
+		    var date = startInterval * 1000;
+                    for(var i=0; i<timesliceData.length; i++){
+                        timesliceData[i].barValues = { name: "expected consumption", y: energyAmounts[i], duration: timesliceData[i].duration, date: new Date( date ) };
+			date += 3600/timesliceData[i].duration*1000;
+                    }
+
+                    // Make svg Axis
+                    var xAxis = d3.svg.axis()
+                        .scale(xScale)
+                        .orient("bottom")
+                        .ticks((end-start)/3600000)
+                        .tickFormat(d3.time.format("%H:%M"));
+
+                    var yAxis = d3.svg.axis()
+                        .scale(yScale)
+                        .orient("left");
+                    
+                    svg.select('g')
+                        .append("g")
+                        .attr("class", "axis")
+                        .attr("transform", "translate(0," + height + ")")
+                        .call(xAxis);
+
+                    svg.select('g')
+                        .append("g")
+                        .attr("class", "axis")
+                        .attr('transform', 'translate('+ yAxisPadding +',0)')
+                        .call(yAxis)
+                        .append("text")
+                        .attr("transform", "rotate(-90)")
+                        .attr("y", 6)
+                        .attr("dy", ".71em")
+                        .style("text-anchor", "end")
+                        .text("kWh");
+
+                    // Make bars
+		    var barGroup = svg.select('g').selectAll('.consumption').data(timesliceData);
+                        //.data(timesliceData);
+                    var consumption = barGroup
+			.enter().append("rect")
+                        .attr("class", "rect")
+                        .attr("transform", function (d) { return "translate(" + (xScale(d.barValues.date)) + ",0)";})
+                        .attr("width", function (d) { return (barWidth/d.barValues.duration - barPadding); })
+                        .attr("y", function (d) { return yScale(d.barValues.y); })
+                        .attr("height", function (d) { return yScale(0) - yScale(d.barValues.y); })
+                        .style("fill", function (d) { return color; });
+		        
+
+//                    consumption.selectAll("rect")
+//                        .data(timesliceData)
+//                        .enter().append("rect")
+//                        .attr("width", function (d) { console.debug(d); return (barWidth/d.barValues.duration - barPadding); })
+//                        .attr("y", function (d) { return yScale(d.barValues.y); })
+//                        .attr("height", function (d) { console.debug(d); return yScale(0) - yScale(d.barValues.y); })
+//                        .style("fill", function (d) { return "#000000"; });
+
+                    // Make schedule line
+
+                    //var line = d3.svg.line()
+                    //    .x(function (d) {return (xScale(parseDate(d.date)));})
+                    //    .y(function (d) {return yScale(d.consumption);});
+
+                    //svg.select('g').append("path")
+                    //    .datum(scheduleData)
+                    //    .attr("class", "line")
+                    //    .attr("d", line);
                 }
             
 
@@ -193,3 +371,4 @@ module app.Directives {
 }
 
 app.registerDirective('ngBar', ['$window']);
+app.registerDirective('ngBarSchedule', ['$window']);

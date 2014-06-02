@@ -11,41 +11,117 @@ modules.push('ngAnimate');
 modules.push('ngSanitize');
 modules.push('ngResource');
 modules.push('ngCookies');
+modules.push('ui.router');
 
 modules.push('mgcrea.ngStrap');
 //modules.push('ui.bootstrap');
 
 angular.module('app', modules);
 
-angular.module('app').config(['$routeProvider',
-    function ($routeProvider){
-        $routeProvider.when('/home', {
-            templateUrl: 'partials/home.html'
-        });
-        $routeProvider.when('/about', {
-            templateUrl: 'partials/about.html'
-        });
-        $routeProvider.when('/washingmachine', {
-            templateUrl: 'partials/washingmachine.html'
-        });
-        $routeProvider.when('/heatpump', {
-            templateUrl: 'partials/heatPump.html',
-            controller: 'app.Controllers.FlexOfferCtrl'
-        });
-        $routeProvider.when('/aggregator', {
-            templateUrl: 'partials/agg.html',
-            controller: 'app.Controllers.AggCtrl'
-        });
-        $routeProvider.otherwise({
-            redirectTo: '/home'
-        });
-    }]);
+//angular.module('app').config(['$routeProvider',
+//    function ($routeProvider){
+//        $routeProvider.when('/home', {
+//            templateUrl: 'partials/home.html'
+//        });
+//        $routeProvider.when('/about', {
+//            templateUrl: 'partials/about.html'
+//        });
+//        $routeProvider.when('/washingmachine', {
+//            templateUrl: 'partials/washingmachine.html'
+//        });
+//        $routeProvider.when('/heatpump', {
+//            templateUrl: 'partials/heatPump.html',
+//            controller: 'app.Controllers.FlexOfferCtrl'
+//        });
+//        $routeProvider.otherwise({
+//            redirectTo: '/home'
+//        });
+//    }]);
+
+angular.module('app').config(function($stateProvider, $urlRouterProvider){
+  $urlRouterProvider.otherwise("/home");
+  $urlRouterProvider.when("/heatpump", "/heatpump/getfo");
+  $urlRouterProvider.when("/aggregator", "/aggregator/aggflex");
+  $stateProvider
+  .state('home', {
+    url: '/home',
+    templateUrl: 'partials/home.html'
+  })
+  .state('about', {
+    url: '/about',
+    templateUrl: 'partials/about.html'
+  })
+  .state('washingmachine', {
+    url: '/washingmachine',
+    templateUrl: 'partials/washingmachine.html'
+  })
+  .state('heatpump', {
+    url: '/heatpump',
+    templateUrl: 'partials/heatPump.html',
+    controller: 'app.Controllers.FlexOfferCtrl',
+    abstract: true
+  })
+  .state('heatpump.getfo', {
+    url: '/getfo',
+    templateUrl: 'partials/getFo.html'
+  })
+  .state('heatpump.flex', {
+    url: '/flex',
+    templateUrl: 'partials/flex.html'
+  })
+  .state('heatpump.temperature', {
+    url: '/temperature',
+    templateUrl: 'partials/temperature.html'
+  })
+  .state('heatpump.schedule', {
+    url: '/schedule',
+    templateUrl: 'partials/schedule.html'
+  })
+  .state('aggMain', {
+    url: '/aggregator', 
+    abstract: true,
+    controller: 'app.Controllers.AggCtrl',
+    templateUrl: 'partials/agg.html'
+  })
+  .state('aggMain.aggFlex', {
+    url: '/aggflex',
+    templateUrl: 'partials/aggFO.html'
+  })
+  .state('aggMain.aggSch', {
+    url: '/aggsch',
+    templateUrl: 'partials/aggSch.html'
+  })
+});
 
 module app {
     export module Controllers { null; }
     export module Directives { null; }
     export module Services { null; }
 
+    export function convertFlexOffer(original){
+      console.debug("Generate Flex Offer ");
+      console.debug(original);
+      var fo = new FlexOffer();
+      fo.startAfterTime = new Date(original.startAfterInterval*1000);
+      fo.startBeforeTime = new Date(original.startBeforeInterval*1000);
+      /** Get end time */
+      fo.id = original.id;
+      /**TODO take care of schedule */
+      //fo.schedule = original.flexOfferSchedule;
+      var sliceDelay=0;
+      for(var i=0; i<original.slices.length; i++){
+	var timeSlice = new TimeSlice();
+	timeSlice.minConsumption = original.slices[i].energyConstraint.lower;
+	timeSlice.maxConsumption = original.slices[i].energyConstraint.upper;
+	timeSlice.date = new Date((original.startAfterInterval + sliceDelay )*1000);
+	sliceDelay += 3600/original.slices[i].duration;
+	timeSlice.duration = original.slices[i].duration;
+	fo.timeslices.push(timeSlice);
+	fo.schedule = original.flexOfferSchedule;
+      }
+      fo.endTime = new Date((original.startBeforeInterval + sliceDelay)*1000);
+      return fo;
+    }
     export class FlexOffer {
         id: number;
 	startAfterTime: Date;
@@ -77,8 +153,8 @@ module app {
     }
 
     export interface Schedule {
-        date: string;
-        consumption: number;
+	startInterval: number;
+        energyAmounts: Array<number>;
     }
     export interface Temperature {
         date: string;

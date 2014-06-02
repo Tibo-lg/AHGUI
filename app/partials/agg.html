@@ -1,3 +1,20 @@
+<div class="row" data-ng-show="aggFlexOffers != null">
+  <!-- USER SETTINGS DIV   -->
+</div>
+<div class="col-sm-12" >
+  <a class="m-btn" ui-sref="aggMain.aggFlex">Flex Offer</a>
+  <a class="m-btn" ui-sref="aggMain.aggSch" >Schedule</a>
+  <div style="display: inline-block;">
+    <a class="ment-btn" ng-click="prevAggFO()">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    {{curAggFlexOffer+1}}/{{aggFlexOffers.length}}
+    <a class="ment-btn" ng-click="nextAggFO()">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+  </div>
+</div>
+</div>
 <div class="row">
   <div class="col-md-6">
     <h2>Aggregated</h2>
@@ -6,13 +23,4 @@
     <h2>Non Aggregated</h2>
   </div>
 </div>
-<div class="row" ng-repeat="aggFlexOffer in aggFlexOffers">
-  <div class="col-md-6">
-    <div flexoffer="aggFlexOffer.aggFlexOffer" height="element[0].width" width="element[0].height" data-ng-bar></div>
-  </div>
-  <div class="col-md-6">
-    <div class="row" ng-repeat="flexOffer in aggFlexOffer.flexOffers">
-      <div flexoffer="flexOffer" height="element[0].width" width="element[0].height" data-ng-bar></div>
-    </div>
-  </div>
-</div>
+<div ui-view></div>

@@ -4,7 +4,6 @@
 
 <div class="container-fluid" style="margin-top: 20px;">
 
-    <views>
         <div class="row">
             <!-- Info & Views -->
             <!-- Town & time & outside info -->
@@ -65,23 +64,20 @@
                     <a class="ment-btn" ng-click="resetValues()" view-target="start"><span class="glyphicon glyphicon-refresh"></span></a>
                 </div> 
              
-
                 <div class="row">
                     <div class="col-sm-12">
-                        <a class="m-btn full" view-target="flex" data-ng-click="generateFlexOffer()">
+                        <a class="m-btn full" ui-sref="heatpump.flex" data-ng-click="generateFlexOffer()">
                             Get Flex Offer <span class="glyphicon glyphicon-share-alt"></span>
                         </a>
                     </div>
                 </div>
 
-
-
                 <div class="row">
                     <!-- USER SETTINGS DIV   -->
-                    <div class="col-sm-12" data-ng-show="isFlexOfferGenerated">
-                        <a class="m-btn" view-target="flex">Flex Offer</a>
-                        <a class="m-btn" view-target="temp">Temperature</a>
-                        <a class="m-btn" view-target="schedule">Schedule</a>
+                    <div class="col-sm-12" data-ng-show="flexOffer != null">
+                        <a class="m-btn" ui-sref="heatpump.flex">Flex Offer</a>
+                        <a class="m-btn" ui-sref="heatpump.temperature">Temperature</a>
+                        <a class="m-btn" ui-sref="heatpump.schedule" data-ng-show="flexOffer != null && flexOffer.schedule != null">Schedule</a>
                     </div>
 
                 </div>
@@ -91,30 +87,10 @@
             </div>  <!-- ./Controllers -->
         </div> <!-- ./Row info -->
         <!-- Graphs -->
-        <div class="row">
-            <div class="col-sm-12" style="height: 500px">
-                <view name="start" initial>
-                    <a class="flexofferbutton" view-target="flex" data-ng-click="generateFlexOffer()">
-                        Get Flex Offer <br /> <span style="font-size: 6em;" class="glyphicon glyphicon-stats"></span>
-                    </a>
-                </view>
-                <view name="flex">
-                    <div style="height: 100px;">
-                        <h1>Flex Offer Id: {{flexOffer.id}} Max consumption: Min consumption:</h1>
-                    </div>
-                    <div timeslices="timeslices" schedule="schedule" data-ng-bar></div>
-                </view>
-                <view name="temp">
-                    <div style="height: 100px;">
-                        <h1>Flex Offer Id: {{flexOffer.id}} Max temperature: Min temperature:</h1>
-                    </div>
-                    <div temperatures="temperatures" data-ng-tem></div>
-                </view>
-                <view name="schedule"><div timeslices="timeslices" schedule="schedule" data-ng-bar></div></view>
-            </div>
+        <div>
+            <div style="height: 500px" ui-view></div>
         </div><!-- ./Graphs -->
 
-    </views>
 </div>
 <!-- ***************************** OLD STUFF *****************************************
 
