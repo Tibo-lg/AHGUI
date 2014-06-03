@@ -11,9 +11,10 @@ module app.Controllers {
 
 	aggFlexOffers: Array<AggFlexOffer>;
 	curAggFlexOffer: number;
-        generateFlexOffer: Function;
+        getAggFlexOffers: Function;
 	nextAggFO: Function;
 	prevAggFO: Function;
+	schedule: Function;
 	
         /* Scope specifics */
         status: string;
@@ -37,19 +38,25 @@ module app.Controllers {
             this.scope = $scope;
             this.aggFactory = aggFactory;
 
+	    aggFactory.aggregate().success(()=>{this.getAggFos();});
+
             this.scope.isFlexOfferGenerated = false;
             /* Fetch Heat Pump Data*/
 	    this.scope.aggFlexOffers = new Array<AggFlexOffer>();
-            this.getAggFos();
 	    this.scope.curAggFlexOffer = 0;
 	    this.scope.nextAggFO = () => {this.nextAggFO()};
 	    this.scope.prevAggFO = () => {this.prevAggFO()};
+	    this.scope.schedule = () => {this.schedule()};
+	    this.scope.getAggFlexOffers = () => {this.getAggFos()};
+
+
         }
 
         private getAggFos() {
             this.aggFactory.getAggFos()
                 .success( (custs) => {
                     this.dataset = custs;
+		    this.scope.aggFlexOffers.length = 0;
 		    this.dataset.forEach((entry) => {
 		      var aggFO: AggFlexOffer= new AggFlexOffer();
 		      aggFO.aggFlexOffer = convertFlexOffer(entry);
@@ -61,6 +68,10 @@ module app.Controllers {
                     this.scope.status = 'Unable to load customer data: ' + error.message;
                 });
         }
+	
+	private schedule(){
+	  this.aggFactory.schedule().success(()=>{this.getAggFos();});
+	}
 
 	private nextAggFO(){
 	  if(this.scope.curAggFlexOffer + 1 < this.scope.aggFlexOffers.length){

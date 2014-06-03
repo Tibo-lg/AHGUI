@@ -17,36 +17,71 @@
  }]); 
 
 angular.module('app')
-    .factory('aggFactory', ['$http', function ($http) {
+.factory('aggFactory', ['$http', function ($http) {
 
-        var url = 'http://localhost:9997/aggfos';
-
-        return {
-            getAggFos: function () {
-              return  $http({
-                    method: 'GET',
-                    url: url
-                });
-            //return $http.get(urlBase);
-        }
-        }
- }]); 
+  var url = 'http://localhost:9997/aggfos';
+  var urlSch = 'http://localhost:9997/schedule';
+  var urlAgg = 'http://localhost:9997/aggregate';
+  return {
+    getAggFos: function () {
+      return  $http({
+	method: 'GET',
+	      url: url
+      });
+      //return $http.get(urlBase);
+    },
+  aggregate: function() {
+    return $http({
+      method: 'POST',
+    url: urlAgg
+    });
+  },
+  delete: function() {
+    return $http({
+      method: 'DELETE',
+    url: url
+    });
+  },
+  schedule: function() {
+    return $http({
+      method: 'POST',
+    url: urlSch
+    });
+  }
+  }
+}]); 
 
 angular.module('app')
-    .factory('wmFactory', ['$http', function ($http) {
+.factory('wmFactory', ['$http', function ($http) {
 
-        var url = 'http://localhost:9998/flexoffers';
+  var url = 'http://localhost:9998/flexoffers';
+  var urlSch = 'http://localhost:9998/ders/bulbders/1/profile/programs';
 
-        return {
-            getWmFos: function () {
-              return  $http({
-                    method: 'GET',
-                    url: url
-                });
-            //return $http.get(urlBase);
-        }
-        }
- }]); 
+  return {
+    getWmFos: function () {
+      return  $http({
+	method: 'GET',
+	      url: url
+      });
+    },
+    delete: function () {
+      return  $http({
+	method: 'DELETE',
+	      url: url
+      });
+    },
+  postSchedule: function() {
+    var eStart = new Date();
+    eStart = +eStart/1000;
+    var lEnd = eStart+3600*10;
+    return $http({
+      method: 'POST',
+	   data: JSON.stringify({type:"SHORT", earliestStart:eStart, latestEnd:lEnd}),
+	   url: urlSch
+    });
+  }
+  }
+}]); 
 
 angular.module('app').factory('Auth', ['Base64', '$cookieStore', '$http', function (Base64, $cookieStore, $http) {
     // initialize to whatever is in the cookie, if anything

@@ -23,6 +23,7 @@ module app.Controllers {
         updateSunEffect: Function;
         getFlexOffer: Function;
         resetValues: Function;
+        postSchedule: Function;
 
         incrementMin: Function;
         decrementMin: Function;
@@ -68,6 +69,7 @@ module app.Controllers {
             /* Fetch Heat Pump Data*/
   
             this.scope.getFlexOffer = () => {this.getWmFos(); };
+            this.scope.postSchedule = () => {this.postSchedule(); };
 	    this.scope.flexOffer = null;
 
 	    this.scope.temperatures = this.fetchTemperatures();
@@ -125,6 +127,10 @@ module app.Controllers {
             this.scope.outtemp++;
         }
 
+	public postSchedule(){
+	  this.wmFactory.postSchedule().success(()=>{this.getWmFos();});
+	}
+
         public getWmFos() {
 	  console.log(this);
             this.wmFactory.getWmFos()
@@ -145,18 +151,18 @@ module app.Controllers {
         }
 
         private getHPParam() {
-            this.dataFactory.getHPParam()
-                .success(function (custs) {
-                    this.dataset = custs;
-                    console.debug("calling factory from getParam");
-                    console.debug(this.dataset);
-
-                })
-                .error(function (error) {
-                    console.debug(this.scope.status);
-                    this.scope.status = 'Unable to load customer data: ' + error.message;
-                    console.debug(this.scope.status);
-                });
+//            this.dataFactory.getHPParam()
+//                .success(function (custs) {
+//                    this.dataset = custs;
+//                    console.debug("calling factory from getParam");
+//                    console.debug(this.dataset);
+//
+//                })
+//                .error(function (error) {
+//                    console.debug(this.scope.status);
+//                    this.scope.status = 'Unable to load customer data: ' + error.message;
+//                    console.debug(this.scope.status);
+//                });
             this.scope.maxtemp = 23;
             this.scope.mintemp = 18;
             this.scope.outtemp = 14;
