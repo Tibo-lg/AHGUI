@@ -22,6 +22,7 @@ module app.Controllers {
         /* Methods used for user interaction */
         updateSunEffect: Function;
         getFlexOffer: Function;
+	setParameters: Function;
         resetValues: Function;
         postSchedule: Function;
 
@@ -48,6 +49,7 @@ module app.Controllers {
         private http;
         private wmFactory;
 	private dataFactory;
+	private Auth;
         private dataset = [];
         private urlb = "http://api.openweathermap.org/data/2.5/forecast/daily?mode=json&units=imperial&cnt=14&callback=JSON_CALLBACK&q=Aalborg";
         private urlBase = 'http://api.neogrid.dk/arrowhead/trigger';
@@ -59,6 +61,7 @@ module app.Controllers {
             this.http = $http;
             this.scope = $scope;
             this.wmFactory = wmFactory;
+            this.Auth = Auth;
 
 	    this.dataFactory = dataFactory;
 	    this.getHPParam();
@@ -68,7 +71,8 @@ module app.Controllers {
             this.scope.isFlexOfferAssigned = false;
             /* Fetch Heat Pump Data*/
   
-            this.scope.getFlexOffer = () => {this.getWmFos(); };
+            this.scope.getFlexOffer = () => {this.getFlexOffer(); };
+            this.scope.setParameters = () => {this.trigger(); };
             this.scope.postSchedule = () => {this.postSchedule(); };
 	    this.scope.flexOffer = null;
 
@@ -151,24 +155,77 @@ module app.Controllers {
         }
 
         private getHPParam() {
-//            this.dataFactory.getHPParam()
-//                .success(function (custs) {
-//                    this.dataset = custs;
-//                    console.debug("calling factory from getParam");
-//                    console.debug(this.dataset);
-//
-//                })
-//                .error(function (error) {
-//                    console.debug(this.scope.status);
-//                    this.scope.status = 'Unable to load customer data: ' + error.message;
-//                    console.debug(this.scope.status);
-//                });
-            this.scope.maxtemp = 23;
-            this.scope.mintemp = 18;
-            this.scope.outtemp = 14;
-            this.scope.suneffect = 'N';
-            
+	  this.Auth.setCredentials("", "");
+            this.dataFactory.getHPParam()
+                .success((custs) => {
+                    this.dataset = custs;
+                    console.debug("calling factory from getParam");
+                    console.debug(this.dataset);
+		    this.scope.maxtemp = custs.ti_high;
+		    this.scope.mintemp = custs.ti_low;
+		    this.scope.outtemp = custs.to_avg;
+		    this.scope.suneffect = this.cloudCoverValToString(custs.cloud_cover);
+                })
+                .error((error)=> {
+                    console.debug(this.scope.status);
+                    this.scope.status = 'Unable to load customer data: ' + error.message;
+                    console.debug(this.scope.status);
+                });
         }
+
+	private trigger() {
+	  this.dataFactory.triggerFO(this.scope.mintemp, this.scope.maxtemp, this.scope.outtemp, this.cloudCoverStringToVal(this.scope.suneffect))
+                .success( (custs) => {
+                    this.dataset = custs;
+                    console.debug("calling factory from trigger");
+		    console.debug(this.dataset);
+		    this.scope.flexOffer = convertFlexOffer(this.dataset);
+		    console.log(this.scope.flexOffer);
+                })
+                .error(function (error) {
+                    console.debug(this.scope.status);
+                    this.scope.status = 'Unable to load customer data: ' + error.message;
+                    console.debug(this.scope.status);
+                });
+	}
+
+	private getFlexOffer() {
+	  this.dataFactory.getFlexOffer()
+                .success( (custs) => {
+                    this.dataset = custs;
+                    console.debug("calling factory from getFlexOffer");
+		    console.debug(this.dataset);
+		    this.scope.flexOffer = convertFlexOffer(this.dataset);
+		    console.log(this.scope.flexOffer);
+                })
+                .error(function (error) {
+                    console.debug(this.scope.status);
+                    this.scope.status = 'Unable to load customer data: ' + error.message;
+                    console.debug(this.scope.status);
+                });
+	}
+
+	private cloudCoverValToString(val){
+	  switch(val){
+	    case 100:
+	      return 'N';
+	    case 50:
+	      return 'H';
+	    case 0:
+	      return 'B';
+	  }
+	}
+
+	private cloudCoverStringToVal(str){
+	  if(str == 'B'){
+	    return 100;
+	  }else if(str == 'H'){
+	    return 50;
+	  }else if(str == 'N'){
+	    return 0;
+	  }
+	}
+
 	private fetchTemperatures() : Array<Temperature> {
 	  var rtn: Array<Temperature>;
 	  rtn = [{

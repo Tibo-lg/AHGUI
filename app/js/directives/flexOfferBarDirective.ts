@@ -11,9 +11,10 @@ module app.Directives {
 
         return {
             restrict: 'A',
-            scope: { flexoffer: '=', view: '='},
+            scope: { flexoffer: '=', drawschedule: '='},
             link(scope, element: JQuery, attrs: ng.IAttributes) {
 
+	      console.debug(scope.drawschedule);
             var dirWidth = element[0].clientWidth != 0 ? element[0].clientWidth : $window.innerWidth;
             // Add the svg element to the dom
             var svg = d3.select(element[0])
@@ -56,6 +57,7 @@ module app.Directives {
                     // Colours
                     var flex = "#64BE45";
                     var minimum = "#BEBEBE";
+		    var sch = "#3914AF";
 
                     // Calculate the height and width of elements
                     //var height = (<HTMLElement><any>d3.select(element[0]).node().parentNode.parentNode).offsetHeight - margin.top - margin.bottom;
@@ -70,7 +72,7 @@ module app.Directives {
                     var timeTicks = width / ( (end-start) / 3600000) ;
 		    var pixelTime = (end-start)/width;
 		    var barWidth = timeTicks;
-                    //console.debug('width:' + width + ' height:' + height + ' data-length:' + timesliceData.length + ' barWidth:' + barWidth);
+                    console.debug('width:' + width + ' height:' + height + ' data-length:' + timesliceData.length + ' barWidth:' + barWidth);
 		    //console.debug('test ' + element[0].clientWidth); 
 
                     // Adding width and height to the svg
@@ -86,25 +88,59 @@ module app.Directives {
                     date.push(flexoffer.startAfterTime, flexoffer.endTime); 
 
                     // Scales
+		    var yMax = d3.max(timesliceData, function (d) { return d.maxConsumption; });
                     var xScale = d3.time.scale()
                         .domain(d3.extent(date))
                         .range([0, width]);
 
                     var yScale = d3.scale.linear()
-                        .domain([0, d3.max(timesliceData, function (d) { return d.maxConsumption; })])
+                        .domain([0, yMax])
                         .rangeRound([height, 0]);
 
                     // The color scale will set the stacked bar. The range decides the colors. The domain is computed from the timeslice model.
-                    var color = d3.scale.ordinal()
-                        .range([minimum, flex])
-                        .domain(d3.keys(timesliceData[0]).filter(function (key) { return key !== "date" && key !== "barValues" && key !== "duration"; }));
+                    var color; 
+		      
+		    if(!scope.drawschedule || timesliceData[0].schedule == null){
 
-                    timesliceData.forEach(function (d) {
-                        var y0 = 0;
-                        d.barValues = color.domain().map(function (name) { return { name: name, y0: y0, y1: +d[name], duration: d.duration }; });
-                        //TODO Hacky di hack: have to adjust y0 for the second mapping as the map function is funkieee
-                        d.barValues[1].y0 += d.barValues[0].y1;
-                    });
+		      color  = d3.scale.ordinal()
+			.range([minimum, flex])
+			.domain(d3.keys(timesliceData[0]).filter(function (key) 
+			      { 
+				return key !== "date" && key !== "barValues" && key !== "duration" && key !== "schedule"; 
+			      }));
+		      timesliceData.forEach(function (d) {
+			var y0 = 0;
+			d.barValues = color.domain().map(function (name) { return { name: name, y0: y0, y1: +d[name], duration: d.duration }; });
+			//TODO Hacky di hack: have to adjust y0 for the second mapping as the map function is funkieee
+			d.barValues[1].y0 += d.barValues[0].y1;
+		      });
+		    }else{
+		      color  = d3.scale.ordinal()
+			.range([minimum, flex, sch])
+			.domain(d3.keys(timesliceData[0]).filter(function (key) 
+			      { 
+				return key !== "date" && key !== "barValues" && key !== "duration"; 
+			      }));
+		      timesliceData.forEach(function (d) {
+			var y0 = 0;
+			d.barValues = color.domain().map(function (name) { 
+			  return { 
+			    name: name, y0: y0, y1: +d[name], duration: d.duration }; 
+			});
+			//TODO Hacky di hack: have to adjust y0 for the second mapping as the map function is funkieee
+			d.barValues[1].y0 += d.barValues[0].y1;
+			
+			if(d.maxConsumption != 0){
+			  var flexibility = d.barValues[1].y1 - d.barValues[1].y0;
+			  var schHeight = flexibility / 10;
+			  if(schHeight == 0) schHeight = (d.barValues[0].y1 - d.barValues[0].y0)/10;
+			  d.barValues[2].y0 += d.barValues[2].y1 - schHeight/2;
+			  if(d.barValues[2].y0<0) d.barValues[2].y0 = 0;
+			  d.barValues[2].y1 += schHeight/2;
+			  if(d.barValues[2].y1>d.barValues[1].y1) d.barValues[2].y1 = d.barValues[1].y1;
+			}
+		      });
+		    }
 
                     // Make svg Axis
                     var xAxis = d3.svg.axis()
@@ -136,7 +172,7 @@ module app.Directives {
                         .text("kWh");
 
                     // Make bars
-		    var barGroup = svg.select('g').selectAll('.consumption').data(timesliceData);
+		    var barGroup = svg.select('g').selectAll('.consumption').data(timesliceData); 
                         //.data(timesliceData);
                     var consumption = barGroup
 			.enter().append("g")
@@ -153,14 +189,17 @@ module app.Directives {
 
                     // Make schedule line
 
-                    //var line = d3.svg.line()
-                    //    .x(function (d) {return (xScale(parseDate(d.date)));})
-                    //    .y(function (d) {return yScale(d.consumption);});
-
-                    //svg.select('g').append("path")
-                    //    .datum(scheduleData)
-                    //    .attr("class", "line")
-                    //    .attr("d", line);
+//		    if( scope.drawschedule == true ){
+//		      var line = d3.svg.line()
+//			.x(function (d) {return xScale(d.date)+barWidth/(2*d.duration);})
+//			.y(function (d) {return yScale(d.schedule);});
+//
+//		      svg.select('g').append("path")
+//			//.datum(scheduleData)
+//			.attr("class", "line")
+//			.attr("d", line(timesliceData))
+//			.style("stroke", sch);
+//		    }
 
                     // Make Legend
                     var legend = svg.selectAll(".legend")
@@ -182,27 +221,29 @@ module app.Directives {
                         .style("text-anchor", "end")
                         .text(function (d) { return d; });
 		    //Drag
-		    var drag = d3.behavior.drag()
-		      //.origin(function(d){console.debug(d); return d;})
-		      .on("drag", function(){
-			/** Filter weird dx that create jumps */
-			if(d3.event.dx < 50){
-			  var delta = d3.event.dx * pixelTime;
-			  if( +scope.flexoffer.timeslices[0].date + delta > +scope.flexoffer.startBeforeTime ){
-			    delta = +scope.flexoffer.startBeforeTime - +scope.flexoffer.timeslices[0].date
+		    if( scope.drawschedule == false ){
+		      var drag = d3.behavior.drag()
+			//.origin(function(d){console.debug(d); return d;})
+			.on("drag", function(){
+			  /** Filter weird dx that create jumps */
+			  if(d3.event.dx < 50){
+			    var delta = d3.event.dx * pixelTime;
+			    if( +scope.flexoffer.timeslices[0].date + delta > +scope.flexoffer.startBeforeTime ){
+			      delta = +scope.flexoffer.startBeforeTime - +scope.flexoffer.timeslices[0].date
+			    }
+			    if( +scope.flexoffer.timeslices[0].date + delta < +scope.flexoffer.startAfterTime ){
+			      delta = +scope.flexoffer.startAfterTime - +scope.flexoffer.timeslices[0].date;
+			    }
+			    if( delta != 0 ){
+			      scope.flexoffer.timeslices.forEach(function(e){
+				e.date = new Date( +e.date + delta )
+			      });
+			    }
+			    scope.render(scope.flexoffer);
 			  }
-			  if( +scope.flexoffer.timeslices[0].date + delta < +scope.flexoffer.startAfterTime ){
-			    delta = +scope.flexoffer.startAfterTime - +scope.flexoffer.timeslices[0].date;
-			  }
-			  if( delta != 0 ){
-			    scope.flexoffer.timeslices.forEach(function(e){
-			      e.date = new Date( +e.date + delta )
-			    });
-			  }
-			  scope.render(scope.flexoffer);
-			}
-		      });
-		    barGroup.call(drag);
+			});
+		      barGroup.call(drag);
+		    }
                 }
             
 
@@ -210,164 +251,164 @@ module app.Directives {
         }
     }
 
-    export function ngBarSchedule($window: Window): ng.IDirective {
-
-        return {
-            restrict: 'A',
-            scope: { flexoffer: '=', height: '=', width: '='},
-            link(scope, element: JQuery, attrs: ng.IAttributes) {
-
-            var dirWidth = element[0].clientWidth != 0 ? element[0].clientWidth : $window.innerWidth;
-            // Add the svg element to the dom
-            var svg = d3.select(element[0])
-                    .append('svg:svg');
-                // Browser onresize event
-                window.onresize = function () {
-                    scope.$apply();
-                };
-
-                // Watch for resize event
-                scope.$watch(
-                    function () {
-                        return $window.innerWidth;
-                    },
-                    function () {
-		      if(scope.flexoffer != null && scope.flexoffer.schedule != null){
-			scope.render(scope.flexoffer);
-		      }
-                    });
-
-                // Watch for newData event
-                scope.$watch('flexoffer', function (newFlexoffer) {
-		  if(newFlexoffer != null && newFlexoffer.schedule != null){
-		    scope.render(newFlexoffer);
-		  }
-                });
-
-                scope.render = function (flexoffer: FlexOffer) {
-
-		  var timesliceData: Array<TimeSlice> = flexoffer.timeslices;
-		  var energyAmounts = flexoffer.schedule.energyAmounts;
-		  var startInterval = flexoffer.schedule.startInterval;
-                    // Delete old data
-                    svg.selectAll('*').remove();
-                    if (!timesliceData) return;
-
-                    //TODO These should really be attributes input
-                    // Margin and paddings
-                    var margin = { top: 20, right: 40, bottom: 20, left: 60 };
-                    var barPadding = 2;
-                    var yAxisPadding = -5;
-                  
-                    // Colour
-                    var color = "#033E6B";
-
-                    // Calculate the height and width of elements
-                    //var height = (<HTMLElement><any>d3.select(element[0]).node().parentNode.parentNode).offsetHeight - margin.top - margin.bottom;
-                    var height = 400 - margin.top - margin.bottom;
-                    //TODO HAcky di hack Rikke!
-		    var width = dirWidth;
-		    width -= (margin.right + margin.left);
-		    var start = +flexoffer.startAfterTime;
-		    var lateStart = +flexoffer.startBeforeTime;
-		    var end = +flexoffer.endTime;
-		    /** Divide the width by the flex offer "duration" in hours */
-                    var timeTicks = width / ( (end-start) / 3600000) ;
-		    var pixelTime = (end-start)/width;
-		    var barWidth = timeTicks;
-                    //console.debug('sch width:' + width + ' height:' + height + ' data-length:' + timesliceData.length + ' barWidth:' + barWidth);
-		    //console.debug('test ' + element[0].clientWidth); 
-
-                    // Adding width and height to the svg
-                    svg.attr('width', width + margin.left + margin.right)
-                        .attr('height', height + margin.top + margin.bottom)
-                        .append('g')
-                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-                    var date = [];
-                    date.push(flexoffer.startAfterTime, flexoffer.endTime); 
-
-                    // Scales
-                    var xScale = d3.time.scale()
-                        .domain(d3.extent(date))
-                        .range([0, width]);
-
-                    var yScale = d3.scale.linear()
-                        .domain([0, d3.max(timesliceData, function (d) { return d.maxConsumption; })])
-                        .rangeRound([height, 0]);
-
-		    var date = startInterval * 1000;
-                    for(var i=0; i<timesliceData.length; i++){
-                        timesliceData[i].barValues = { name: "expected consumption", y: energyAmounts[i], duration: timesliceData[i].duration, date: new Date( date ) };
-			date += 3600/timesliceData[i].duration*1000;
-                    }
-
-                    // Make svg Axis
-                    var xAxis = d3.svg.axis()
-                        .scale(xScale)
-                        .orient("bottom")
-                        .ticks((end-start)/3600000)
-                        .tickFormat(d3.time.format("%H:%M"));
-
-                    var yAxis = d3.svg.axis()
-                        .scale(yScale)
-                        .orient("left");
-                    
-                    svg.select('g')
-                        .append("g")
-                        .attr("class", "axis")
-                        .attr("transform", "translate(0," + height + ")")
-                        .call(xAxis);
-
-                    svg.select('g')
-                        .append("g")
-                        .attr("class", "axis")
-                        .attr('transform', 'translate('+ yAxisPadding +',0)')
-                        .call(yAxis)
-                        .append("text")
-                        .attr("transform", "rotate(-90)")
-                        .attr("y", 6)
-                        .attr("dy", ".71em")
-                        .style("text-anchor", "end")
-                        .text("kWh");
-
-                    // Make bars
-		    var barGroup = svg.select('g').selectAll('.consumption').data(timesliceData);
-                        //.data(timesliceData);
-                    var consumption = barGroup
-			.enter().append("rect")
-                        .attr("class", "rect")
-                        .attr("transform", function (d) { return "translate(" + (xScale(d.barValues.date)) + ",0)";})
-                        .attr("width", function (d) { return (barWidth/d.barValues.duration - barPadding); })
-                        .attr("y", function (d) { return yScale(d.barValues.y); })
-                        .attr("height", function (d) { return yScale(0) - yScale(d.barValues.y); })
-                        .style("fill", function (d) { return color; });
-		        
-
-//                    consumption.selectAll("rect")
-//                        .data(timesliceData)
-//                        .enter().append("rect")
-//                        .attr("width", function (d) { console.debug(d); return (barWidth/d.barValues.duration - barPadding); })
+//    export function ngBarSchedule($window: Window): ng.IDirective {
+//
+//        return {
+//            restrict: 'A',
+//            scope: { flexoffer: '=', height: '=', width: '='},
+//            link(scope, element: JQuery, attrs: ng.IAttributes) {
+//
+//            var dirWidth = element[0].clientWidth != 0 ? element[0].clientWidth : $window.innerWidth;
+//            // Add the svg element to the dom
+//            var svg = d3.select(element[0])
+//                    .append('svg:svg');
+//                // Browser onresize event
+//                window.onresize = function () {
+//                    scope.$apply();
+//                };
+//
+//                // Watch for resize event
+//                scope.$watch(
+//                    function () {
+//                        return $window.innerWidth;
+//                    },
+//                    function () {
+//		      if(scope.flexoffer != null && scope.flexoffer.schedule != null){
+//			scope.render(scope.flexoffer);
+//		      }
+//                    });
+//
+//                // Watch for newData event
+//                scope.$watch('flexoffer', function (newFlexoffer) {
+//		  if(newFlexoffer != null && newFlexoffer.schedule != null){
+//		    scope.render(newFlexoffer);
+//		  }
+//                });
+//
+//                scope.render = function (flexoffer: FlexOffer) {
+//
+//		  var timesliceData: Array<TimeSlice> = flexoffer.timeslices;
+//		  var energyAmounts = flexoffer.schedule.energyAmounts;
+//		  var startInterval = flexoffer.schedule.startInterval;
+//                    // Delete old data
+//                    svg.selectAll('*').remove();
+//                    if (!timesliceData) return;
+//
+//                    //TODO These should really be attributes input
+//                    // Margin and paddings
+//                    var margin = { top: 20, right: 40, bottom: 20, left: 60 };
+//                    var barPadding = 2;
+//                    var yAxisPadding = -5;
+//                  
+//                    // Colour
+//                    var color = "#033E6B";
+//
+//                    // Calculate the height and width of elements
+//                    //var height = (<HTMLElement><any>d3.select(element[0]).node().parentNode.parentNode).offsetHeight - margin.top - margin.bottom;
+//                    var height = 400 - margin.top - margin.bottom;
+//                    //TODO HAcky di hack Rikke!
+//		    var width = dirWidth;
+//		    width -= (margin.right + margin.left);
+//		    var start = +flexoffer.startAfterTime;
+//		    var lateStart = +flexoffer.startBeforeTime;
+//		    var end = +flexoffer.endTime;
+//		    /** Divide the width by the flex offer "duration" in hours */
+//                    var timeTicks = width / ( (end-start) / 3600000) ;
+//		    var pixelTime = (end-start)/width;
+//		    var barWidth = timeTicks;
+//                    //console.debug('sch width:' + width + ' height:' + height + ' data-length:' + timesliceData.length + ' barWidth:' + barWidth);
+//		    //console.debug('test ' + element[0].clientWidth); 
+//
+//                    // Adding width and height to the svg
+//                    svg.attr('width', width + margin.left + margin.right)
+//                        .attr('height', height + margin.top + margin.bottom)
+//                        .append('g')
+//                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+//
+//                    var date = [];
+//                    date.push(flexoffer.startAfterTime, flexoffer.endTime); 
+//
+//                    // Scales
+//                    var xScale = d3.time.scale()
+//                        .domain(d3.extent(date))
+//                        .range([0, width]);
+//
+//                    var yScale = d3.scale.linear()
+//                        .domain([0, d3.max(timesliceData, function (d) { return d.maxConsumption; })])
+//                        .rangeRound([height, 0]);
+//
+//		    var date = startInterval * 1000;
+//                    for(var i=0; i<timesliceData.length; i++){
+//                        timesliceData[i].barValues = { name: "expected consumption", y: energyAmounts[i], duration: timesliceData[i].duration, date: new Date( date ) };
+//			date += 3600/timesliceData[i].duration*1000;
+//                    }
+//
+//                    // Make svg Axis
+//                    var xAxis = d3.svg.axis()
+//                        .scale(xScale)
+//                        .orient("bottom")
+//                        .ticks((end-start)/3600000)
+//                        .tickFormat(d3.time.format("%H:%M"));
+//
+//                    var yAxis = d3.svg.axis()
+//                        .scale(yScale)
+//                        .orient("left");
+//                    
+//                    svg.select('g')
+//                        .append("g")
+//                        .attr("class", "axis")
+//                        .attr("transform", "translate(0," + height + ")")
+//                        .call(xAxis);
+//
+//                    svg.select('g')
+//                        .append("g")
+//                        .attr("class", "axis")
+//                        .attr('transform', 'translate('+ yAxisPadding +',0)')
+//                        .call(yAxis)
+//                        .append("text")
+//                        .attr("transform", "rotate(-90)")
+//                        .attr("y", 6)
+//                        .attr("dy", ".71em")
+//                        .style("text-anchor", "end")
+//                        .text("kWh");
+//
+//                    // Make bars
+//		    var barGroup = svg.select('g').selectAll('.consumption').data(timesliceData);
+//                        //.data(timesliceData);
+//                    var consumption = barGroup
+//			.enter().append("rect")
+//                        .attr("class", "rect")
+//                        .attr("transform", function (d) { return "translate(" + (xScale(d.barValues.date)) + ",0)";})
+//                        .attr("width", function (d) { return (barWidth/d.barValues.duration - barPadding); })
 //                        .attr("y", function (d) { return yScale(d.barValues.y); })
-//                        .attr("height", function (d) { console.debug(d); return yScale(0) - yScale(d.barValues.y); })
-//                        .style("fill", function (d) { return "#000000"; });
-
-                    // Make schedule line
-
-                    //var line = d3.svg.line()
-                    //    .x(function (d) {return (xScale(parseDate(d.date)));})
-                    //    .y(function (d) {return yScale(d.consumption);});
-
-                    //svg.select('g').append("path")
-                    //    .datum(scheduleData)
-                    //    .attr("class", "line")
-                    //    .attr("d", line);
-                }
-            
-
-            }
-        }
-    }
+//                        .attr("height", function (d) { return yScale(0) - yScale(d.barValues.y); })
+//                        .style("fill", function (d) { return color; });
+//		        
+//
+////                    consumption.selectAll("rect")
+////                        .data(timesliceData)
+////                        .enter().append("rect")
+////                        .attr("width", function (d) { console.debug(d); return (barWidth/d.barValues.duration - barPadding); })
+////                        .attr("y", function (d) { return yScale(d.barValues.y); })
+////                        .attr("height", function (d) { console.debug(d); return yScale(0) - yScale(d.barValues.y); })
+////                        .style("fill", function (d) { return "#000000"; });
+//
+//                    // Make schedule line
+//
+//                    //var line = d3.svg.line()
+//                    //    .x(function (d) {return (xScale(parseDate(d.date)));})
+//                    //    .y(function (d) {return yScale(d.consumption);});
+//
+//                    //svg.select('g').append("path")
+//                    //    .datum(scheduleData)
+//                    //    .attr("class", "line")
+//                    //    .attr("d", line);
+//                }
+//            
+//
+//            }
+//        }
+//    }
 }
 
 app.registerDirective('ngBar', ['$window']);

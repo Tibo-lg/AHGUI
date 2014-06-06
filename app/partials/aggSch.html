@@ -3,14 +3,14 @@
     <div style="height: 100px;">
       <h1>Aggregated Flex Offer Id: {{aggFlexOffers[curAggFlexOffer].aggFlexOffer.id}}</h1>
     </div>
-    <div flexoffer="aggFlexOffers[curAggFlexOffer].aggFlexOffer" data-ng-bar-schedule></div>
+    <div flexoffer="aggFlexOffers[curAggFlexOffer].aggFlexOffer" drawschedule="true" data-ng-bar></div>
   </div>
   <div class="col-md-6">
     <div class="row" ng-repeat="flexOffer in aggFlexOffers[curAggFlexOffer].flexOffers">
       <div style="height: 100px;">
 	<h1>Flex Offer Id: {{flexOffer.id}}</h1>
       </div>
-      <div flexoffer="flexOffer" data-ng-bar-schedule></div>
+      <div flexoffer="flexOffer" drawschedule="true" data-ng-bar></div>
     </div>
   </div>
 </div>

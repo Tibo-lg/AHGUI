@@ -1,7 +1,7 @@
 <div class="col-sm-12" >
   <a class="m-btn" data-ng-show="aggFlexOffers != null"  ng-click="schedule()">Schedule</a>
   <a class="m-btn" data-ng-show="aggFlexOffers != null" ui-sref="aggMain.aggFlex">Flex Offer</a>
-  <a class="m-btn" data-ng-show="aggFlexOffers && aggFlexOffers[0].aggFlexOffer.schedule != null" ui-sref="aggMain.aggSch" >Schedule</a>
+  <a class="m-btn" data-ng-show="aggFlexOffers != null && aggFlexOffers[0].aggFlexOffer.timeslices[0].schedule != null" ui-sref="aggMain.aggSch" >Schedule</a>
   <div style="display: inline-block;">
     <a class="ment-btn" ng-click="prevAggFO()">
       <span class="glyphicon glyphicon-chevron-left"></span>

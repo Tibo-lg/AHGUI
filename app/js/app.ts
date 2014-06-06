@@ -53,7 +53,8 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider){
   })
   .state('washingmachine', {
     url: '/washingmachine',
-    templateUrl: 'partials/washingmachine.html'
+    templateUrl: 'partials/washingmachine.html',
+    controller: 'app.Controllers.WashingMachineFlexOfferCtrl'
   })
   .state('heatpump', {
     url: '/heatpump',
@@ -113,13 +114,22 @@ module app {
 	var timeSlice = new TimeSlice();
 	timeSlice.minConsumption = original.slices[i].energyConstraint.lower;
 	timeSlice.maxConsumption = original.slices[i].energyConstraint.upper;
-	timeSlice.date = new Date((original.startAfterInterval + sliceDelay )*1000);
+	if(original.flexOfferSchedule == null || original.flexOfferSchedule.startInterval == 0){
+	  timeSlice.date = new Date((original.startAfterInterval + sliceDelay )*1000);
+	}else{
+	  timeSlice.date = new Date((original.flexOfferSchedule.startInterval + sliceDelay )*1000);
+	}
 	sliceDelay += 3600/original.slices[i].duration;
 	timeSlice.duration = original.slices[i].duration;
+	if(original.flexOfferSchedule != null){
+	  timeSlice.schedule = original.flexOfferSchedule.energyAmounts[i];
+	}else{
+	  timeSlice.schedule = null;
+	}
 	fo.timeslices.push(timeSlice);
-	fo.schedule = original.flexOfferSchedule;
       }
       fo.endTime = new Date((original.startBeforeInterval + sliceDelay)*1000);
+      console.debug(fo);
       return fo;
     }
     export class FlexOffer {
@@ -128,7 +138,6 @@ module app {
 	startBeforeTime: Date;
 	endTime: Date;
         timeslices: Array<TimeSlice>;
-	schedule: Schedule;
 	constructor(){
 	  this.timeslices = new Array<TimeSlice>();
 	}
@@ -148,14 +157,11 @@ module app {
 	duration: number;
         minConsumption: number;
         maxConsumption: number;
+	schedule: number;
         barValues: any;
 	constructor(){}
     }
 
-    export interface Schedule {
-	startInterval: number;
-        energyAmounts: Array<number>;
-    }
     export interface Temperature {
         date: string;
         temperature: number;

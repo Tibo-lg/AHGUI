@@ -1,20 +1,31 @@
 ﻿angular.module('app')
-    .factory('dataFactory', ['$http', function ($http) {
+.factory('dataFactory', ['$http', function ($http) {
 
-        var url = "http://api.openweathermap.org/data/2.5/forecast/daily?mode=json&units=imperial&cnt=14&callback=JSON_CALLBACK&q=Aalborg";
-        var urlBase = 'http://api.neogrid.dk/arrowhead/trigger';
-        var dataFactory = {};
+  var urlBase = 'http://api.neogrid.dk/arrowhead/trigger';
+  var urlFO =  'http://api.neogrid.dk/arrowhead/flexoffers';
+  var dataFactory = {};
 
-        return {
-            getHPParam: function () {
-              return  $http({
-                    method: 'GET',
-                    url: urlBase
-                });
-            //return $http.get(urlBase);
-        }
-        }
- }]); 
+  return {
+    getHPParam: function () {
+      return  $http({
+	method: 'GET',
+	      url: urlBase
+      });
+    },
+    getFlexOffer: function () {
+      return  $http({
+	method: 'GET',
+	      url: urlFO
+      });
+    },
+    triggerFO: function (low, high, avg, cloud_cover){
+      return  $http({
+	method: 'GET',
+	      url: urlBase + "/" + low + "/" + high + "/" + avg + "/" + cloud_cover
+      });
+    }
+  }
+}]); 
 
 angular.module('app')
 .factory('aggFactory', ['$http', function ($http) {
