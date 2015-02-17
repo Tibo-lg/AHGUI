@@ -5,6 +5,8 @@
 //################## Controllers ###################
 /// <reference path='controllers/mainNavCtrl.ts' />
 /// <reference path='controllers/flexOfferCtrl.ts' />
+/// <reference path='controllers/wmCtrl.ts' />
+/// <reference path='controllers/aggCtrl.ts' />
 //################## Directives ###################
 /// <reference path='directives/viewDirective.ts' />
 /// <reference path='directives/flexOfferBarDirective.ts' />

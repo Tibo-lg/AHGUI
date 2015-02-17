@@ -40,6 +40,8 @@ module app.Controllers {
         status: string;
         username: string;
         password: string;
+
+	modal: any;
     }
 
 
@@ -66,14 +68,13 @@ module app.Controllers {
 	    this.dataFactory = dataFactory;
 	    this.getHPParam();
             
-            this.scope.username = "";
-            this.scope.password = "";
+            this.scope.username = "arrowhead";
+            this.scope.password = "bB#aal9oOo";
             this.scope.isFlexOfferAssigned = false;
             /* Fetch Heat Pump Data*/
   
             this.scope.getFlexOffer = () => {this.getFlexOffer(); };
             this.scope.setParameters = () => {this.trigger(); };
-            this.scope.postSchedule = () => {this.postSchedule(); };
 	    this.scope.flexOffer = null;
 
 	    this.scope.temperatures = this.fetchTemperatures();
@@ -92,7 +93,6 @@ module app.Controllers {
             
         }
         public updateSunEffect(value: string) {
-            console.debug(value);
             this.scope.suneffect = value;
         }
 
@@ -131,36 +131,14 @@ module app.Controllers {
             this.scope.outtemp++;
         }
 
-	public postSchedule(){
-	  this.wmFactory.postSchedule().success(()=>{this.getWmFos();});
-	}
-
-        public getWmFos() {
-	  console.log(this);
-            this.wmFactory.getWmFos()
-                .success( (custs) => {
-                    this.dataset = custs;
-                    console.debug("calling factory from getWmFos");
-		    console.debug(this.dataset);
-		    if(this.dataset.length>0){
-		      this.scope.flexOffer = convertFlexOffer(this.dataset[0]);
-		      console.log(this.scope.flexOffer);
-		    }
-                })
-                .error(function (error) {
-                    console.debug(this.scope.status);
-                    this.scope.status = 'Unable to load customer data: ' + error.message;
-                    console.debug(this.scope.status);
-                });
-        }
 
         private getHPParam() {
-	  this.Auth.setCredentials("", "");
+	  this.Auth.setCredentials("arrowhead", "bB#aal9oOo");
             this.dataFactory.getHPParam()
                 .success((custs) => {
                     this.dataset = custs;
                     console.debug("calling factory from getParam");
-                    console.debug(this.dataset);
+                    //console.debug(this.dataset);
 		    this.scope.maxtemp = custs.ti_high;
 		    this.scope.mintemp = custs.ti_low;
 		    this.scope.outtemp = custs.to_avg;
@@ -178,9 +156,9 @@ module app.Controllers {
                 .success( (custs) => {
                     this.dataset = custs;
                     console.debug("calling factory from trigger");
-		    console.debug(this.dataset);
+		    //console.debug(this.dataset);
 		    this.scope.flexOffer = convertFlexOffer(this.dataset);
-		    console.log(this.scope.flexOffer);
+		    //console.log(this.scope.flexOffer);
                 })
                 .error(function (error) {
                     console.debug(this.scope.status);
@@ -194,7 +172,7 @@ module app.Controllers {
                 .success( (custs) => {
                     this.dataset = custs;
                     console.debug("calling factory from getFlexOffer");
-		    console.debug(this.dataset);
+		    //console.debug(this.dataset);
 		    this.scope.flexOffer = convertFlexOffer(this.dataset);
 		    console.log(this.scope.flexOffer);
                 })

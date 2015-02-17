@@ -3,93 +3,87 @@
 
 module app.Controllers {
 
-  
-    export interface AggScope {
 
-        /* Bool that decides if buttons is to be shown*/
-        isFlexOfferGenerated: boolean;
+  export interface AggScope {
 
-	aggFlexOffers: Array<AggFlexOffer>;
-	curAggFlexOffer: number;
-        getAggFlexOffers: Function;
-	nextAggFO: Function;
-	prevAggFO: Function;
-	schedule: Function;
-	
-        /* Scope specifics */
-        status: string;
+    /* Bool that decides if buttons is to be shown*/
+    isFlexOfferGenerated: boolean;
+
+    aggFlexOffers: Array<AggFlexOffer>;
+    curAggFlexOffer: number;
+    getAggFlexOffers: Function;
+    nextAggFO: Function;
+    prevAggFO: Function;
+    schedule: Function;
+
+    /* Scope specifics */
+    status: string;
+  }
+
+
+  export class AggCtrl {
+
+    private scope: AggScope;
+    private http;
+    private aggFactory;
+    private dataset = [];
+
+    static $inject = ['$scope', '$http', 'aggFactory'];
+    constructor($scope: AggScope, $http, aggFactory) {
+      this.http = $http;
+      this.scope = $scope;
+      this.aggFactory = aggFactory;
+
+      aggFactory.aggregate().success(()=>{this.getAggFos();});
+
+      this.scope.isFlexOfferGenerated = false;
+      /* Fetch Heat Pump Data*/
+      this.scope.aggFlexOffers = new Array<AggFlexOffer>();
+      this.scope.curAggFlexOffer = 0;
+      this.scope.nextAggFO = () => {this.nextAggFO()};
+      this.scope.prevAggFO = () => {this.prevAggFO()};
+      this.scope.schedule = () => {this.schedule()};
+      this.scope.getAggFlexOffers = () => {this.getAggFos()};
     }
 
+    private getAggFos() {
+      this.aggFactory.getAggFos()
+      .success( (custs) => {
+	this.dataset = custs;
+	this.scope.aggFlexOffers.length = 0;
+	this.dataset.forEach((entry) => {
+	  var aggFO: AggFlexOffer= new AggFlexOffer();
+	  aggFO.aggFlexOffer = convertFlexOffer(entry);
+	  entry.subFoMetas.forEach((subFO) => { aggFO.flexOffers.push(convertFlexOffer(subFO.subFlexOffer)); });
+	  this.scope.aggFlexOffers.push(aggFO);
+	});
+      })
+      .error(function (error) {
+	this.scope.status = 'Unable to load customer data: ' + error.message;
+      });
+    }
 
-    export class AggCtrl {
+    private schedule(){
+      this.aggFactory.schedule().success(()=>{this.getAggFos();});
+    }
 
-        private scope: AggScope;
-        private http;
-        private aggFactory;
-        private dataset = [];
-        private urlb = "http://api.openweathermap.org/data/2.5/forecast/daily?mode=json&units=imperial&cnt=14&callback=JSON_CALLBACK&q=Aalborg";
-        private urlBase = 'http://localhost:9998';
-        private urlf = 'http://api.neogrid.dk/arrowhead/flexoffers'
-       
+    private nextAggFO(){
+      if(this.scope.curAggFlexOffer + 1 < this.scope.aggFlexOffers.length){
+	this.scope.curAggFlexOffer++;
+      }
+      else{
+	this.scope.curAggFlexOffer = 0;
+      }
+    }
 
-        static $inject = ['$scope', '$http', 'aggFactory'];
-        constructor($scope: AggScope, $http, aggFactory) {
-            this.http = $http;
-            this.scope = $scope;
-            this.aggFactory = aggFactory;
-
-	    aggFactory.aggregate().success(()=>{this.getAggFos();});
-
-            this.scope.isFlexOfferGenerated = false;
-            /* Fetch Heat Pump Data*/
-	    this.scope.aggFlexOffers = new Array<AggFlexOffer>();
-	    this.scope.curAggFlexOffer = 0;
-	    this.scope.nextAggFO = () => {this.nextAggFO()};
-	    this.scope.prevAggFO = () => {this.prevAggFO()};
-	    this.scope.schedule = () => {this.schedule()};
-	    this.scope.getAggFlexOffers = () => {this.getAggFos()};
-
-
-        }
-
-        private getAggFos() {
-            this.aggFactory.getAggFos()
-                .success( (custs) => {
-                    this.dataset = custs;
-		    this.scope.aggFlexOffers.length = 0;
-		    this.dataset.forEach((entry) => {
-		      var aggFO: AggFlexOffer= new AggFlexOffer();
-		      aggFO.aggFlexOffer = convertFlexOffer(entry);
-		      entry.subFoMetas.forEach((subFO) => { aggFO.flexOffers.push(convertFlexOffer(subFO.subFlexOffer)); });
-		      this.scope.aggFlexOffers.push(aggFO);
-		    });
-                })
-                .error(function (error) {
-                    this.scope.status = 'Unable to load customer data: ' + error.message;
-                });
-        }
-	
-	private schedule(){
-	  this.aggFactory.schedule().success(()=>{this.getAggFos();});
-	}
-
-	private nextAggFO(){
-	  if(this.scope.curAggFlexOffer + 1 < this.scope.aggFlexOffers.length){
-	    this.scope.curAggFlexOffer++;
-	  }
-	  else{
-	    this.scope.curAggFlexOffer = 0;
-	  }
-	}
-    
-	private prevAggFO(){
-	  if(this.scope.curAggFlexOffer > 0){
-	    this.scope.curAggFlexOffer--;
-	  }
-	  else{
-	    this.scope.curAggFlexOffer = this.scope.aggFlexOffers.length - 1;
-	  }
-	}
+    private prevAggFO(){
+      if(this.scope.curAggFlexOffer > 0){
+	this.scope.curAggFlexOffer--;
+      }
+      else{
+	this.scope.curAggFlexOffer = this.scope.aggFlexOffers.length - 1;
+      }
+    }
 //        private fetchFlexOffers() : FlexOffer {
 //            var rtn : FlexOffer;
 //            rtn = {
@@ -446,7 +440,7 @@ module app.Controllers {
 //        
 //            return rtn;
 //        }
-    }
+  }
 
 }
 

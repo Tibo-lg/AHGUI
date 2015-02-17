@@ -1,5 +1,5 @@
 <div class="col-sm-12" >
-  <a class="m-btn" data-ng-show="aggFlexOffers != null"  ng-click="schedule()">Schedule</a>
+  <a class="m-btn" data-ng-show="aggFlexOffers != null"  ui-sref="aggMain.aggSch" ng-click="schedule()">Trigger Schedule</a>
   <a class="m-btn" data-ng-show="aggFlexOffers != null" ui-sref="aggMain.aggFlex">Flex Offer</a>
   <a class="m-btn" data-ng-show="aggFlexOffers != null && aggFlexOffers[0].aggFlexOffer.timeslices[0].schedule != null" ui-sref="aggMain.aggSch" >Schedule</a>
   <div style="display: inline-block;">

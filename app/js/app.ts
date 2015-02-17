@@ -12,6 +12,7 @@ modules.push('ngSanitize');
 modules.push('ngResource');
 modules.push('ngCookies');
 modules.push('ui.router');
+modules.push('ui.bootstrap');
 
 modules.push('mgcrea.ngStrap');
 //modules.push('ui.bootstrap');
@@ -42,6 +43,7 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider){
   $urlRouterProvider.otherwise("/home");
   $urlRouterProvider.when("/heatpump", "/heatpump/getfo");
   $urlRouterProvider.when("/aggregator", "/aggregator/aggflex");
+  $urlRouterProvider.when("/washingmachine", "/washingmachine/flex");
   $stateProvider
   .state('home', {
     url: '/home',
@@ -54,7 +56,20 @@ angular.module('app').config(function($stateProvider, $urlRouterProvider){
   .state('washingmachine', {
     url: '/washingmachine',
     templateUrl: 'partials/washingmachine.html',
-    controller: 'app.Controllers.WashingMachineFlexOfferCtrl'
+    controller: 'app.Controllers.WMCtrl',
+    abstract: true
+  })
+  .state('washingmachine.flex', {
+    url: '/flex',
+    templateUrl: 'partials/flex.html'
+  })
+  .state('washingmachine.temperature', {
+    url: '/temperature',
+    templateUrl: 'partials/temperature.html'
+  })
+  .state('washingmachine.schedule', {
+    url: '/schedule',
+    templateUrl: 'partials/schedule.html'
   })
   .state('heatpump', {
     url: '/heatpump',
@@ -107,6 +122,8 @@ module app {
       fo.startBeforeTime = new Date(original.startBeforeInterval*1000);
       /** Get end time */
       fo.id = original.id;
+      fo.energyFlexibility = 0;
+      fo.timeFlexibility = (original.startBeforeInterval/3600 - original.startAfterInterval/3600);
       /**TODO take care of schedule */
       //fo.schedule = original.flexOfferSchedule;
       var sliceDelay=0;
@@ -114,6 +131,7 @@ module app {
 	var timeSlice = new TimeSlice();
 	timeSlice.minConsumption = original.slices[i].energyConstraint.lower;
 	timeSlice.maxConsumption = original.slices[i].energyConstraint.upper;
+	fo.energyFlexibility += Math.round(timeSlice.maxConsumption - timeSlice.minConsumption);
 	if(original.flexOfferSchedule == null || original.flexOfferSchedule.startInterval == 0){
 	  timeSlice.date = new Date((original.startAfterInterval + sliceDelay )*1000);
 	}else{
@@ -129,7 +147,6 @@ module app {
 	fo.timeslices.push(timeSlice);
       }
       fo.endTime = new Date((original.startBeforeInterval + sliceDelay)*1000);
-      console.debug(fo);
       return fo;
     }
     export class FlexOffer {
@@ -138,6 +155,8 @@ module app {
 	startBeforeTime: Date;
 	endTime: Date;
         timeslices: Array<TimeSlice>;
+	energyFlexibility: number;
+	timeFlexibility: number;
 	constructor(){
 	  this.timeslices = new Array<TimeSlice>();
 	}

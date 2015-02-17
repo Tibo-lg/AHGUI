@@ -1,0 +1,39 @@
+.timepicker{
+  display: inline-flex;
+}
+
+.timesetting p{
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  transform: translateY(50%);
+  padding: 0px 15px;
+  font-size: 22px;
+}
+
+.footprint{
+  display: block;
+  margin: auto;
+  text-align: center;
+  padding: 10px 0px;
+}
+
+.power{
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  transform: translateY(50%);
+  display: block;
+  margin: auto;
+  text-align: center;
+}
+
+.programs{
+  position: relative;
+  display: block;
+  margin: auto;
+  text-align: center;
+  padding: 30px 0px;
+}

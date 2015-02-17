@@ -1,4 +1,5 @@
-<div style="height: 100px;">
-  <h1>Flex Offer Id: {{flexOffer.id}} Max consumption: Min consumption:</h1>
+<div class="gheader">
+  <h2 data-ng-show="flexOffer!=null">Flex Offer Id: {{flexOffer.id}}</h2>
+  <h2 data-ng-show="flexOffer!=null">Energy Flexibility: {{flexOffer.energyFlexibility}} Wh </h2>
 </div>
 <div flexoffer="flexOffer" drawSchedule="false" data-ng-bar></div>

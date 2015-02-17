@@ -1,8 +1,4 @@
-﻿<style>
-
-</style>
-
-<div class="container-fluid" style="margin-top: 20px;">
+﻿<div class="container-fluid" style="margin-top: 20px;">
 
         <div class="row">
             <!-- Info & Views -->
@@ -48,7 +44,6 @@
                             <div class="col-sm-12" style="padding: 0;">
                                 <span class="lbl-gray">Min temperature:</span> <span class="lbl-black"><degree-input style="font-size: 1.3em;" data-ng-model="mintemp" on-increment="incrementMin()" on-decrement="decrementMin()"></degree-input></span>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -76,7 +71,7 @@
                     <!-- USER SETTINGS DIV   -->
                     <div class="col-sm-12" data-ng-show="flexOffer != null">
                         <a class="m-btn" ui-sref="heatpump.flex">Flex Offer</a>
-                        <a class="m-btn" ui-sref="heatpump.temperature">Temperature</a>
+                        <!--a class="m-btn" ui-sref="heatpump.temperature">Temperature</a--!>
                         <a class="m-btn" ui-sref="heatpump.schedule" data-ng-show="flexOffer != null && flexOffer.timeslices[0].schedule != null">Schedule</a>
                     </div>
 
